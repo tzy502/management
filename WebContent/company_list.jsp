@@ -90,7 +90,7 @@ function getCookie(Name){
 				}
 				$.ajax({
 					type: 'POST',
-					url: "/managent/delCompany.do", 
+					url: "/management/delCompany.do", 
 					data: JSON.stringify(params),
 					dataType: 'json',
 					contentType: "application/json; charset=utf-8",
@@ -117,7 +117,7 @@ function getCookie(Name){
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/managent/loadAllCompany.do",  
+        url: "/management/loadAllCompany.do",  
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  

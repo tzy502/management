@@ -104,7 +104,7 @@
 			$.ajax({
 
 				type : 'POST',
-				url : "/managent/modifryCompany.do",
+				url : "/management/modifryCompany.do",
 				data : form,
 				async : false,
 				processData : false,
@@ -155,7 +155,7 @@
 			$.ajax({    
 		        type: "post",    
 		        async: true,    
-		        url: "/managent/SearchCompany.do",  
+		        url: "/management/SearchCompany.do",  
 		        data: JSON.stringify(params),
 		        dataType: "json", 
 		        contentType: "application/json; charset=utf-8", 

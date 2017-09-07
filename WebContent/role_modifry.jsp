@@ -102,7 +102,7 @@ $(function(){
 	$.ajax({  
 		 type: "post",    
 	        async: true,    
-	        url: "/managent/SearchlRole.do",  
+	        url: "/management/SearchlRole.do",  
 	        data: JSON.stringify(params),
 	        dataType: "json", 
 	        contentType: "application/json; charset=utf-8",   
@@ -136,7 +136,7 @@ function add(){
 	}	
 	$.ajax({
 		type: 'POST',
-		url: "/managent/modifryRole.do", 
+		url: "/management/modifryRole.do", 
 		data: JSON.stringify(params),
 		dataType: 'json',
 		contentType: "application/json; charset=utf-8",

@@ -130,7 +130,7 @@
 			$.ajax({
 
 				type : 'POST',
-				url : "/managent/addequipment.do",
+				url : "/management/addequipment.do",
 				data : form,
 				async : false,
 				processData : false,

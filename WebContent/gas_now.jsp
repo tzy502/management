@@ -87,7 +87,7 @@ $(function(){
 	$.ajax({  
 		 type: "post",    
 	        async: true,    
-	        url: "/managent/loadnewgasdata.do",  
+	        url: "/management/loadnewgasdata.do",  
 	        //data: JSON.stringify(params),
 	        dataType: "json", 
 	        contentType: "application/json; charset=utf-8",   

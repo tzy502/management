@@ -84,7 +84,7 @@ function add(){
 	}	
 	$.ajax({
 		type: 'POST',
-		url: "/managent/addRole.do", 
+		url: "/management/addRole.do", 
 		data: JSON.stringify(params),
 		dataType: 'json',
 		contentType: "application/json; charset=utf-8",

@@ -80,7 +80,7 @@ function login(){
 	     $.ajax({    
 	        type: "post",    
 	        async: true,    
-	        url: "/managent/login.do",    
+	        url: "/management/login.do",    
 	        data: JSON.stringify(params),
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   

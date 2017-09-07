@@ -223,7 +223,7 @@
 									.ajax({
 										type : "post",
 										async : true,
-										url : "/managent/loadAllCompany.do",
+										url : "/management/loadAllCompany.do",
 										//data: JSON.stringify(params),
 										dataType : "json",
 										contentType : "application/json; charset=utf-8",
@@ -246,7 +246,7 @@
 									.ajax({
 										type : "post",
 										async : true,
-										url : "/managent/loadAllUser.do",
+										url : "/management/loadAllUser.do",
 										//data: JSON.stringify(params),
 										dataType : "json",
 										contentType : "application/json; charset=utf-8",
@@ -278,7 +278,7 @@
 									.ajax({
 										type : "post",
 										async : true,
-										url : "/managent/SearchStation.do",
+										url : "/management/SearchStation.do",
 										data : JSON.stringify(params),
 										dataType : "json",
 										contentType : "application/json; charset=utf-8",
@@ -338,7 +338,7 @@
 			$.ajax({
 
 				type : 'POST',
-				url : "/managent/modifryStation.do",
+				url : "/management/modifryStation.do",
 				data : form,
 				async : false,
 				processData : false,

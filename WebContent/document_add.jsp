@@ -122,7 +122,7 @@ function add(){
 		$.ajax({
 	        cache: true,
 	        type: "POST",
-	        url:"/managent/uploadDocument.do",
+	        url:"/management/uploadDocument.do",
 	        data:form,  // 你的formid
 	        async: false,
 	        processData:false,

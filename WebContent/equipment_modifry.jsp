@@ -128,7 +128,7 @@
 			$.ajax({
 
 				type : 'POST',
-				url : "/managent/Searchequipment.do",
+				url : "/management/Searchequipment.do",
 		        data: JSON.stringify(params),
 		        dataType: "json", 
 		        contentType: "application/json; charset=utf-8", 
@@ -164,7 +164,7 @@
 			$.ajax({
 
 				type : 'POST',
-				url : "/managent/modifryequipment.do",
+				url : "/management/modifryequipment.do",
 				data : form,
 				async : false,
 				processData : false,

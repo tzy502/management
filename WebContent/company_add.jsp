@@ -84,7 +84,7 @@ function add(){
 $.ajax({
 		
 		type: 'POST',
-		url: "/managent/addCompany.do", 
+		url: "/management/addCompany.do", 
 		data:form, 
         async: false,
         processData:false,

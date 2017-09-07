@@ -193,7 +193,7 @@
 		$.ajax({  
 			 type: "post",    
 		        async: true,    
-		        url: "/managent/loadAllCompany.do",  
+		        url: "/management/loadAllCompany.do",  
 		        //data: JSON.stringify(params),
 		        dataType: "json", 
 		        contentType: "application/json; charset=utf-8",   
@@ -212,7 +212,7 @@
 	$.ajax({  
 		 type: "post",    
 	        async: true,    
-	        url: "/managent/loadAllUser.do",  
+	        url: "/management/loadAllUser.do",  
 	        //data: JSON.stringify(params),
 	        dataType: "json", 
 	        contentType: "application/json; charset=utf-8",   
@@ -244,7 +244,7 @@
 			$.ajax({
 
 				type : 'POST',
-				url : "/managent/addStation.do",
+				url : "/management/addStation.do",
 				data : form,
 				async : false,
 				processData : false,

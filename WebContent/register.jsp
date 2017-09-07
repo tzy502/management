@@ -106,7 +106,7 @@ function register(){
 	     $.ajax({    
 	        type: "post",    
 	        async: true,    
-	        url: "/managent/register.do",    
+	        url: "/management/register.do",    
 	        data: JSON.stringify(params),
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   

@@ -123,8 +123,6 @@ public class DataService implements IDataService {
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 				default:  
 					System.out.println("default");  
-					System.out.println(bd.get(j).getInfectCode());
-					System.out.println(station.get(i).getMN());
 				}  
 			}
 			result.add(bg);

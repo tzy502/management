@@ -113,7 +113,7 @@
 			$.ajax({
 
 				type : 'POST',
-				url : "/managent/SearchStandard.do",
+				url : "/management/SearchStandard.do",
 				data : JSON.stringify(params),
 				dataType : "json",
 				contentType : "application/json; charset=utf-8",
@@ -142,7 +142,7 @@
 			$.ajax({
 
 				type : 'POST',
-				url : "/managent/modifryStandard.do",
+				url : "/management/modifryStandard.do",
 				data : form,
 				async : false,
 				processData : false,

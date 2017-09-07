@@ -116,7 +116,7 @@ function add(){
 	$.ajax({
         cache: true,
         type: "POST",
-        url:"/managent/modirfyDocument.do",
+        url:"/management/modirfyDocument.do",
         data:form,  // 你的formid
         async: false,
         processData:false,
@@ -147,7 +147,7 @@ $(function(){
 	$.ajax({  
 		 type: "post",    
 	        async: true,    
-	        url: "/managent/SearchDoc.do",  
+	        url: "/management/SearchDoc.do",  
 	        data: JSON.stringify(params),
 	        dataType: "json", 
 	        contentType: "application/json; charset=utf-8",   

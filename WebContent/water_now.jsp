@@ -82,7 +82,7 @@ $(function(){
 	$.ajax({  
 		 type: "post",    
 	        async: true,    
-	        url: "/managent/loadnewwaterdata.do",  
+	        url: "/management/loadnewwaterdata.do",  
 	        //data: JSON.stringify(params),
 	        dataType: "json", 
 	        contentType: "application/json; charset=utf-8",   

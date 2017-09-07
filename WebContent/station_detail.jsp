@@ -267,7 +267,7 @@
 				$.ajax({
 							type : "post",
 							async : true,
-							url : "/managent/loadAllCompany.do",
+							url : "/management/loadAllCompany.do",
 							//data: JSON.stringify(params),
 							dataType : "json",
 							contentType : "application/json; charset=utf-8",
@@ -289,7 +289,7 @@
 				$.ajax({
 							type : "post",
 							async : true,
-							url : "/managent/loadAllUser.do",
+							url : "/management/loadAllUser.do",
 							//data: JSON.stringify(params),
 							dataType : "json",
 							contentType : "application/json; charset=utf-8",
@@ -320,7 +320,7 @@
 				$.ajax({
 							type : "post",
 							async : true,
-							url : "/managent/SearchStation.do",
+							url : "/management/SearchStation.do",
 							data : JSON.stringify(params),
 							dataType : "json",
 							contentType : "application/json; charset=utf-8",
@@ -367,7 +367,7 @@
 					$.ajax({
 							type : "post",
 							async : true,
-							url : "/managent/loadStandard.do",
+							url : "/management/loadStandard.do",
 							data : JSON.stringify(params),
 							dataType : "json",
 							contentType : "application/json; charset=utf-8",
@@ -403,7 +403,7 @@
 			$.ajax({
 							type : "post",
 							async : true,
-							url : "/managent/loadAllequipment.do",
+							url : "/management/loadAllequipment.do",
 							data : JSON.stringify(params),
 							dataType : "json",
 							contentType : "application/json; charset=utf-8",
@@ -453,7 +453,7 @@
 				}
 				$.ajax({
 					type: 'POST',
-					url: "/managent/delequipment.do", 
+					url: "/management/delequipment.do", 
 					data: JSON.stringify(params),
 					dataType: 'json',
 					contentType: "application/json; charset=utf-8",

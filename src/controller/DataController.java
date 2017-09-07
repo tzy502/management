@@ -59,7 +59,7 @@ public class DataController {
 	@RequestMapping(value = "/loadnewwaterdata.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String loadnewwaterdata() throws JSONException{
-		
+		System.out.println("asdasdasdasdasdasd");
 		JSONArray json = new JSONArray();
 		List<BeanWater> result =new ArrayList<BeanWater>();
 		try {

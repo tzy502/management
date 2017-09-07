@@ -105,7 +105,7 @@ $(document).ready(function() {
 	$.ajax({  
 		 type: "post",    
 	        async: true,    
-	        url: "/managent/loadInfect.do",  
+	        url: "/management/loadInfect.do",  
 	        data: JSON.stringify(params),
 	        dataType: "json", 
 	        contentType: "application/json; charset=utf-8",   
@@ -137,7 +137,7 @@ function add(){
 $.ajax({
 		
 		type: 'POST',
-		url: "/managent/addStandard.do", 
+		url: "/management/addStandard.do", 
 		data:form, 
         async: false,
         processData:false,

@@ -107,7 +107,7 @@ function getCookie(Name){
 				}
 				$.ajax({
 					type: 'POST',
-					url: "/managent/delDocument.do", 
+					url: "/management/delDocument.do", 
 					data: JSON.stringify(params),
 					dataType: 'json',
 					contentType: "application/json; charset=utf-8",
@@ -136,7 +136,7 @@ function getCookie(Name){
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/managent/loaddoc.do",  
+        url: "/management/loaddoc.do",  
         data: JSON.stringify(params),
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
@@ -154,7 +154,7 @@ function getCookie(Name){
     			"<td>"+j+"</td>"+
     			"<td>"+data[i].documentname+"</td>"+
     			"<td>"+
-    			"<a href=' /managent/download.do?documentid="+data[i].documentid+"'>点击下载</a>"	+
+    			"<a href=' /management/download.do?documentid="+data[i].documentid+"'>点击下载</a>"	+
     			"</td>"+
     			"<td class='td-manage'>"+
     			
