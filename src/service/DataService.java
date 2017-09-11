@@ -1,5 +1,6 @@
 package service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,15 +31,15 @@ public class DataService implements IDataService {
 		List<BeanGas> result=new ArrayList<BeanGas>();
 		for(int i=0;i<station.size();i++){
 			bd=idd.loadnewdate(station.get(i).getMN());
-			
+
 			BeanGas bg=new BeanGas();
 			bg.setTime(bd.get(0).getmTime());
 			bg.setStationId(station.get(i).getStationid());
 			bg.setStationname(station.get(i).getStationname());
 			for(int j=0;j<bd.size();j++){
-				
+
 				switch(bd.get(j).getInfectCode()) {  
-				
+
 				case "02":  
 					bg.setG02(bd.get(j).getInfectValue());
 					break;  
@@ -77,7 +78,7 @@ public class DataService implements IDataService {
 					break;
 
 				default:  
-					System.out.println("default");  
+					System.out.println("去数据有问题 气");  
 				}  
 			}
 			result.add(bg);
@@ -93,15 +94,15 @@ public class DataService implements IDataService {
 		List<BeanWater> result=new ArrayList<BeanWater>();
 		for(int i=0;i<station.size();i++){
 			bd=idd.loadnewdate(station.get(i).getMN());
-			
+
 			BeanWater bg=new BeanWater();
 			bg.setTime(bd.get(0).getmTime());
 			bg.setStationId(station.get(i).getStationid());
 			bg.setStationname(station.get(i).getStationname());
 			for(int j=0;j<bd.size();j++){
-				
+
 				switch(bd.get(j).getInfectCode()) {  
-				
+
 				case "011":  
 					bg.setW011(bd.get(j).getInfectValue());
 					break;  
@@ -120,9 +121,9 @@ public class DataService implements IDataService {
 				case "42":  
 					bg.setW42(bd.get(j).getInfectValue());
 					break;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+
 				default:  
-					System.out.println("default");  
+					System.out.println("去数据有问题 水"+station.get(i).getStationid());  
 				}  
 			}
 			result.add(bg);
@@ -131,15 +132,12 @@ public class DataService implements IDataService {
 	}
 
 	@Override
-	public List<BeanGas> loadgasdata(String HM) throws BaseException {
-		// TODO Auto-generated method stub
+	public List<BeanGas> loadgasdata(int StationId,Timestamp start,Timestamp end) throws BaseException {
 		return null;
 	}
 
 	@Override
-	public List<BeanWater> loadwaterdata(String HM) throws BaseException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BeanWater> loadwaterdata(int StationId,Timestamp start,Timestamp end) throws BaseException {
+		return idd.loadwater(isd.SearchStation(StationId), start, end);
 	}
-
 }

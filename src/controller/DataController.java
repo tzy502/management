@@ -33,8 +33,33 @@ public class DataController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		int k=0;
+		for(int i=0;i<result.size();i++){
+			BeanGas bg=new BeanGas();
+			int max=i;
+
+			long diffent;
+			for(int j=i;j<result.size();j++){
+				
+				k++;
+				System.out.println(k);
+				diffent=result.get(max).getTime().getTime()-result.get(j).getTime().getTime();
+				if(diffent<0){
+					max=j;
+					
+				}
+			}
+			bg=result.get(max);
+			result.set(max, result.get(i));
+			result.set(i, bg);
+			
+		}
+		
+		
+		
 		for(int i=0;i<result.size();i++){
 			JSONObject jo = new JSONObject();
+			System.out.println(result.get(i).getStationname());
 			jo.put("stationId", result.get(i).getStationId());
 			jo.put("stationname", result.get(i).getStationname());
 			jo.put("time", String.valueOf(result.get(i).getTime()));
@@ -68,6 +93,27 @@ public class DataController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		for(int i=0;i<result.size();i++){
+			BeanWater bg=new BeanWater();
+			int max=i;
+		
+			
+			long diffent;
+			for(int j=i;j<result.size();j++){
+				diffent=result.get(max).getTime().getTime()-result.get(j).getTime().getTime();
+				if(diffent<0){
+					max=j;
+					
+				}
+			}
+			bg=result.get(max);
+			result.set(max, result.get(i));
+			result.set(i, bg);
+			
+		}
+		
+		
 		for(int i=0;i<result.size();i++){
 			JSONObject jo = new JSONObject();
 			jo.put("stationId", result.get(i).getStationId());
@@ -84,4 +130,5 @@ public class DataController {
 	
 		return json.toString();
 	}
+	
 }

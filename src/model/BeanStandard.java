@@ -11,7 +11,7 @@ public class BeanStandard {
 	private int standardid;
 	private int stationid;
 	private String infectid;
-	private int vaule;
+	private float vaule;
 	
 	@Id
 	@Column(name = "standardid")
@@ -36,10 +36,10 @@ public class BeanStandard {
 		this.infectid = infectid;
 	}
 	@Column(name = "vaule")
-	public int getVaule() {
+	public float getVaule() {
 		return vaule;
 	}
-	public void setVaule(int vaule) {
+	public void setVaule(float vaule) {
 		this.vaule = vaule;
 	}
 	

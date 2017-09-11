@@ -1,4 +1,5 @@
 package serviceI;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -11,6 +12,6 @@ import util.BaseException;
 public interface IDataService {
 	public List<BeanGas> loadnewgasdata()throws BaseException ;
 	public List<BeanWater> loadnewwaterdata()throws BaseException ;
-	public List<BeanGas> loadgasdata(String HM)throws BaseException ;
-	public List<BeanWater> loadwaterdata(String HM)throws BaseException ;
+	public List<BeanGas> loadgasdata(int StationId,Timestamp start,Timestamp end)throws BaseException ;
+	public List<BeanWater> loadwaterdata(int StationId,Timestamp start,Timestamp end)throws BaseException ;
 }

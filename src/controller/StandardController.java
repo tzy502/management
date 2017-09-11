@@ -26,7 +26,7 @@ public class StandardController {
 	private IInfectService iis;
 	@RequestMapping(value = "/addStandard.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String addCompany(BeanStandard bs) throws JSONException{
+	public String addStandard(BeanStandard bs) throws JSONException{
 		
 		try {
 			iss.addStandard(bs);
@@ -67,7 +67,7 @@ public class StandardController {
 			jo.put("standardid", result.get(i).getStandardid());
 			jo.put("infectid", result.get(i).getInfectid());
 			jo.put("name", iis.search(result.get(i).getInfectid()).getInfectName());
-			jo.put("vaule", result.get(i).getVaule());	
+			jo.put("vaule", String.valueOf(result.get(i).getVaule()));	
 			jsonarray.put(jo);	
 			}  
 		System.out.println("SearchStandard"+jsonarray);
@@ -85,7 +85,7 @@ public class StandardController {
 		jo.put("standardid", result.getStandardid());
 		jo.put("infectid", result.getInfectid());
 		jo.put("name", iis.search(result.getInfectid()).getInfectName());
-		jo.put("vaule", result.getVaule());	
+		jo.put("vaule", String.valueOf(result.getVaule()));	
 		jo.put("stationid", result.getStationid());	
 		
 		return jo.toString();
