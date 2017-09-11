@@ -123,7 +123,7 @@ public class StationController {
 	@RequestMapping(value = "/addStation.do") 
 	@ResponseBody
 	public void addStation(BeanStation bs) throws JSONException{
-		System.out.println("cnm"+bs.getStationid());
+
 		
 		try {
 			iss.addStation(bs);
@@ -136,7 +136,7 @@ public class StationController {
 	@ResponseBody
 	public void modifryStation(BeanStation bs,@RequestParam("stationId") int stationId) throws JSONException{
 
-		System.out.println(bs.getStationid()+"modifryStation");
+		
 		bs.setStationid(stationId);
 		 StationDao sd=new StationDao();
 		 sd.modifryStation(bs);

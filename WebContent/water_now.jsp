@@ -76,7 +76,7 @@
 
 $(function(){ 
 	$('body').on('click','#update',function(event){
-		layer_show('职位编辑','role_modifry.jsp?roleId='+this.title,'800','500');
+		layer_show('职位编辑','water_detail.jsp?stationid='+this.title,'800','500');
 	}); 
 
 	$.ajax({  

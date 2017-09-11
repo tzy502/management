@@ -29,9 +29,7 @@ public class DataDao implements IDataDao {
 					+ "mTime=(select mTime from HJ212_"+MN+"_MIN order BY mTime desc LIMIT 1)";
 
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-			java.sql.ResultSet rs=pst.executeQuery();
-			if(!rs.next()) 
-				return null;	
+			java.sql.ResultSet rs=pst.executeQuery();	
 			List<BeanData> result =new ArrayList<BeanData>();
 			while(rs.next()){
 				BeanData bd=new BeanData();
@@ -82,30 +80,31 @@ public class DataDao implements IDataDao {
 					"sum(case InfectCode when 'S08' then InfectAvgValue end)  as 'S08',"+
 					"sum(case InfectCode when 'B02' then InfectAvgValue end)  as 'B02',"+
 					"sum(case InfectCode when 'S05' then InfectAvgValue end)  as 'S05'"+
-					"from HJ212_HOUR"+
-					"where"+
-					"MN=? AND mTime>? and mTime<?"+
-					"group by mTime;";
+					"from HJ212_HOUR"
+					+"	 where 	 MN= '"+bs.getMN()+"' and  mTime>'"+Start+"' and mTime<'"+end+"'"
+					+"group BY mTime order by mTime DESC";
+					
 
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-			java.sql.ResultSet rs=pst.executeQuery();
-			if(!rs.next()) 
-				return null;	
+			java.sql.ResultSet rs=pst.executeQuery();	
 			List<BeanGas> result =new ArrayList<BeanGas>();
+			
 			while(rs.next()){
 				BeanGas bd=new BeanGas();
-				bd.setG02(rs.getFloat(1));
-				bd.setG01(rs.getFloat(2));
-				bd.setG03(rs.getFloat(3));
-				bd.setG01Zs(rs.getFloat(4));
-				bd.setG02Zs(rs.getFloat(5));
-				bd.setG03Zs(rs.getFloat(6));
-				bd.setgS01(rs.getFloat(7));
-				bd.setgS02(rs.getFloat(8));
-				bd.setgS03(rs.getFloat(9));
-				bd.setgS08(rs.getFloat(10));
-				bd.setgB02(rs.getFloat(11));
-				bd.setSg05(rs.getFloat(12));
+				bd.setStationname(bs.getStationname());
+				bd.setTime(rs.getTimestamp(1));
+				bd.setG02(rs.getFloat(2));
+				bd.setG01(rs.getFloat(3));
+				bd.setG03(rs.getFloat(4));
+				bd.setG01Zs(rs.getFloat(5));
+				bd.setG02Zs(rs.getFloat(6));
+				bd.setG03Zs(rs.getFloat(7));
+				bd.setgS01(rs.getFloat(8));
+				bd.setgS02(rs.getFloat(9));
+				bd.setgS03(rs.getFloat(10));
+				bd.setgS08(rs.getFloat(11));
+				bd.setgB02(rs.getFloat(12));
+				bd.setSg05(rs.getFloat(13));
 				result.add(bd);
 			}
 			rs.close();
@@ -141,15 +140,10 @@ public class DataDao implements IDataDao {
 					+ "sum(case InfectCode when '42' then InfectAvgValue end)  as '42',"
 					+ "sum(case InfectCode when 'B01' then InfectAvgValue end)  as 'B01'"
 					+ "from HJ212_HOUR"
-					+ "where "
-					+ "MN=? and mTime>? and mTime<?";
+					+"	 where 	 MN= '"+bs.getMN()+"' and  mTime>'"+start+"' and mTime<'"+end+"'"
+					+"group BY mTime  order by mTime DESC";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-			pst.setString(0, bs.getMN());
-			pst.setTimestamp(1, start);
-			pst.setTimestamp(2, start);
 			java.sql.ResultSet rs=pst.executeQuery();
-			if(!rs.next()) 
-				return null;	
 			List<BeanWater>  result =new ArrayList<BeanWater>();
 			while(rs.next()){
 				BeanWater bd=new BeanWater();

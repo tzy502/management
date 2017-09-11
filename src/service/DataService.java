@@ -133,7 +133,7 @@ public class DataService implements IDataService {
 
 	@Override
 	public List<BeanGas> loadgasdata(int StationId,Timestamp start,Timestamp end) throws BaseException {
-		return null;
+		return idd.loadgas(isd.SearchStation(StationId), start, end);
 	}
 
 	@Override
