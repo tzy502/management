@@ -16,6 +16,7 @@ import model.BeanStation;
 import model.BeanWater;
 import serviceI.IDataService;
 import util.BaseException;
+import util.DbException;
 @Service
 public class DataService implements IDataService {
 	@Resource
@@ -139,5 +140,11 @@ public class DataService implements IDataService {
 	@Override
 	public List<BeanWater> loadwaterdata(int StationId,Timestamp start,Timestamp end) throws BaseException {
 		return idd.loadwater(isd.SearchStation(StationId), start, end);
+	}
+
+	@Override
+	public List<BeanData> loaddate(int StationId, String InfectCode, Timestamp start, Timestamp end) throws DbException {
+		// TODO Auto-generated method stub
+		return idd.loaddate(isd.SearchStation(StationId).getMN(), InfectCode,start,end);
 	}
 }

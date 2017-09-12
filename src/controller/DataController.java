@@ -4,7 +4,10 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.BeanCompany;
+import model.BeanData;
 import model.BeanGas;
 import model.BeanWater;
 import serviceI.IDataService;
 import util.BaseException;
+import util.DbException;
 
 @Controller
 public class DataController {
@@ -165,7 +170,7 @@ public class DataController {
 	}
 	@RequestMapping(value = "/loadoldgasdata.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String loadoldgasdata(@RequestBody String params) throws JSONException, ParseException{
+	public String loadoldgasdata(@RequestBody String params) throws JSONException{
 		
 		JSONArray jsonarray = new JSONArray();
 		JSONObject json = new JSONObject(params);
@@ -174,7 +179,7 @@ public class DataController {
 		Timestamp end=Timestamp.valueOf(json.getString("end"));
 		
 		int StationId=json.getInt("StationId");
-		System.out.println("asdasdasdasdazsd"+StationId);
+
 		List<BeanGas> result =new ArrayList<BeanGas>();
 		try {
 			result=ids.loadgasdata(StationId, start, end);
@@ -203,4 +208,31 @@ public class DataController {
 		}
 		return jsonarray.toString();
 	}
+	@RequestMapping(value = "/loaddata.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String loaddata(@RequestBody String params) throws JSONException{
+		JSONArray jsonarray = new JSONArray();
+		JSONObject json = new JSONObject(params);
+		int StationId=json.getInt("StationId");
+		String InfectCode=json.getString("InfectCode");
+		Timestamp start=Timestamp.valueOf(json.getString("start"));
+		Timestamp end=Timestamp.valueOf(json.getString("end"));
+		List<BeanData> result =new ArrayList<BeanData>();
+		try {
+			result=ids.loaddate(StationId, InfectCode,start,end);
+		} catch (DbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int i=0;i<result.size();i++){
+			JSONObject jo = new JSONObject();
+			jo.put("mTime", result.get(i).getmTime());
+			jo.put("InfectCode",result.get(i).getInfectCode());
+			jo.put("InfectValue",String.valueOf(result.get(i).getInfectValue()));
+			jsonarray.put(jo);
+		}
+		return jsonarray.toString();
+	}
+		
+		
 }

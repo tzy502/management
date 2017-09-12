@@ -10,6 +10,8 @@ import model.BeanWater;
 import util.DbException;
 public interface IDataDao {
 	public List<BeanData> loadnewdate(String MN)throws DbException;
+	public List<BeanData> loaddate(String MN,String InfectCode, Timestamp start, Timestamp end)throws DbException;
 	public List<BeanGas> loadgas(BeanStation bs,Timestamp Start,Timestamp end)throws DbException;
 	public List<BeanWater> loadwater(BeanStation bs,Timestamp Start,Timestamp end)throws DbException;
+	
 }

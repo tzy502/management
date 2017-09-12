@@ -8,10 +8,12 @@ import model.BeanData;
 import model.BeanGas;
 import model.BeanWater;
 import util.BaseException;
+import util.DbException;
 @Component
 public interface IDataService {
 	public List<BeanGas> loadnewgasdata()throws BaseException ;
 	public List<BeanWater> loadnewwaterdata()throws BaseException ;
 	public List<BeanGas> loadgasdata(int StationId,Timestamp start,Timestamp end)throws BaseException ;
 	public List<BeanWater> loadwaterdata(int StationId,Timestamp start,Timestamp end)throws BaseException ;
+	public List<BeanData> loaddate(int StationId,String InfectCode, Timestamp start, Timestamp end)throws DbException;
 }

@@ -83,12 +83,12 @@ public class DataDao implements IDataDao {
 					"from HJ212_HOUR"
 					+"	 where 	 MN= '"+bs.getMN()+"' and  mTime>'"+Start+"' and mTime<'"+end+"'"
 					+"group BY mTime order by mTime DESC";
-					
+
 
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			java.sql.ResultSet rs=pst.executeQuery();	
 			List<BeanGas> result =new ArrayList<BeanGas>();
-			
+
 			while(rs.next()){
 				BeanGas bd=new BeanGas();
 				bd.setStationname(bs.getStationname());
@@ -156,6 +156,57 @@ public class DataDao implements IDataDao {
 				bd.setW065(rs.getFloat(5));
 				bd.setW42(rs.getFloat(6));
 				bd.setwB01(rs.getFloat(7));
+				result.add(bd);
+			}
+			rs.close();
+			pst.execute();
+			pst.close();
+			return result;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e);
+		}
+		finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+	}
+
+	@Override
+	public List<BeanData> loaddate(String MN, String InfectCode, Timestamp start, Timestamp end) throws DbException {
+		Connection conn=null;
+		try {
+			conn=DBUtil.getConnection();
+			String sql="SELECT mTime, InfectCode,InfectAvgValue "+
+					
+					"FROM "+
+					"HJ212_HOUR "+
+					"WHERE    "+
+					"HJ212_HOUR.MN="
+					+ MN
+					+ "   AND  HJ212_HOUR.InfectCode="
+					+ InfectCode
+					+ " and  mTime> '"+start+"' and mTime< '"+end+"'";
+
+			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+			System.out.println(MN +"    "+InfectCode);
+
+		
+			java.sql.ResultSet rs=pst.executeQuery();	
+			List<BeanData> result =new ArrayList<BeanData>();
+			while(rs.next()){
+				BeanData bd=new BeanData();
+				bd.setmTime(rs.getTimestamp(1));
+				bd.setInfectCode(rs.getString(2));
+				bd.setInfectValue(rs.getFloat(3));
+
+
 				result.add(bd);
 			}
 			rs.close();
