@@ -93,7 +93,7 @@ function login(){
 	        		document.cookie="level="+data.level+";";
 	        		document.cookie="userName="+data.userName+";";
 	        		layer.msg('登录成功!',{icon:1,time:1000});
-	        		alert(data.level);
+
 	        		window.location.href = 'main.jsp';
 	        	}
 	  

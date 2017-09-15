@@ -56,7 +56,7 @@ public class StandardDao implements IStandardDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			System.out.println(Standard.getVaule());
+			
 			session.update(Standard);
 			tx.commit();
 		} catch (Exception e) {
@@ -96,6 +96,33 @@ public class StandardDao implements IStandardDao {
 			tx.rollback();
 		}
 		return result;
+	}
+
+	@Override
+	public boolean checkStandard(BeanStandard Standard) {
+		// TODO Auto-generated method stub
+		List<BeanStandard> result =new ArrayList<BeanStandard>();
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+		org.hibernate.Query qry = session.createQuery("from BeanStandard where stationid=? and infectid=?");
+		qry.setParameter(0, Standard.getStationid());
+		qry.setParameter(1, Standard.getInfectid());
+		java.util.List list = qry.list();
+		session.getTransaction().commit();	
+		result = list;
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		if(result.size()==0){
+			System.out.println("asdasdafzsdfa"+result.size());
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	

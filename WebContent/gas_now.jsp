@@ -39,14 +39,16 @@
 				<th width="70">实测烟尘</th>
 				<th width="70">实测NOx</th>
 				<th width="70">折算烟尘</th>
+				<th width="70">折算SO2</th>
 				<th width="70">折算NOx</th>
+				
 				<th width="70">氧气含量</th>
 				<th width="70">烟气流速</th>
 				<th width="70">烟气温度</th>
 				<th width="70">烟气压力</th>
 				<th width="70">标匡流量</th>
 				<th width="70">烟气湿度</th>
-				<th width="70">实测SO2</th>
+				
 				
 				<th width="40">以往详情</th>
 				

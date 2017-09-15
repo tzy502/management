@@ -13,4 +13,5 @@ public interface IStationService {
 	public List<BeanStation> loadAllStation()throws BaseException;
 	public void modifryStation(BeanStation bs)throws BaseException;
 	public void DelStation(int StationId)throws BaseException;
+	public boolean checkStation(BeanStation bs)throws BaseException;
 }

@@ -11,8 +11,8 @@ public class BeanStandard {
 	private int standardid;
 	private int stationid;
 	private String infectid;
-	private float vaule;
-	
+	private float minvaule;
+	private float maxvaule;
 	@Id
 	@Column(name = "standardid")
 	public int getStandardid() {
@@ -35,12 +35,21 @@ public class BeanStandard {
 	public void setInfectid(String infectid) {
 		this.infectid = infectid;
 	}
-	@Column(name = "vaule")
-	public float getVaule() {
-		return vaule;
+	@Column(name = "minvaule")
+	public float getMinvaule() {
+		return minvaule;
 	}
-	public void setVaule(float vaule) {
-		this.vaule = vaule;
+	public void setMinvaule(float minxvaule) {
+		this.minvaule = minxvaule;
 	}
+	@Column(name = "maxvaule")
+	public float getMaxvaule() {
+		return maxvaule;
+	}
+	public void setMaxvaule(float maxvaule) {
+		this.maxvaule = maxvaule;
+	}
+	
+
 	
 }

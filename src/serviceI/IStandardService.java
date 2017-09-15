@@ -13,4 +13,5 @@ public interface IStandardService {
 	public BeanStandard SearchStandard(int StandardId)throws BaseException;
 	public void modifryStandard(BeanStandard bs)throws BaseException;
 	public void delStandard(int StandardId)throws BaseException;
+	public boolean checkStandard(BeanStandard bs)throws BaseException;
 }

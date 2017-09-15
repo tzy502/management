@@ -52,4 +52,10 @@ public class StationService implements IStationService {
 		isd.DelStation(bs);
 	}
 
+	@Override
+	public boolean checkStation(BeanStation bs) throws BaseException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

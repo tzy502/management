@@ -52,7 +52,7 @@ public class EquipmentController {
 	}
 	@RequestMapping("modifryequipment.do")
 	@ResponseBody
-	public void modifryequipment (BeanEquipment be) throws NumberFormatException, JSONException{
+	public String modifryequipment (BeanEquipment be) throws NumberFormatException, JSONException{
 		try {
 			System.out.println(be.getEquipmentid());
 			
@@ -60,18 +60,28 @@ public class EquipmentController {
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JSONObject jo = new JSONObject();
+			jo.put("msg", e.getMessage());
+			System.out.println(jo.toString());
+			return jo.toString();
 		}
+		return null;
 	}
 	@RequestMapping("addequipment.do")
 	@ResponseBody
-	public void addequipment (BeanEquipment be) throws NumberFormatException, JSONException{
+	public String addequipment (BeanEquipment be) throws NumberFormatException, JSONException{
 		try {
-			System.out.println("addqeuas;djfnajsdof");
+			
 			ies.addEquipment(be);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JSONObject jo = new JSONObject();
+			jo.put("msg", e.getMessage());
+			System.out.println(jo.toString());
+			return jo.toString();
 		}
+		return null;
 	}
 	@RequestMapping("delequipment.do")
 	@ResponseBody

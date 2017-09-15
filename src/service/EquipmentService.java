@@ -17,7 +17,10 @@ public class EquipmentService implements IEquipmentService {
 	@Override
 	public void addEquipment(BeanEquipment Equipment) throws BaseException {
 		// TODO Auto-generated method stub
-		ied.addEquipment(Equipment);
+		if(checkEquipment(Equipment)){
+			ied.addEquipment(Equipment);
+		}
+		
 	}
 
 	@Override
@@ -35,7 +38,9 @@ public class EquipmentService implements IEquipmentService {
 	@Override
 	public void modifryEquipment(BeanEquipment Equipment) throws BaseException {
 		// TODO Auto-generated method stub
+		if(checkEquipment(Equipment)){
 			ied.modifryEquipment(Equipment);
+		}
 	}
 
 	@Override
@@ -45,6 +50,15 @@ public class EquipmentService implements IEquipmentService {
 		be.setEquipmentid(EquipmentId);
 		ied.DelEquipment(be);
 		System.out.println(EquipmentId+"s");
+	}
+
+	@Override
+	public boolean checkEquipment(BeanEquipment Equipment) throws BaseException {
+		// TODO Auto-generated method stub
+		if(Equipment.getEffect().isEmpty()){
+			throw new BaseException("设备作用不能为空");
+		}
+		return true;
 	}
 
 }

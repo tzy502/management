@@ -42,11 +42,18 @@
 				value=""  disabled="disabled"  id="name" name="name">
 
 		</div>
+			</div>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>下限</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="下限" id="minvaule" name="minvaule">
+		</div>
+	</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span
 				class="c-red">*</span>上限</label>
 			<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" class="input-text" value="" placeholder="上限" id="vaule" name="vaule">
+		<input type="text" class="input-text" value="" placeholder="上限" id="maxvaule" name="maxvaule">
 
 			</div>
 		</div>
@@ -119,7 +126,8 @@
 				contentType : "application/json; charset=utf-8",
 				success : function(data) {
 					$("#name").val(data.name);
-					$("#vaule").val(data.vaule);
+					$("#minvaule").val(data.minvaule);
+					$("#maxvaule").val(data.maxvaule);
 					$("#stationid").val(data.stationid);
 					$("#standardid").val(data.standardid);
 					$("#infectid").val(data.infectid);

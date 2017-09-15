@@ -171,7 +171,8 @@
 			<tr class="text-c">
 				<th width="40">序号</th>
 				<th width="100">名称</th>
-				<th width="100">上限</th>		
+				<th width="80">下限</th>		
+				<th width="80">上限</th>		
 				<th width="40">操作</th>
 			</tr>
 		</thead>
@@ -382,13 +383,14 @@
 					       			str += "<tr class='text-c'>"+
 									"<td>"+(i+1)+"</td>"+
 									"<td>"+data[i].name+"</td>"+
-									"<td>"+data[i].vaule+"</td>"+
+									"<td>"+data[i].minvaule+"</td>"+
+									"<td>"+data[i].maxvaule+"</td>"+
 									
 									"<td class='td-manage'>"+
 									"<a style='text-decoration:none' id = 'updateStandard' href='javascript:;' title='"+data[i].standardid+"'>"+
 									"<i class='Hui-iconfont'>&#xe6df;</i>"+
 								"</a>"+
-									"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].standardid+"'>"+
+									"<a style='text-decoration:none' id = 'deleteStandard' href='javascript:;' title='"+data[i].standardid+"'>"+
 										"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 									"</a>"+
 			
@@ -458,7 +460,7 @@
 					dataType: 'json',
 					contentType: "application/json; charset=utf-8",
 					error:function(data) {
-						layer.msg('删除成功!',{icon:1,time:15000});
+						
 						location=location 
 					},
 					success: function(data){
@@ -467,7 +469,30 @@
 					},
 				});		
 			});
-		}	);				
+		});			
+		$('body').on('click','#deleteStandard',function(event){
+			var standardid = this.title;
+			layer.confirm('确认要删除吗？',function(){
+				var params={
+				    	"standardid":standardid,
+				}
+				$.ajax({
+					type: 'POST',
+					url: "/management/delStandard.do", 
+					data: JSON.stringify(params),
+					dataType: 'json',
+					contentType: "application/json; charset=utf-8",
+					error:function(data) {
+						
+						location=location 
+					},
+					success: function(data){
+						layer.msg('已删除!',{icon:1,time:15000});
+						location=location 
+					},
+				});		
+			});
+		});			
 		function add() {
 			
 			var Request = new Object();

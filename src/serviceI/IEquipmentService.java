@@ -18,4 +18,5 @@ public interface IEquipmentService {
 	public void modifryEquipment(BeanEquipment Equipment)throws BaseException;
 	
 	public void DelEquipment(int EquipmentId)throws BaseException;
+	public boolean checkEquipment(BeanEquipment Equipment)throws BaseException;
 }

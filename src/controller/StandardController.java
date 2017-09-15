@@ -29,22 +29,33 @@ public class StandardController {
 	public String addStandard(BeanStandard bs) throws JSONException{
 		
 		try {
+			System.out.println("asdasdasdas"+bs.getMinvaule());
 			iss.addStandard(bs);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			JSONObject jo = new JSONObject();
+			jo.put("msg", e.getMessage());
+			System.out.println(jo.toString());
+			return jo.toString();
 		}
+		
 		return null;
 	}
 	@RequestMapping(value = "/modifryStandard.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String modifryStandard(BeanStandard bs) throws JSONException{
 		try {
-			System.out.println(bs.getVaule()+"modifryStandard");
+		
 			iss.modifryStandard(bs);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JSONObject jo = new JSONObject();
+			jo.put("msg", e.getMessage());
+			System.out.println(jo.toString());
+			return jo.toString();
+		
 		}
 		return null;
 	}
@@ -67,7 +78,8 @@ public class StandardController {
 			jo.put("standardid", result.get(i).getStandardid());
 			jo.put("infectid", result.get(i).getInfectid());
 			jo.put("name", iis.search(result.get(i).getInfectid()).getInfectName());
-			jo.put("vaule", String.valueOf(result.get(i).getVaule()));	
+			jo.put("maxvaule", String.valueOf(result.get(i).getMaxvaule()));	
+			jo.put("minvaule", String.valueOf(result.get(i).getMinvaule()));
 			jsonarray.put(jo);	
 			}  
 		System.out.println("SearchStandard"+jsonarray);
@@ -85,9 +97,24 @@ public class StandardController {
 		jo.put("standardid", result.getStandardid());
 		jo.put("infectid", result.getInfectid());
 		jo.put("name", iis.search(result.getInfectid()).getInfectName());
-		jo.put("vaule", String.valueOf(result.getVaule()));	
+		jo.put("maxvaule", String.valueOf(result.getMaxvaule()));	
+		jo.put("minvaule", String.valueOf(result.getMinvaule()));
 		jo.put("stationid", result.getStationid());	
 		
 		return jo.toString();
+	}
+	@RequestMapping(value = "/delStandard.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String delStandard(@RequestBody String params) throws JSONException{
+	
+		JSONObject json = new JSONObject(params);
+		int id=Integer.valueOf(json.getString("standardid"));
+		try {
+			iss.delStandard(id);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

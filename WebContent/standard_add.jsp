@@ -36,10 +36,16 @@
 
 				</select></td>
 	</div>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>下限</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="下限" id="minvaule" name="minvaule">
+		</div>
+	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上限</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="上限" id="vaule" name="vaule">
+			<input type="text" class="input-text" value="" placeholder="上限" id="maxvaule" name="maxvaule">
 		</div>
 	</div>
 		<input type="hidden"  id="stationid" name="stationid">
@@ -143,10 +149,19 @@ $.ajax({
         processData:false,
         contentType:false,
 		success: function(data){
-			layer.msg('已添加!',{icon:1,time:15000});
+		
+			if(data.msg!=null){
+				alert(data.msg);
+			
+				
+			}
+			else{layer.msg('已添加!',{icon:1,time:15000});}
+			
+			
 			
 		},
 		error:function(data) {
+			alert(data.msg);
 			console.log(data.msg);
 		},
 	});	

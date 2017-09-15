@@ -122,7 +122,7 @@ public class StationController {
 	}
 	@RequestMapping(value = "/addStation.do") 
 	@ResponseBody
-	public void addStation(BeanStation bs) throws JSONException{
+	public String  addStation(BeanStation bs) throws JSONException{
 
 		
 		try {
@@ -130,7 +130,12 @@ public class StationController {
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JSONObject jo = new JSONObject();
+			jo.put("msg", e.getMessage());
+			System.out.println(jo.toString());
+			return jo.toString();
 		}
+		return null;
 	}
 	@RequestMapping(value = "/modifryStation.do") 
 	@ResponseBody

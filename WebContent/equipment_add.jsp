@@ -40,7 +40,7 @@
 			<label class="form-label col-xs-4 col-sm-3"><span
 				class="c-red">*</span>设备型号：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="职位名称"
+				<input type="text" class="input-text" value="" placeholder="设备型号"
 					id="model" name="model">
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 			<label class="form-label col-xs-4 col-sm-3"><span
 				class="c-red">*</span>设备编号</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="公司地址"
+				<input type="text" class="input-text" value="" placeholder="设备编号"
 					id="number" name="number">
 			</div>
 		</div>
@@ -56,7 +56,7 @@
 			<label class="form-label col-xs-4 col-sm-3"><span
 				class="c-red">*</span>设备作用</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="公司电话"
+				<input type="text" class="input-text" value="" placeholder="设备作用"
 					id="effect" name="effect">
 			</div>
 			<center>

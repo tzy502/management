@@ -17,7 +17,13 @@ public class StandardService implements IStandardService {
 	@Override
 	public void addStandard(BeanStandard bs) throws BaseException {
 		// TODO Auto-generated method stub
+
+		if(iss.checkStandard(bs)){
 			iss.addStandard(bs);
+		}
+		else{	
+			throw new BaseException("已经有重复标准");
+		}
 	}
 
 	@Override
@@ -30,7 +36,10 @@ public class StandardService implements IStandardService {
 	@Override
 	public void modifryStandard(BeanStandard bs) throws BaseException {
 		// TODO Auto-generated method stub
-		iss.modifryStandard(bs);
+		if(checkStandard( bs)){
+			iss.modifryStandard(bs);
+		}
+		
 	}
 
 	@Override
@@ -45,6 +54,15 @@ public class StandardService implements IStandardService {
 	public BeanStandard SearchStandard(int StandardId) throws BaseException {
 		// TODO Auto-generated method stub
 		return iss.SearchStandard(StandardId);
+	}
+
+	@Override
+	public boolean checkStandard(BeanStandard bs) throws BaseException {
+		// TODO Auto-generated method stub
+		if(bs.getMaxvaule()<bs.getMinvaule()){
+			throw new BaseException("上限不能低于下限");
+		}
+		return true;
 	}
 
 }

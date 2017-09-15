@@ -190,9 +190,9 @@ public class DataDao implements IDataDao {
 					"WHERE    "+
 					"HJ212_HOUR.MN="
 					+ MN
-					+ "   AND  HJ212_HOUR.InfectCode="
+					+ "   AND  HJ212_HOUR.InfectCode='"
 					+ InfectCode
-					+ " and  mTime> '"+start+"' and mTime< '"+end+"'";
+					+ "' and  mTime> '"+start+"' and mTime< '"+end+"'";
 
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			System.out.println(MN +"    "+InfectCode);

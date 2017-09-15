@@ -171,6 +171,7 @@ public class DocumentController {
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 	}
 	@RequestMapping(value = "/delDocument.do", produces = "application/json; charset=utf-8") 

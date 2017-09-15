@@ -34,8 +34,12 @@ public class RoleController {
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JSONObject jo = new JSONObject();
+			jo.put("msg", e.getMessage());
+			System.out.println(jo.toString());
+			return jo.toString();
 		}
-		return json.toString();
+		return null;
 	}
 	@RequestMapping(value = "/loadAllRole.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
@@ -117,8 +121,12 @@ public class RoleController {
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JSONObject jo = new JSONObject();
+			jo.put("msg", e.getMessage());
+			System.out.println(jo.toString());
+			return jo.toString();
 		}
-		return json.toString();
+		return null;
 		
 	}
 }

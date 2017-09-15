@@ -13,4 +13,5 @@ public interface IStandardDao {
 	public void modifryStandard(BeanStandard Standard);
 	//修改角色
 	public void delStandard(BeanStandard Standard);
+	public boolean checkStandard(BeanStandard Standard);
 }

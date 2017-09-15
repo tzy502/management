@@ -18,4 +18,5 @@ public interface ICompanyService {
 	public void modifryCompany(BeanCompany Company)throws BaseException;
 	
 	public void DelCompany(int CompanyId)throws BaseException;
+	public boolean check(BeanCompany Company) throws BaseException;
 }
