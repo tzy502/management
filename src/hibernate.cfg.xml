@@ -55,6 +55,7 @@
 		 <mapping class="model.BeanEquipment"/>   
 		  <mapping class="model.BeanInfect"/>   
 		   <mapping class="model.BeanStandard"/>   
+		   <mapping class="model.BeanChecklist"/>   
 	</session-factory>
 
 </hibernate-configuration>

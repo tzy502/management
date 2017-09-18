@@ -25,7 +25,7 @@ public class MonitorData {
 	private IStandardService iss;
 	@Scheduled(cron = "0 * * * * ?") 
 	public void job1() { 
-		long startTime = System.currentTimeMillis(); 
+	/*	long startTime = System.currentTimeMillis(); 
 
 		List<BeanWater> water =new ArrayList<BeanWater>();
 		List<BeanGas> gas =new ArrayList<BeanGas>();
@@ -164,7 +164,7 @@ public class MonitorData {
 		long endTime = System.currentTimeMillis();  
 
 		System.out.println("程序运行时间：" + (endTime - startTime) + "ms");
-		
+		*/
 
 	} 
 }

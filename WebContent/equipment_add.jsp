@@ -124,8 +124,7 @@
 			Request = GetRequest();
 			var stationid = Request['stationid'];
 			
-			var form = new FormData(document.getElementById("add"));
-		
+			var form = new FormData(document.getElementById("add"));		
 			form.append("stationid",stationid)
 			$.ajax({
 

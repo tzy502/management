@@ -148,17 +148,12 @@ $.ajax({
         async: false,
         processData:false,
         contentType:false,
-		success: function(data){
-		
+		success: function(data){	
 			if(data.msg!=null){
-				alert(data.msg);
-			
-				
+				alert(data.msg);					
 			}
 			else{layer.msg('已添加!',{icon:1,time:15000});}
-			
-			
-			
+	
 		},
 		error:function(data) {
 			alert(data.msg);
