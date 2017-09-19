@@ -352,8 +352,8 @@
 			Request = GetRequest(); 
 	
 			StationId = Request['StationId'];	
-		
-		
+	
+			StationId=47
 			var userId = getCookie("userId");
 		
 			var form = new FormData();

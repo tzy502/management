@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.UnsupportedEncodingException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,13 @@ import util.BaseException;
 public class ChecklistController {
 	@Autowired
 	private IChecklistService ics;
-	@RequestMapping(value = "/addChecklist.do", produces = "application/json; charset=utf-8") 
+	@RequestMapping(value = "/addChecklist.do") 
 	@ResponseBody
-	public String addChecklist(BeanChecklist bc) throws JSONException{
+	public String addChecklist(BeanChecklist bc) throws JSONException, UnsupportedEncodingException{
 		try {
+			String input=new String(bc.getChecklistinput().getBytes("ISO-8859-1"),"UTF-8"); 
 		
+			bc.setChecklistinput(input);
 			ics.addChecklist(bc);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block

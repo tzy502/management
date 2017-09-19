@@ -516,7 +516,7 @@ $(document).ready(function() {
 		var form = new FormData();
 
 		form.append("checklistId", checklistId)
-
+		alert($("#StationId").val())
 		form.append("stationId",$("#StationId").val())
 		form.append("userId", userId)
 		form.append("checklisttype", 5)
