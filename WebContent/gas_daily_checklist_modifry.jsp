@@ -353,12 +353,13 @@
     <td width="234" colspan="8"><input type='text' value='' name='audit' id = 'audit' class='input-text radius size-S'></td>
   </tr>
 </table>
-
+	<input type='hidden'  value='' name='StationId' id = 'StationId'>
 <div class="row cl">
 		<div class="form-label col-xs-4 col-sm-3">
 			<input class="btn btn-primary radius" type="button" onclick = "add()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 		</div>
 	</div>
+	
 </article>
 
 <!--_footer 作为公共模版分离出去--> 
@@ -428,8 +429,7 @@ function GetRequest() {
 	}
 	return theRequest;
 }
-var Request = new Object();
-Request = GetRequest();
+
 var Request = new Object();
 Request = GetRequest();
 var checklistId = Request['checklistId'];
@@ -514,7 +514,14 @@ $(document).ready(function() {
 		var userId = getCookie("userId");
 
 		var form = new FormData();
+		var Request = new Object();
+		Request = GetRequest();
+		var checklistId = Request['checklistId'];
+		checklistId=14
 
+		var params = {
+			"checklistId" : checklistId,
+		}
 		form.append("checklistId", checklistId)
 		alert($("#StationId").val())
 		form.append("stationId",$("#StationId").val())

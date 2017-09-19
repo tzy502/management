@@ -23,8 +23,7 @@ public class ChecklistController {
 	@ResponseBody
 	public String addChecklist(BeanChecklist bc) throws JSONException, UnsupportedEncodingException{
 		try {
-			String input=new String(bc.getChecklistinput().getBytes("ISO-8859-1"),"UTF-8"); 
-		
+			String input=new String(bc.getChecklistinput().getBytes("ISO-8859-1"),"UTF-8"); 	
 			bc.setChecklistinput(input);
 			ics.addChecklist(bc);
 		} catch (BaseException e) {
@@ -35,9 +34,12 @@ public class ChecklistController {
 	}
 	@RequestMapping(value = "/modifryChecklist.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String modifryChecklist(BeanChecklist bc) throws JSONException{
+	public String modifryChecklist(BeanChecklist bc) throws JSONException, UnsupportedEncodingException{
 		try {
+			String input=new String(bc.getChecklistinput().getBytes("ISO-8859-1"),"UTF-8"); 	
+			bc.setChecklistinput(input);
 			bc.setStationId(ics.SearchChecklist(bc.getChecklistId()).getStationId());
+
 			ics.modifryChecklist(bc);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
@@ -47,7 +49,7 @@ public class ChecklistController {
 	}
 	@RequestMapping(value = "/searchChecklist.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String searchChecklist(@RequestBody String params) throws JSONException{
+	public String searchChecklist(@RequestBody String params) throws JSONException, UnsupportedEncodingException{
 		JSONObject json = new JSONObject(params);
 		int id=Integer.valueOf(json.getString("checklistId"));
 		JSONObject jo = new JSONObject();
@@ -58,11 +60,13 @@ public class ChecklistController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+
 		jo.put("checklistId", result.getChecklistId());
 		jo.put("Checklisttime",result.getChecklisttime());
 		jo.put("Checklisttype", result.getChecklisttype());
 		jo.put("checklistcheckbox", result.getChecklistcheckbox());
-		jo.put("checklistinput", result.getChecklistinput());
+		jo.put("checklistinput",result.getChecklistinput() );
 		jo.put("StationId", result.getStationId());
 		jo.put("userId", 	result.getUserId());
 		return jo.toString();
