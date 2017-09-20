@@ -517,7 +517,7 @@ $(document).ready(function() {
 		var Request = new Object();
 		Request = GetRequest();
 		var checklistId = Request['checklistId'];
-		checklistId=14
+	
 
 		var params = {
 			"checklistId" : checklistId,

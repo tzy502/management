@@ -355,11 +355,6 @@
   </tr>
 </table>
 
-<div class="row cl">
-		<div class="form-label col-xs-4 col-sm-3">
-			<input class="btn btn-primary radius" type="button" onclick = "add()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-		</div>
-	</div>
 </article>
 
 <!--_footer 作为公共模版分离出去--> 
@@ -440,6 +435,7 @@ var params = {
 }
 
 $(document).ready(function() {
+	alert(params)
 	$.ajax({
 		type : "post",
 		async : true,
