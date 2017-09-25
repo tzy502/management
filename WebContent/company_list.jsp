@@ -47,7 +47,7 @@
 		</thead>
 		<tbody id = 'tbody-alldoc'>
 		</tbody>
-		</tbody>
+		
 	</table>
 	</div>
 	

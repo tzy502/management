@@ -13,7 +13,7 @@ public interface IChecklistService {
 	public BeanChecklist SearchChecklist(int compayid)throws BaseException;
 	
 	public List<BeanChecklist> loadAllChecklist()throws BaseException;
-	
+	public List<BeanChecklist> loadChecklist(int StationId)throws BaseException;
 		
 	public void modifryChecklist(BeanChecklist Checklist)throws BaseException;
 	

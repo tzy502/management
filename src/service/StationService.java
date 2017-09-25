@@ -58,4 +58,16 @@ public class StationService implements IStationService {
 		return false;
 	}
 
+	@Override
+	public List<BeanStation> loadStation(int type) throws BaseException {
+		// TODO Auto-generated method stub
+		if(type==32){
+			return isd.loadwaterStation();
+		}
+		else{
+			return isd.loadgasStation();
+		}
+	
+	}
+
 }

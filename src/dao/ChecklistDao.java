@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
@@ -52,7 +53,30 @@ public class ChecklistDao implements IChecklistDao {
 		tx.commit();
 		return result;
 	}
+	@Override
+	public  List<BeanChecklist> loadChecklist(int StationId) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String sql 	="	select a.*"
+					+"	from checklist a"
+					+"	 inner join"
+					+"	 (select checklisttype,"
+					+"	        max(checklisttime) 'maxgdtime'"
+					+"	  from checklist "
+					+"		where stationId=?"
+					+"	  group by checklisttype) b on a.checklisttype=b.checklisttype and a.checklisttime=b.maxgdtime"
+					+"	order by checklisttype";
+		
 
+	
+//		Query qry = session.createQuery(hql);
+		SQLQuery qry = session.createSQLQuery(sql).addEntity(BeanChecklist.class);  
+		qry.setInteger(0, StationId);
+		@SuppressWarnings("unchecked")
+		List<BeanChecklist> result = qry.list();
+		tx.commit();
+		return result;
+	}
 	@Override
 	public void modifryChecklist(BeanChecklist Checklist) {
 		// TODO Auto-generated method stub

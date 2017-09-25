@@ -193,7 +193,7 @@
 	var Request = new Object();
 		Request = GetRequest();
 		var checklistId = Request['checklistId'];
-		checklistId=13
+	
 		var params = {
 			"checklistId" : checklistId,
 		}

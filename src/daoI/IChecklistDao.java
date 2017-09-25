@@ -15,4 +15,5 @@ public interface IChecklistDao {
 	//修改角色
 	public void DelChecklist(int ChecklistId);
 	//删除角色
+	public List<BeanChecklist> loadChecklist(int StationId);
 }

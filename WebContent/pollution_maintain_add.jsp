@@ -72,7 +72,7 @@
 		  </tr>
 		  <tr>
 		    <td width="117">故障恢复时间 </td>
-		    <td width="553" colspan="5"><input type='text'  readonly="readonly"  id = 'input8' onClick="WdatePicker()" class='input-text radius size-S'></td>
+		    <td width="553" colspan="5"><input type='text'   id = 'input8' readonly="readonly"  onClick="WdatePicker()" class='input-text radius size-S'></td>
 		  </tr>
 		  <tr>
 		    <td width="117">备  注 </td>

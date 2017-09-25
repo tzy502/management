@@ -46,4 +46,10 @@ public class ChecklistService implements IChecklistService {
 		
 	}
 
+	@Override
+	public List<BeanChecklist> loadChecklist(int StationId) throws BaseException {
+		// TODO Auto-generated method stub
+		return cd.loadChecklist(StationId);
+	}
+
 }

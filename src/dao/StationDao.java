@@ -1,5 +1,7 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,9 +9,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import util.DBUtil;
+import util.DbException;
 import util.HibernateUtil;
 
 import daoI.IStationDao;
+import model.BeanData;
 import model.BeanStation;
 @Repository
 public class StationDao implements IStationDao {
@@ -20,6 +25,7 @@ public class StationDao implements IStationDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
+			System.out.println(Station.getStationname()+"DAO");
 			session.save(Station);
 			tx.commit();
 		} catch (Exception e) {
@@ -89,6 +95,7 @@ public class StationDao implements IStationDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
+			System.out.println(Station.getStationname()+"DAO");
 			session.delete(Station);
 			tx.commit();
 		} catch (Exception e) {
@@ -103,7 +110,7 @@ public class StationDao implements IStationDao {
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-			org.hibernate.Query qry = session.createQuery("from BeanStation where type=31");
+			org.hibernate.Query qry = session.createQuery("from BeanStation where type=32");
 			java.util.List list = qry.list();
 			session.getTransaction().commit();	
 			result =list;
@@ -121,7 +128,7 @@ public class StationDao implements IStationDao {
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-			org.hibernate.Query qry = session.createQuery("from BeanStation where type=32");
+			org.hibernate.Query qry = session.createQuery("from BeanStation where type=31");
 			java.util.List list = qry.list();
 			session.getTransaction().commit();	
 			result =list;
@@ -132,5 +139,45 @@ public class StationDao implements IStationDao {
 		}
 		return result;
 	}
+	public List<BeanStation> loadbasestation() throws DbException {
+		// TODO Auto-generated method stub
+		Connection conn=null;
+		try {
+			conn=DBUtil.getConnection();
+			String sql="SELECT MN,StationName,StationType,StationAdd FROM HJ212_Station";
 
+			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+			java.sql.ResultSet rs=pst.executeQuery();	
+			List<BeanStation> result =new ArrayList<BeanStation>();	
+			while(rs.next()){
+				BeanStation bs=new BeanStation();
+				bs.setMN(rs.getString(1));
+				bs.setStationname(rs.getString(2));
+				bs.setType(rs.getString(3));
+				String add=rs.getString(4);
+				bs.setCity(add.substring(0, 2));
+				bs.setArea(add.substring(3, 5));
+				bs.setCompanyid(1);
+				bs.setPrincipal("admin");
+				result.add(bs);
+			}
+			rs.close();
+			pst.execute();
+			pst.close();
+			return result;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e);
+		}
+		finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+	}
 }

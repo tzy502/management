@@ -164,4 +164,98 @@ public class StationController {
 			e.printStackTrace();
 		}
 	}
+	@RequestMapping(value = "/loadwaterStation.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String loadwaterStation() throws JSONException{
+		List<BeanStation> result =new ArrayList<BeanStation>();
+		JSONArray json = new JSONArray();
+		try {
+			result =iss.loadStation(32);
+			//查最后一次运维时间
+			
+			for(int i=0;i<result.size();i++){
+				JSONObject jo = new JSONObject();
+				jo.put("stationId",result.get(i).getStationid());
+				jo.put("companyid",result.get(i).getCompanyid() );
+				jo.put("type", result.get(i).getType());
+				jo.put("stationname",result.get(i).getStationname());
+				jo.put("city", result.get(i).getCity());
+				jo.put("area",result.get(i).getArea());
+				jo.put("areaid",result.get(i).getAreaid());
+				jo.put("codeA",result.get(i).getCodeA());
+				jo.put("codeB",result.get(i).getCodeB());
+				jo.put("level",result.get(i).getLevel());
+				jo.put("industry",result.get(i).getIndustry());
+				jo.put("togo",result.get(i).getTogo());
+				jo.put("pollution",result.get(i).getPollution());
+				jo.put("model",result.get(i).getModel());
+				jo.put("unit",result.get(i).getUnit());
+				jo.put("status",result.get(i).getStatus());
+				jo.put("regulatoryauthorities",result.get(i).getRegulatoryauthorities());
+				jo.put("longitude",result.get(i).getLongitude());
+				jo.put("latitude",result.get(i).getLatitude());
+				jo.put("address",result.get(i).getAddress());
+				jo.put("ability",result.get(i).getAbility());
+				jo.put("acceptance",result.get(i).getAcceptance());
+				jo.put("assessment",result.get(i).getAssessment());
+				jo.put("remarks",result.get(i).getRemarks());
+				jo.put("principal",result.get(i).getPrincipal());
+				String name =ius.searchUser(result.get(i).getPrincipal()).getUserName();
+				jo.put("name",name);
+				jo.put("last", "");
+				json.put(jo);
+			}
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json.toString();
+	}
+	@RequestMapping(value = "/loadgasStation.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String loadgasStation() throws JSONException{
+		List<BeanStation> result =new ArrayList<BeanStation>();
+		JSONArray json = new JSONArray();
+		try {
+			result =iss.loadStation(31);
+			//查最后一次运维时间
+			
+			for(int i=0;i<result.size();i++){
+				JSONObject jo = new JSONObject();
+				jo.put("stationId",result.get(i).getStationid());
+				jo.put("companyid",result.get(i).getCompanyid() );
+				jo.put("type", result.get(i).getType());
+				jo.put("stationname",result.get(i).getStationname());
+				jo.put("city", result.get(i).getCity());
+				jo.put("area",result.get(i).getArea());
+				jo.put("areaid",result.get(i).getAreaid());
+				jo.put("codeA",result.get(i).getCodeA());
+				jo.put("codeB",result.get(i).getCodeB());
+				jo.put("level",result.get(i).getLevel());
+				jo.put("industry",result.get(i).getIndustry());
+				jo.put("togo",result.get(i).getTogo());
+				jo.put("pollution",result.get(i).getPollution());
+				jo.put("model",result.get(i).getModel());
+				jo.put("unit",result.get(i).getUnit());
+				jo.put("status",result.get(i).getStatus());
+				jo.put("regulatoryauthorities",result.get(i).getRegulatoryauthorities());
+				jo.put("longitude",result.get(i).getLongitude());
+				jo.put("latitude",result.get(i).getLatitude());
+				jo.put("address",result.get(i).getAddress());
+				jo.put("ability",result.get(i).getAbility());
+				jo.put("acceptance",result.get(i).getAcceptance());
+				jo.put("assessment",result.get(i).getAssessment());
+				jo.put("remarks",result.get(i).getRemarks());
+				jo.put("principal",result.get(i).getPrincipal());
+				String name =ius.searchUser(result.get(i).getPrincipal()).getUserName();
+				jo.put("name",name);
+				jo.put("last", "");
+				json.put(jo);
+			}
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json.toString();
+	}
 }

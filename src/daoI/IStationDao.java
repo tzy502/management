@@ -2,7 +2,9 @@ package daoI;
 
 import java.util.List;
 
+import model.BeanData;
 import model.BeanStation;
+import util.DbException;
 
 public interface IStationDao {
 	public void addStation(BeanStation Station);
@@ -17,4 +19,5 @@ public interface IStationDao {
 	//修改角色
 	public void DelStation(BeanStation Station);
 	//删除角色
+	public List<BeanStation> loadbasestation() throws DbException ;
 }

@@ -230,7 +230,7 @@
 		var Request = new Object();
 		Request = GetRequest();
 		var checklistId = Request['checklistId'];
-		checklistId = 12
+	
 		var params = {
 			"checklistId" : checklistId,
 		}
