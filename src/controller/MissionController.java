@@ -110,7 +110,7 @@ public class MissionController {
 				jo.put("Missionid", result.get(i).getMissionid());
 				jo.put("userid", result.get(i).getUserid());
 				jo.put("username", ius.searchUser(result.get(i).getUserid()).getUserName());
-				jo.put("stationid", result.get(i).getStationid());
+				jo.put("stationId", result.get(i).getStationid());
 				jo.put("startdate", result.get(i).getStartdate());
 				jo.put("enddate", result.get(i).getEnddate());
 				jo.put("status", result.get(i).getStationid());
@@ -137,7 +137,7 @@ public class MissionController {
 				if(result.size()==0){
 					JSONObject jo = new JSONObject();
 					jo.put("Missionid",0);
-					jo.put("stationid", station.get(j).getStationid());
+					jo.put("stationId", station.get(j).getStationid());
 					jsonarraylist.put(jo);
 				}
 				
@@ -147,7 +147,7 @@ public class MissionController {
 						jo.put("Missionid", result.get(i).getMissionid());
 						jo.put("userid", result.get(i).getUserid());
 						jo.put("username", ius.searchUser(result.get(i).getUserid()).getUserName());
-						jo.put("stationid", result.get(i).getStationid());
+						jo.put("stationId", result.get(i).getStationid());
 						jo.put("startdate", result.get(i).getStartdate());
 						jo.put("enddate", result.get(i).getEnddate());
 						jo.put("status", result.get(i).getStationid());
@@ -179,7 +179,7 @@ public class MissionController {
 				jo.put("Missionid", result.get(i).getMissionid());
 				jo.put("userid", result.get(i).getUserid());
 				jo.put("username", ius.searchUser(result.get(i).getUserid()).getUserName());
-				jo.put("stationid", result.get(i).getStationid());
+				jo.put("stationId", result.get(i).getStationid());
 				jo.put("startdate", result.get(i).getStartdate());
 				jo.put("enddate", result.get(i).getEnddate());
 				jo.put("status", result.get(i).getStationid());

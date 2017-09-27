@@ -139,7 +139,7 @@ function getCookie(Name){
         	
         }
     });
-	console.log(mission[0][0].Missionid)
+
 	for(var i = 0; i < station.length; i++){
 		 str+="<li class='item'>"
 				+"<h4>"+station[i].stationname+"<b>+</b></h4>"
@@ -153,11 +153,12 @@ function getCookie(Name){
 			    
 		var item = -1;
 		for(var j = 0; j < mission.length; j++){	
-			if(station[i].stationId==mission[j][0].stationId){					
+			if(station[i].stationId==mission[j][0].stationId){
+				item=1;
 				break;
 			}	
 		}
-		
+
 		if(mission[j][0].Missionid!=0){
 		str+="<table class='table table-border table-bordered table-bg'>"
 		+"<thead>"
