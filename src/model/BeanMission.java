@@ -1,31 +1,33 @@
 package model;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
 @Table(name = "mission")
 public class BeanMission {
-	private int Missionid;
+	private int missionid;
 	private String userid;
 	private int stationid;
-	private Timestamp date;
+	private Timestamp startdate;
+	private Timestamp enddate;
 	private int status;
 	private String description;
-	final  int UnViewed=1;
-	final  int Viewed=2;
-	final  int Solved=3;
+	
 	@Id
 	@Column(name = "missionid")
 	public int getMissionid() {
-		return Missionid;
+		return missionid;
 	}
 	public void setMissionid(int missionid) {
-		this.Missionid = missionid;
+		this.missionid = missionid;
 	}
+	
+	
 	@Column(name = "userid")
 	public String getUserid() {
 		return userid;
@@ -33,6 +35,8 @@ public class BeanMission {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+	
+	
 	@Column(name = "stationid")
 	public int getStationid() {
 		return stationid;
@@ -40,13 +44,25 @@ public class BeanMission {
 	public void setStationid(int stationid) {
 		this.stationid = stationid;
 	}
-	@Column(name = "date")
-	public Timestamp getDate() {
-		return date;
+	
+	
+	@Column(name = "startdate")	
+	public Timestamp getStartdate() {
+		return startdate;
 	}
-	public void setDate(Timestamp date) {
-		this.date = date;
+	public void setStartdate(Timestamp startdate) {
+		this.startdate = startdate;
 	}
+	
+	
+	@Column(name = "enddate")
+	public Timestamp getEnddate() {
+		return enddate;
+	}
+	public void setEnddate(Timestamp enddate) {
+		this.enddate = enddate;
+	}
+	
 	@Column(name = "status")
 	public int getStatus() {
 		return status;
@@ -61,14 +77,7 @@ public class BeanMission {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getUnViewed() {
-		return UnViewed;
-	}
-	public int getViewed() {
-		return Viewed;
-	}
-	public int getSolved() {
-		return Solved;
-	}
+	
+
 	
 }

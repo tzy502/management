@@ -45,7 +45,7 @@
 		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
 		<!-- Echo all executed SQL to stdout -->
-		
+
 		<!-- <property name="show_sql">true</property> -->
 		<mapping class="model.BeanUser" />
 		<mapping class="model.BeanRole" />
@@ -56,6 +56,8 @@
 		  <mapping class="model.BeanInfect"/>   
 		   <mapping class="model.BeanStandard"/>   
 		   <mapping class="model.BeanChecklist"/>   
+<mapping class="model.BeanMission"/> 
+
 	</session-factory>
 
 </hibernate-configuration>

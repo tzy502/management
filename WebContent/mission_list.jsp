@@ -66,6 +66,7 @@ function getCookie(Name){
 		return String;
 	}
 	$(document).ready(function (){
+
 		$('body').on('click','#delete',function(event){
 			var missionId = this.name;
 			layer.confirm('确认要删除吗？',function(){
@@ -125,7 +126,7 @@ function getCookie(Name){
         type: "post",    
         async: false,    
         url: "/management/loadALLMission.do",  
-		data : JSON.stringify(params),
+	//	data : JSON.stringify(params),
 		dataType : "json",
 		contentType : "application/json; charset=utf-8",
         error: function(data){  
@@ -133,12 +134,12 @@ function getCookie(Name){
         } , 
         success: function(data) {         
         	for(var i = 0; i < data.length; i++){     		
-        		mission.push(data[i]);	    		
-    	}
+        		mission.push(data[i]);
+        	 	}
         	
         }
     });
-
+	console.log(mission[0][0].Missionid)
 	for(var i = 0; i < station.length; i++){
 		 str+="<li class='item'>"
 				+"<h4>"+station[i].stationname+"<b>+</b></h4>"
@@ -156,21 +157,24 @@ function getCookie(Name){
 				break;
 			}	
 		}
+		
 		if(mission[j][0].Missionid!=0){
 		str+="<table class='table table-border table-bordered table-bg'>"
 		+"<thead>"
 		+"<tr class='text-c'>"
-		+"<th width='40%'>文档名(最新创建)</th>"
-		+"<th width='40%'>最后编写时间</th>"		
-		+"<th width='10%'>编辑人</th>"			
+		+"<th width='10%'>编号</th>"
+		+"<th width='20%'>负责人</th>"		
+		+"<th width='30%'>描述</th>"	
+		+"<th width='30%'>布置时间</th>"			
 		+"<th width='10%'>操作</th>"
 		+"</tr>"
 		+"</thead>"
 		for(var k=0;k<mission[j].length;k++){
 			str+="<tr class='text-c'>"+
-			"<td>"+mission[j][k].Checklisttypename+"</td>"+
-			"<td>"+mission[j][k].Checklisttime+"</td>"+
-			"<td>"+mission[j][k].userId+"</td>"+
+			"<td>"+(k+1)+"</td>"+
+			"<td>"+mission[j][k].username+"</td>"+
+			"<td>"+mission[j][k].description+"</td>"+
+			"<td>"+mission[j][k].startdate+"</td>"+
 			"<td class='td-manage'>"+
 			
 			"</td>"

@@ -33,7 +33,7 @@ public class MissionDao implements IMissionDao {
 		System.out.println("d");
 		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = s.beginTransaction();
-		String hql = "from BeanMission where MissionId = '" + MissionId + "'";
+		String hql = "from BeanMission where Missionid = '" + MissionId + "'";
 		Query qry = s.createQuery(hql);
 		Object Document = qry.uniqueResult();
 		tx.commit();
@@ -44,7 +44,7 @@ public class MissionDao implements IMissionDao {
 	public List<BeanMission> loadAllMission() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		String hql = "from BeanMission ";
+		String hql = "from BeanMission";
 		Query qry = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
 		List<BeanMission> result = qry.list();
@@ -87,9 +87,8 @@ public class MissionDao implements IMissionDao {
 	public List<BeanMission> loadMission(int stationId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		String hql = "from BeanMission where stationid=?";
+		String hql = "from BeanMission where stationid="+stationId;
 		Query qry = session.createQuery(hql);
-		qry.setParameter(0, stationId);
 		@SuppressWarnings("unchecked")
 		List<BeanMission> result = qry.list();
 		tx.commit();
@@ -100,7 +99,7 @@ public class MissionDao implements IMissionDao {
 	public List<BeanMission> loadUserMission(String userId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		String hql = "from BeanMission where userId=?";
+		String hql = "from BeanMission where userid=?";
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, userId);
 		@SuppressWarnings("unchecked")

@@ -18,6 +18,7 @@ import model.BeanMission;
 import model.BeanStation;
 import serviceI.IMissionService;
 import serviceI.IStationService;
+import serviceI.IUserService;
 import util.BaseException;
 
 @Controller
@@ -26,6 +27,8 @@ public class MissionController {
 	private IMissionService ims;
 	@Autowired
 	private IStationService iss;
+	@Autowired
+	private IUserService ius;
 	@RequestMapping(value = "/addMission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String addMission(BeanMission bm) throws JSONException{
@@ -70,7 +73,7 @@ public class MissionController {
 		int id=Integer.valueOf(json.getString("missionId"));
 		try {
 			BeanMission bm=ims.SearchMission(id);
-			bm.setStatus(bm.getViewed());
+			bm.setStatus(2);
 			ims.modifryMission(bm);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
@@ -85,7 +88,7 @@ public class MissionController {
 		int id=Integer.valueOf(json.getString("missionId"));
 		try {
 			BeanMission bm=ims.SearchMission(id);
-			bm.setStatus(bm.getSolved());
+			bm.setStatus(3);
 			ims.modifryMission(bm);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
@@ -106,8 +109,10 @@ public class MissionController {
 				JSONObject jo = new JSONObject();
 				jo.put("Missionid", result.get(i).getMissionid());
 				jo.put("userid", result.get(i).getUserid());
+				jo.put("username", ius.searchUser(result.get(i).getUserid()).getUserName());
 				jo.put("stationid", result.get(i).getStationid());
-				jo.put("date", result.get(i).getDate());
+				jo.put("startdate", result.get(i).getStartdate());
+				jo.put("enddate", result.get(i).getEnddate());
 				jo.put("status", result.get(i).getStationid());
 				jo.put("description", result.get(i).getDescription());
 				jsonarraylist.put(jo);
@@ -120,9 +125,7 @@ public class MissionController {
 	}
 	@RequestMapping(value = "/loadALLMission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String loadALLMission(@RequestBody String params) throws JSONException{
-		JSONObject json = new JSONObject(params);
-
+	public String loadALLMission() throws JSONException{
 		List<BeanStation> station =new ArrayList<BeanStation>();
 		List<BeanMission> result =new ArrayList<BeanMission>();
 		JSONArray jsonarray = new JSONArray();
@@ -137,13 +140,16 @@ public class MissionController {
 					jo.put("stationid", station.get(j).getStationid());
 					jsonarraylist.put(jo);
 				}
+				
 				for(int i=0;i<result.size();i++){
 					if(result.get(i).getStatus()!=3){
 						JSONObject jo = new JSONObject();
 						jo.put("Missionid", result.get(i).getMissionid());
 						jo.put("userid", result.get(i).getUserid());
+						jo.put("username", ius.searchUser(result.get(i).getUserid()).getUserName());
 						jo.put("stationid", result.get(i).getStationid());
-						jo.put("date", result.get(i).getDate());
+						jo.put("startdate", result.get(i).getStartdate());
+						jo.put("enddate", result.get(i).getEnddate());
 						jo.put("status", result.get(i).getStationid());
 						jo.put("description", result.get(i).getDescription());
 						jsonarraylist.put(jo);
@@ -156,6 +162,7 @@ public class MissionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(jsonarray.toString());
 		return jsonarray.toString();
 	}
 	@RequestMapping(value = "/loadStationMission.do", produces = "application/json; charset=utf-8") 
@@ -171,8 +178,10 @@ public class MissionController {
 				JSONObject jo = new JSONObject();
 				jo.put("Missionid", result.get(i).getMissionid());
 				jo.put("userid", result.get(i).getUserid());
+				jo.put("username", ius.searchUser(result.get(i).getUserid()).getUserName());
 				jo.put("stationid", result.get(i).getStationid());
-				jo.put("date", result.get(i).getDate());
+				jo.put("startdate", result.get(i).getStartdate());
+				jo.put("enddate", result.get(i).getEnddate());
 				jo.put("status", result.get(i).getStationid());
 				jo.put("description", result.get(i).getDescription());
 				jsonarraylist.put(jo);
