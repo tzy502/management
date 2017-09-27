@@ -145,7 +145,7 @@ function getCookie(Name){
         } , 
         success: function(data) { 
         	var str = "<from id='download' name='download'>";  
-        	alert(data.length);
+        
         	var j=0;
     		for(var i = 0; i < data.length; i++){
     			j=i+1

@@ -67,14 +67,14 @@ function getCookie(Name){
 	}
 	$(document).ready(function (){
 		$('body').on('click','#delete',function(event){
-			var checklistId = this.name;
+			var missionId = this.name;
 			layer.confirm('确认要删除吗？',function(){
 				var params={
-				    	"checklistId":checklistId,
+				    	"missionId":missionId,
 				}
 				$.ajax({
 					type: 'POST',
-					url: "/management/delChecklist.do", 
+					url: "/management/delMission.do", 
 					data: JSON.stringify(params),
 					dataType: 'json',
 					contentType: "application/json; charset=utf-8",
@@ -83,7 +83,7 @@ function getCookie(Name){
 					},
 					success: function(data){
 						layer.msg('已删除!',{icon:1,time:15000});
-						window.location.href = 'water_checklist_list.jsp';
+						window.location.href = 'mission_list.jsp';
 					},
 				});		
 			});
@@ -92,72 +92,12 @@ function getCookie(Name){
 		
 		//split
 	$('body').on('click','#update',function(event){
-		var str=this.name.split("|");
 		
-		var type=str[0]
-
-		switch (type)
-		{
-		case "1":
-			layer_show('文档编辑','water_daily_checklist_modifry.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "2":
-			layer_show('文档编辑','water_check_checklist_modifry.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "3":
-			layer_show('文档编辑','gas_total_pollution_modifry.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "4":
-			layer_show('文档编辑','pollution_maintain_modifry.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "5":
-			layer_show('文档编辑','gas_daily_checklist_modifry.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "6":
-			layer_show('文档编辑','gas_calibration_checklist_modifry.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "7":
-			layer_show('文档编辑','water_monitor_comparison_modifry.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "8":
-			layer_show('文档编辑','gas_monitor_comparison_modifry.jsp?checklistId='+str[1],'800','500');
-		 break;
-		 
-		}
 	}); 
 	$('body').on('click','#datail',function(event){
-	var str=this.name.split("|");
-		
-		var type=str[0]
+			layer_show('文档详情','gas_monitor_comparison_detail.jsp','800','500');
 
-		switch (type)
-		{
-		case "1":
-			layer_show('文档详情','water_daily_checklist_detail.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "2":
-			layer_show('文档详情','water_check_checklist_detail.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "3":
-			layer_show('文档详情','gas_total_pollution_detail.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "4":
-			layer_show('文档详情','pollution_maintain_detail.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "5":
-			layer_show('文档详情','gas_daily_checklist_detail.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "6":
-			layer_show('文档详情','gas_calibration_checklist_detail.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "7":
-			layer_show('文档详情','water_monitor_comparison_detail.jsp?checklistId='+str[1],'800','500');
-		 break;
-		case "8":
-			layer_show('文档详情','gas_monitor_comparison_detail.jsp?checklistId='+str[1],'800','500');
-		 break;
-		 
-		}
+		
 	}); 
 	//加载页面数据
 	 station=[];
@@ -165,7 +105,7 @@ function getCookie(Name){
 	$.ajax({    
         type: "post",    
         async: false,    
-        url: "/management/loadwaterStation.do",  
+        url: "/management/loadAllStation.do",  
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
@@ -180,24 +120,20 @@ function getCookie(Name){
         }
     });
 
-	var allchecklist=[];
-	var params = {
-			"type" : 32,
-		}
+	var mission=[];
 	$.ajax({    
         type: "post",    
         async: false,    
-        url: "/management/loadChecklist.do",  
+        url: "/management/loadALLMission.do",  
 		data : JSON.stringify(params),
 		dataType : "json",
 		contentType : "application/json; charset=utf-8",
         error: function(data){  
         	alert("出错了！！:"+data.msg);
         } , 
-        success: function(data) { 
-        
+        success: function(data) {         
         	for(var i = 0; i < data.length; i++){     		
-        		allchecklist.push(data[i]);	    		
+        		mission.push(data[i]);	    		
     	}
         	
         }
@@ -215,12 +151,12 @@ function getCookie(Name){
 			    
 			    
 		var item = -1;
-		for(var j = 0; j < allchecklist.length; j++){	
-			if(station[i].stationId==allchecklist[j][0].stationId){					
+		for(var j = 0; j < mission.length; j++){	
+			if(station[i].stationId==mission[j][0].stationId){					
 				break;
 			}	
 		}
-		if(allchecklist[j][0].checklistId!=0){
+		if(mission[j][0].Missionid!=0){
 		str+="<table class='table table-border table-bordered table-bg'>"
 		+"<thead>"
 		+"<tr class='text-c'>"
@@ -230,21 +166,13 @@ function getCookie(Name){
 		+"<th width='10%'>操作</th>"
 		+"</tr>"
 		+"</thead>"
-		for(var k=0;k<allchecklist[j].length;k++){
+		for(var k=0;k<mission[j].length;k++){
 			str+="<tr class='text-c'>"+
-			"<td>"+allchecklist[j][k].Checklisttypename+"</td>"+
-			"<td>"+allchecklist[j][k].Checklisttime+"</td>"+
-			"<td>"+allchecklist[j][k].userId+"</td>"+
+			"<td>"+mission[j][k].Checklisttypename+"</td>"+
+			"<td>"+mission[j][k].Checklisttime+"</td>"+
+			"<td>"+mission[j][k].userId+"</td>"+
 			"<td class='td-manage'>"+
-			"<a style='text-decoration:none' id = 'datail' href='javascript:;' name='"+allchecklist[j][k].Checklisttype+"|"+allchecklist[j][k].checklistId+"'>"+
-			"<i class='Hui-iconfont'>&#xe720;</i>"+
-			"</a>"+
-			"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+allchecklist[j][k].Checklisttype+"|"+allchecklist[j][k].checklistId+"'>"+
-			"<i class='Hui-iconfont'>&#xe6df;</i>"+
-			"</a>"+
-			"<a style='text-decoration:none' id = 'delete' href='javascript:;' name='"+allchecklist[j][k].checklistId+"'>"+
-				"<i class='Hui-iconfont'>&#xe6e2;</i>"+
-			"</a>"+
+			
 			"</td>"
 			+"</tr>"
 		}
@@ -252,7 +180,7 @@ function getCookie(Name){
 		}
 		else{
 			
-			str+="暂无数据"
+			str+="暂无任务"
 			
 		}
 		
@@ -266,15 +194,6 @@ function getCookie(Name){
 	});
 
 })
-	/*
-
-
-		  
-		    <h4>标题3<b>+</b></h4>
-		    <div class="info">asfdasdfas</div>
-		  </li>
-	
-	*/
 
 function add(stationId,stationname){
 	var url="checklist_add.jsp?StationId="+stationId+"&stationname="

@@ -9,19 +9,22 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "mission")
 public class BeanMission {
-	private int missionid;
+	private int Missionid;
 	private String userid;
 	private int stationid;
 	private Timestamp date;
-	private String status;
+	private int status;
 	private String description;
+	final  int UnViewed=1;
+	final  int Viewed=2;
+	final  int Solved=3;
 	@Id
 	@Column(name = "missionid")
 	public int getMissionid() {
-		return missionid;
+		return Missionid;
 	}
 	public void setMissionid(int missionid) {
-		this.missionid = missionid;
+		this.Missionid = missionid;
 	}
 	@Column(name = "userid")
 	public String getUserid() {
@@ -45,10 +48,10 @@ public class BeanMission {
 		this.date = date;
 	}
 	@Column(name = "status")
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	@Column(name = "description")
@@ -57,6 +60,15 @@ public class BeanMission {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public int getUnViewed() {
+		return UnViewed;
+	}
+	public int getViewed() {
+		return Viewed;
+	}
+	public int getSolved() {
+		return Solved;
 	}
 	
 }

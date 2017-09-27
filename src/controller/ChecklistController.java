@@ -104,10 +104,9 @@ public class ChecklistController {
 		JSONArray jsonarraylist = new JSONArray();
 		BeanChecklisttype bcl=new BeanChecklisttype();
 		try {
-				station=iss.loadStation(type);
-				
+				station=iss.loadStation(type);		
 				for(int j=0;j<station.size();j++){
-					System.out.println();
+			
 					result=ics.loadChecklist(station.get(j).getStationid());
 					JSONArray jsonarray = new JSONArray();
 					if(result.size()==0){

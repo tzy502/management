@@ -44,10 +44,10 @@
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
 		<dl id="menu-user">
-			<dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe60d;</i> 用户主页<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="admin_user.jsp" data-title="用户管理" href="javascript:void(0)">用户管理</a></li>
+					<li><a data-href="admin_user.jsp" data-title="用户主页" href="javascript:void(0)">用户主页</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -59,6 +59,14 @@
 				</ul>
 			</dd>
 		</dl>
+		<dl id="menu-mission">
+			<dt><i class="Hui-iconfont">&#xe6e0;</i>任务<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="gas_checklist_list.jsp" data-title="任务管理" href="javascript:void(0)">文档管理(废气)</a></li>
+				</ul>
+			</dd>
+		</dl>	
 		<dl id="menu-standard">
 			<dt><i class="Hui-iconfont">&#xe687;</i> 数据监控<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -68,14 +76,12 @@
 				</ul>
 			</dd>
 		</dl>
-		<dl id="menu-mission">
+		<dl id="menu-maintain">
 			<dt><i class="Hui-iconfont">&#xe6e0;</i> 运维<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="gas_checklist_list.jsp" data-title="文档管理(废气)" href="javascript:void(0)">文档管理(废气)</a></li>
 					<li><a data-href="water_checklist_list.jsp" data-title="文档管理(废水)" href="javascript:void(0)">文档管理(废水)</a></li>
-			
-			
 				</ul>
 			</dd>
 		</dl>	
@@ -106,7 +112,7 @@
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-					<span title="用户管理" data-href="admin_user.jsp">用户管理</span>
+					<span title="用户主页" data-href="admin_user.jsp">用户主页</span>
 					<em></em></li>
 		</ul>
 	</div>
