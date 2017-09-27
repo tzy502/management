@@ -26,7 +26,7 @@
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 文档管理（废气）  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 文档管理（废水）  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 
 <article class="page-container" id = 'form-item-add'>
 		<ul id="Huifold1" name="Huifold1" class="Huifold">
@@ -165,7 +165,7 @@ function getCookie(Name){
 	$.ajax({    
         type: "post",    
         async: false,    
-        url: "/management/loadgasStation.do",  
+        url: "/management/loadwaterStation.do",  
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
@@ -182,7 +182,7 @@ function getCookie(Name){
 
 	var allchecklist=[];
 	var params = {
-			"type" : 31,
+			"type" : 32,
 		}
 	$.ajax({    
         type: "post",    

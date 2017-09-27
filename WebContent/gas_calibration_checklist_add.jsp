@@ -271,6 +271,7 @@ Date.prototype.Format = function(fmt) {
 }
 function GetRequest() {   
 	   var url = location.search; 
+	   url=decodeURI(url)
 	   var theRequest = new Object();   
 	   if (url.indexOf("?") != -1) {   
 	      var str = url.substr(1);   
@@ -293,7 +294,6 @@ $(document).ready(function (){
 		$("#username").val(userName);
 		var Request = new Object(); 
 		Request = GetRequest(); 
-		Request = GetRequest();
 		StationId = Request['StationId'];	
 		$("#StationId").val(StationId);
 		stationname = Request['stationname'];	

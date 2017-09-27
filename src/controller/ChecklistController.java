@@ -92,7 +92,7 @@ public class ChecklistController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return json.toString();
 	}
 	@RequestMapping(value = "/loadChecklist.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody

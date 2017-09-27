@@ -578,6 +578,7 @@ Date.prototype.Format = function(fmt) {
 }
 function GetRequest() {   
 	   var url = location.search; 
+	   url=decodeURI(url)
 	   var theRequest = new Object();   
 	   if (url.indexOf("?") != -1) {   
 	      var str = url.substr(1);   
@@ -660,7 +661,7 @@ function addBudget(){
 	var form = new FormData();
 	form.append("stationId",StationId)
 	form.append("userId",userId)
-	form.append("checklisttype",2)
+	form.append("checklisttype",1)
 	
 	
 	var now=new Date().Format("yyyy-MM-dd hh:mm:ss");

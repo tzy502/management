@@ -72,7 +72,10 @@
 			<dt><i class="Hui-iconfont">&#xe6e0;</i> 运维<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="aa-userlist.html" data-title="任务管理" href="javascript:void(0)">任务管理</a></li>
+					<li><a data-href="gas_checklist_list.jsp" data-title="文档管理(废气)" href="javascript:void(0)">文档管理(废气)</a></li>
+					<li><a data-href="water_checklist_list.jsp" data-title="文档管理(废水)" href="javascript:void(0)">文档管理(废水)</a></li>
+			
+			
 				</ul>
 			</dd>
 		</dl>	

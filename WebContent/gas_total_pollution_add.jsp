@@ -218,6 +218,7 @@ Date.prototype.Format = function(fmt) {
 }
 function GetRequest() {   
 	   var url = location.search; 
+	   url=decodeURI(url)
 	   var theRequest = new Object();   
 	   if (url.indexOf("?") != -1) {   
 	      var str = url.substr(1);   

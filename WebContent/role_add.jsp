@@ -37,7 +37,7 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>职位介绍：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="职位介绍" id="roleIntroduction" name="roleIntroduction">
+			<input type="text" class="input-text" value="" readonly="readonly" placeholder="职位介绍" id="roleIntroduction" name="roleIntroduction">
 		</div>
 	</div>
 	
@@ -52,7 +52,7 @@
 						<option value="5"selected>5</option>
 					</select>
 					</span> </div>
-					</div>
+			</div>
 	<div class="row cl">
 		<div class="form-label col-xs-4 col-sm-3">
 			<input class="btn btn-primary radius" type="button" onclick = "add()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
