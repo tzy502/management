@@ -1,15 +1,24 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +30,7 @@ import serviceI.IStationService;
 import serviceI.IUserService;
 import util.BaseException;
 
+
 @Controller
 public class MissionController {
 	@Autowired
@@ -29,9 +39,24 @@ public class MissionController {
 	private IStationService iss;
 	@Autowired
 	private IUserService ius;
-	@RequestMapping(value = "/addMission.do", produces = "application/json; charset=utf-8") 
+	static Map<Integer,String> staus=new HashMap<Integer,String>(5);
+	static {
+		staus.put(1, "未查看");
+		staus.put(2, "已查看");
+		staus.put(3, "已完成");
+		staus.put(4, "任务已有修改但未查看");
+		staus.put(5, "超时未完成");
+		staus.put(6, "超时完成");
+		
+		}
+	
+	@RequestMapping(value = "/addmission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String addMission(BeanMission bm) throws JSONException{
+	public String addMission(BeanMission bm,HttpServletRequest request) throws JSONException{
+		bm.setEnddate(Timestamp.valueOf(request.getParameter("end")));
+		String start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( new Date()); 
+		bm.setStartdate(Timestamp.valueOf(start));
+		bm.setStatus(1);
 		try {
 
 			ims.addMission(bm);
@@ -40,18 +65,20 @@ public class MissionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return "ok";
 	}
 	@RequestMapping(value = "/modifryMission.do", produces = "application/json; charset=utf-8") 
-	@ResponseBody
-	public String modifryMission(BeanMission bm) throws JSONException{
+	public String modifryMission(BeanMission bm,HttpServletRequest request) throws JSONException{
 		try {
+			bm.setEnddate(Timestamp.valueOf(request.getParameter("end")));
+			bm.setStatus(4);
+			bm.setStartdate(ims.SearchMission(bm.getMissionid()).getStartdate());
 			ims.modifryMission(bm);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return "ok";
 	}
 	@RequestMapping(value = "/delMission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
@@ -64,7 +91,7 @@ public class MissionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "ok";
+		return json.toString();
 	}
 	@RequestMapping(value = "/viewMission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
@@ -79,7 +106,7 @@ public class MissionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "ok";
+		return json.toString();
 	}
 	@RequestMapping(value = "/endMission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
@@ -95,6 +122,31 @@ public class MissionController {
 			e.printStackTrace();
 		}
 		return "ok";
+	}
+	@RequestMapping(value = "/searchMission.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String searchMission(@RequestBody String params) throws JSONException{
+		JSONObject json = new JSONObject(params);
+		int id=Integer.valueOf(json.getString("missionId"));
+		JSONObject jo = new JSONObject();
+		BeanMission result=new BeanMission();
+		try {
+			result=ims.SearchMission(id);
+			jo.put("Missionid", result.getMissionid());
+			jo.put("userid", result.getUserid());
+			jo.put("username", ius.searchUser(result.getUserid()).getUserName());
+			jo.put("stationId", result.getStationid());
+			jo.put("startdate", result.getStartdate());
+			jo.put("enddate", result.getEnddate());
+			jo.put("status",result.getStatus() );
+			jo.put("statusname",staus.get(result.getStatus()) );
+			jo.put("description", result.getDescription());
+			jo.put("missionname", result.getMissionname());
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jo.toString();
 	}
 	@RequestMapping(value = "/loadUserMission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
@@ -113,8 +165,10 @@ public class MissionController {
 				jo.put("stationId", result.get(i).getStationid());
 				jo.put("startdate", result.get(i).getStartdate());
 				jo.put("enddate", result.get(i).getEnddate());
-				jo.put("status", result.get(i).getStationid());
+				jo.put("status",result.get(i).getStatus() );
+				jo.put("statusname",staus.get(result.get(i).getStatus()) );
 				jo.put("description", result.get(i).getDescription());
+				jo.put("missionname", result.get(i).getMissionname());
 				jsonarraylist.put(jo);
 			}		
 		} catch (BaseException e) {
@@ -140,7 +194,7 @@ public class MissionController {
 					jo.put("stationId", station.get(j).getStationid());
 					jsonarraylist.put(jo);
 				}
-				
+					
 				for(int i=0;i<result.size();i++){
 					if(result.get(i).getStatus()!=3){
 						JSONObject jo = new JSONObject();
@@ -150,8 +204,10 @@ public class MissionController {
 						jo.put("stationId", result.get(i).getStationid());
 						jo.put("startdate", result.get(i).getStartdate());
 						jo.put("enddate", result.get(i).getEnddate());
-						jo.put("status", result.get(i).getStationid());
+						jo.put("statusname",staus.get(result.get(i).getStatus()) );
 						jo.put("description", result.get(i).getDescription());
+						jo.put("missionname", result.get(i).getMissionname());
+						jo.put("status",result.get(i).getStatus() );
 						jsonarraylist.put(jo);
 					}
 
@@ -182,8 +238,10 @@ public class MissionController {
 				jo.put("stationId", result.get(i).getStationid());
 				jo.put("startdate", result.get(i).getStartdate());
 				jo.put("enddate", result.get(i).getEnddate());
-				jo.put("status", result.get(i).getStationid());
+				jo.put("status",result.get(i).getStatus() );
+				jo.put("statusname",staus.get(result.get(i).getStatus()) );
 				jo.put("description", result.get(i).getDescription());
+				jo.put("missionname", result.get(i).getMissionname());
 				jsonarraylist.put(jo);
 			}		
 		} catch (BaseException e) {
@@ -192,4 +250,5 @@ public class MissionController {
 		}
 		return jsonarraylist.toString();
 	}
+
 }

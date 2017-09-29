@@ -26,7 +26,7 @@
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 文档管理（废水）  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 任务  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 
 <article class="page-container" id = 'form-item-add'>
 		<ul id="Huifold1" name="Huifold1" class="Huifold">
@@ -66,7 +66,7 @@ function getCookie(Name){
 		return String;
 	}
 	$(document).ready(function (){
-
+	
 		$('body').on('click','#delete',function(event){
 			var missionId = this.name;
 			layer.confirm('确认要删除吗？',function(){
@@ -93,12 +93,33 @@ function getCookie(Name){
 		
 		//split
 	$('body').on('click','#update',function(event){
-		
+		layer_show('任务修改','mission_modifry.jsp?missionId='+this.name,'800','500');
 	}); 
 	$('body').on('click','#datail',function(event){
-			layer_show('文档详情','gas_monitor_comparison_detail.jsp','800','500');
-
 		
+		var str=this.name.split("|");
+		
+		/*if(str[1]==1||str[1]==4){
+			var params = {
+					"missionId" : str[0],
+				}
+			$.ajax({  
+				 type: "post",    
+			        async: true,    
+			        url: "/management/viewMission.do",  
+			        data: JSON.stringify(params),
+			        dataType: "json", 
+			        contentType: "application/json; charset=utf-8",   
+			        error: function(data){  
+			        	alert("出错了!!!!:"+data.msg);
+			        } , 
+			        success: function(data) { 
+			        		layer_show('任务详情','mission_detail.jsp?missionId='+str[1],'800','500');
+			       		}
+			        })
+		}else{*/
+			layer_show('任务详情','mission_detail.jsp?missionId='+str[1],'800','500');
+		//}	
 	}); 
 	//加载页面数据
 	 station=[];
@@ -146,7 +167,7 @@ function getCookie(Name){
 			    +"<div class='info'>"
 				+"<div class=\"cl pd-5 bg-1 bk-gray mt-20\">"
 				+" <span class=\"l\">"
-				+"	 <a href=\"javascript:;\" onclick=\"add('"+station[i].stationId+"','"+station[i].stationname+"')\" class=\"btn btn-primary radius\"><i class=\"Hui-iconfont\">&#xe600;</i> 添加企业</a>"
+				+"	 <a href=\"javascript:;\" onclick=\"add('"+station[i].stationId+"')\" class=\"btn btn-primary radius\"><i class=\"Hui-iconfont\">&#xe600;</i> 添加任务</a>"
 				+" </span>"  
 				+"  </div>"
 			    
@@ -163,10 +184,11 @@ function getCookie(Name){
 		str+="<table class='table table-border table-bordered table-bg'>"
 		+"<thead>"
 		+"<tr class='text-c'>"
-		+"<th width='10%'>编号</th>"
-		+"<th width='20%'>负责人</th>"		
-		+"<th width='30%'>描述</th>"	
-		+"<th width='30%'>布置时间</th>"			
+		+"<th width='5%'>编号</th>"
+		+"<th width='15%'>负责人</th>"		
+		+"<th width='30%'>任务名</th>"			
+		+"<th width='20%'>结束时间</th>"	
+		+"<th width='20%'>状态</th>"
 		+"<th width='10%'>操作</th>"
 		+"</tr>"
 		+"</thead>"
@@ -174,11 +196,21 @@ function getCookie(Name){
 			str+="<tr class='text-c'>"+
 			"<td>"+(k+1)+"</td>"+
 			"<td>"+mission[j][k].username+"</td>"+
-			"<td>"+mission[j][k].description+"</td>"+
-			"<td>"+mission[j][k].startdate+"</td>"+
+			"<td>"+mission[j][k].missionname+"</td>"+
+			"<td>"+mission[j][k].enddate+"</td>"+
+			"<td>"+mission[j][k].statusname+"</td>"+
 			"<td class='td-manage'>"+
-			
-			"</td>"
+			"<a style='text-decoration:none' id = 'datail' href='javascript:;' name='"+mission[j][k].Missionid+"|"+mission[j][k].status+"'>"+
+				"<i class='Hui-iconfont'>&#xe720;</i>"+
+			"</a>"+
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+mission[j][k].Missionid+"'>"+
+				"<i class='Hui-iconfont'>&#xe6df;</i>"+
+			"</a>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' name='"+mission[j][k].Missionid+"'>"+
+					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
+				"</a>"+
+				"</td>"
+
 			+"</tr>"
 		}
   		str+="</table>"
@@ -200,10 +232,8 @@ function getCookie(Name){
 
 })
 
-function add(stationId,stationname){
-	var url="checklist_add.jsp?StationId="+stationId+"&stationname="
-		
-	url=url+encodeURIComponent (stationname);		
+function add(stationId){
+	var url="mission_add.jsp?StationId="+stationId;	
 	layer_show("添加文档",url,800,500);
 	
 }

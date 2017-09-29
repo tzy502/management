@@ -49,9 +49,6 @@ public class DocumentController {
 	@RequestMapping("uploadDocument.do")
 	@ResponseBody
 	public void upload(HttpServletRequest request)throws ServletException, IOException{
-		
-		System.out.println(request.getParameter("documentname"));
-		System.out.println(request.getParameter("level"));
 		//文件上传下载
 		 long  startTime=System.currentTimeMillis();
          //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
@@ -96,7 +93,6 @@ public class DocumentController {
 	@ResponseBody
 	public String loaddoc(@RequestBody String params) throws JSONException{
 		JSONArray jsonarrary = new JSONArray();
-		System.out.println("loaddoc");
 		JSONObject json = new JSONObject(params);
 		int level=Integer.valueOf((String)json.get("level"));
 		BeanDocument bd=new BeanDocument();		

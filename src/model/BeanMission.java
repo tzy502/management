@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "mission")
 public class BeanMission {
@@ -17,17 +19,23 @@ public class BeanMission {
 	private Timestamp enddate;
 	private int status;
 	private String description;
-	
+	private String missionname;
 	@Id
 	@Column(name = "missionid")
 	public int getMissionid() {
 		return missionid;
 	}
-	public void setMissionid(int missionid) {
+	public  void setMissionid(int missionid) {
 		this.missionid = missionid;
 	}
 	
-	
+	@Column(name = "missionname")
+	public String getMissionname() {
+		return missionname;
+	}
+	public void setMissionname(String missionname) {
+		this.missionname = missionname;
+	}
 	@Column(name = "userid")
 	public String getUserid() {
 		return userid;
