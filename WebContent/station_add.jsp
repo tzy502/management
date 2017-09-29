@@ -44,7 +44,6 @@
 				<td width='20%'><select class="select" size="1"
 					name="companyid" id="companyid">
 						<option value="-1" selected>请选择</option>
-
 				</select></td>
 				<th width='13%'>负责人</th>
 				<td width='20%'><select class="select" size="1"
@@ -205,7 +204,7 @@
 		        	for(var i=0;i<data.length;i++){
 		        		str+="<option value='"+data[i].companyId+"' >"+data[i].companyname+"</option>"
 		        	}
-		        	alert(str);
+		        	
 		        	$("#companyid").html(str); 
 		        }
 	})
@@ -224,7 +223,7 @@
 	        	for(var i=0;i<data.length;i++){
 	        		str+="<option value='"+data[i].userId+"' >"+data[i].userName+"</option>"
 	        	}
-	        	alert(str);
+	        	
 	        	$("#principal").html(str); 
 	        }
 })
