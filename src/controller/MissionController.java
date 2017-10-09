@@ -78,7 +78,7 @@ public class MissionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "ok";
+		return null;
 	}
 	@RequestMapping(value = "/delMission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
@@ -180,8 +180,9 @@ public class MissionController {
 	@RequestMapping(value = "/loadALLMission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String loadALLMission() throws JSONException{
-		List<BeanStation> station =new ArrayList<BeanStation>();
+		
 		List<BeanMission> result =new ArrayList<BeanMission>();
+		List<BeanStation> station =new ArrayList<BeanStation>();
 		JSONArray jsonarray = new JSONArray();
 		try {
 			station=iss.loadAllStation();
@@ -196,7 +197,7 @@ public class MissionController {
 				}
 					
 				for(int i=0;i<result.size();i++){
-					if(result.get(i).getStatus()!=3){
+					if(result.get(i).getStatus()!=3&&result.get(i).getStatus()!=6){
 						JSONObject jo = new JSONObject();
 						jo.put("Missionid", result.get(i).getMissionid());
 						jo.put("userid", result.get(i).getUserid());

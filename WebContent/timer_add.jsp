@@ -38,21 +38,22 @@
 	<form class="form form-horizontal" id="add"	enctype="multipart/form-data">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>任务名</label>
 		<input type="text" style='width:40%' class="input-text" value="" placeholder="" 
-					id="missionname" name="missionname">
+					id="timername" name="timername">
 		<br/>
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>负责人</label>
-			<select  style='width:40%' class="select" size="1" name="userid" id="userid">
-			<option value="-1" selected>请选择</option>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>定时类型</label>
+		<select  style='width:40%' class="select" size="1" name="timer" id="timer">
+			<option value="1" selected>每日一次</option>
+			<option value="2" >每周一次</option>
+			<option value="3" >每月一次</option>
 		</select>
 			<br/>
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>结束时间</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间</label>
 		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({minDate:'%y-%M-{%d}',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
-					id="end" name="end">
-		<br/>
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>任务描述</label>	
-		<textarea name="description" id='description' style='width:60%' cols="" rows="" class="textarea" ></textarea>	
-			<input type="hidden" value=""	 id="stationid" name="stationid">
+		id="start" name="start">
 	
+		<br/>
+		<label class="form-label col-xs-6 col-sm-3"><span class="c-red">*</span>任务描述</label>	
+		<textarea name="timerdescription" id='timerdescription' style='width:60%' cols="" rows="" class="textarea" ></textarea>	
 			<center>
 			<div class="row cl">
 				<div class="form-label col-xs-4 col-sm-3">
@@ -139,59 +140,8 @@
 			}
 		}
 		return fmt;
-	}
-	$(document).ready(function() {	
+	}		
 
-	$.ajax({  
-		 type: "post",    
-	        async: true,    
-	        url: "/management/loadAllUser.do",  
-	        //data: JSON.stringify(params),
-	        dataType: "json", 
-	        contentType: "application/json; charset=utf-8",   
-	        error: function(data){  
-	        	alert("出错了！！:"+data.msg);
-	        } , 
-	        success: function(data) { 
-	        	var str="";
-	        	for(var i=0;i<data.length;i++){
-	        		str+="<option value='"+data[i].userId+"' >"+data[i].userName+"</option>"
-	        	}
-	        	
-	        	$("#userid").html(str); 
-	        }
-})
-
-		$('select').select2();
-	var Request = new Object();
-	Request = GetRequest();
-	var missionId = Request['missionId'];
-
-	var params = {
-		"missionId" : missionId,
-	}
-$.ajax({  
-	 type: "post",    
-        async: true,    
-        url: "/management/searchMission.do",  
-        data: JSON.stringify(params),
-        dataType: "json", 
-        contentType: "application/json; charset=utf-8",   
-        error: function(data){  
-        	alert("出错了！！:"+data.msg);
-        } , 
-        success: function(data) { 
-        	$("#missionname").val(data.missionname);
-        	$("#end").val(data.enddate);
-        	$("#username").val(data.username);
-        	$("#description").val(data.description);
-        	$("#staus").val(data.statusname);   
-        	$("#stationid").val(data.stationId);
-        }
-	})
-	
-})
-		
 		function add() {
 
 			$('.skin-minimal input').iCheck({
@@ -199,15 +149,17 @@ $.ajax({
 				radioClass : 'iradio-blue',
 				increaseArea : '20%'
 			});
-			var form = new FormData(document.getElementById("add"));
-			var Request = new Object();
-			Request = GetRequest();
-			var missionId = Request['missionId'];
-			form.append("missionid",missionId)
+			var form = new FormData(document.getElementById("add"));			
+			var Request = new Object(); 
+			Request = GetRequest(); 
+			StationId = Request['StationId'];	
+			StationId=47
+			form.append("stationId",StationId)
+	
 			$.ajax({
 
 				type : 'POST',
-				url : "/management/modifryMission.do",
+				url : "/management/addtimer.do",
 				data : form,
 				async : false,
 				processData : false,
@@ -217,15 +169,15 @@ $.ajax({
 						icon : 1,
 						time : 15000
 					});
-
+					var index = parent.layer.getFrameIndex(window.name);
+					parent.$('.btn-refresh').click();
+					parent.layer.close(index);
 				},
 				error : function(data) {
 					console.log(data.msg);
 				},
 			});
-			var index = parent.layer.getFrameIndex(window.name);
-			parent.$('.btn-refresh').click();
-			parent.layer.close(index);
+
 		}
 		function role(title,url,w,h){
 			layer_show(title,url,w,h);

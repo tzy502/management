@@ -57,7 +57,7 @@
 		   <mapping class="model.BeanStandard"/>   
 		   <mapping class="model.BeanChecklist"/>   
 <mapping class="model.BeanMission"/> 
-
+<mapping class="model.BeanTimer"/> 
 	</session-factory>
 
 </hibernate-configuration>
