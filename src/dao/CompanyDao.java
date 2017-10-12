@@ -31,7 +31,7 @@ public class CompanyDao implements ICompanyDao {
 	@Override
 	public BeanCompany SearchCompany(int CompanyId) {
 		// TODO 自动生成的方法存根
-		System.out.println("d");
+
 		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = s.beginTransaction();
 		String hql = "from BeanCompany where CompanyId = '" + CompanyId + "'";

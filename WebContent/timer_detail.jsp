@@ -34,63 +34,24 @@
 	content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
-	<article class="page-container" id='form-item-add'>
-						<input class="btn btn-primary radius" type="button" onClick="modaldemo()"
-						value="&nbsp;&nbsp;使用指南&nbsp;&nbsp;">
 	<form class="form form-horizontal" id="add"	enctype="multipart/form-data">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>任务名</label>
-		<input type="text" style='width:40%' class="input-text" value="" placeholder="" 
-					id="timername" name="timername">
+		<input type="text" style='width:40%' class="input-text" value="" disable="disable" placeholder="" 
+					id="timename" name="timename">
 		<br/>
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>定时类型</label>
-		<select  style='width:40%' class="select" size="1" name="timer" id="timer">
-			<option value="1" selected>每日</option>
-			<option value="2" >每周</option>
-			<option value="3" >每月</option>
-		</select>
+		<input type="text" style='width:40%' class="input-text" value="" disable="disable" placeholder="" 
+					id="timer" name="timer">
 			<br/>
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间</label>
-		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({minDate:'%y-%M-{%d}',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
-		id="starttime" name="starttime">
+		<input type="text" style='width:40%' class="input-text" value="" disable="disable" placeholder="" 
+					id="starttime" name="starttime">
 	
 		<br/>
 		<label class="form-label col-xs-6 col-sm-3"><span class="c-red">*</span>任务描述</label>	
-		<textarea name="timerdescription" id='timerdescription' style='width:60%' cols="" rows="" class="textarea" ></textarea>		
+		<textarea name="timerdescription" id='timerdescription'disable="disable" style='width:60%' cols="" rows="" class="textarea" ></textarea>		
 
-			<div class="row cl">
-				<div class="form-label col-xs-4 col-sm-3">
-					<input class="btn btn-primary radius" type="button" onclick="add()"
-						value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-						
-
-					
-				</div>
-			</div>
-			
-			<div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content radius">
-						<div class="modal-header">
-							<h3 class="modal-title">使用指南</h3>
-							<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
-						</div>
-						<div class="modal-body">
-							<p><b><font size="4">用处:</font></b></p>
-							<p>&nbsp;&nbsp;&nbsp;&nbsp;定时任务将按预先设定的对检测站相关负责人布置任务</p>
-							<p><b><font size="4">类型:</font></b></p>
-							<p>&nbsp;&nbsp;&nbsp;&nbsp;每日：在每天早上六点的时候将会布置任务</p>
-							<p>&nbsp;&nbsp;&nbsp;&nbsp;每周：在每周周一早上六点的时候将会布置任务</p>
-							<p>&nbsp;&nbsp;&nbsp;&nbsp;每月：在每月一号早上六点的时候将会布置任务</p>
-							<p><b><font size="4">起始时间:</font></b></p>
-							<p>&nbsp;&nbsp;&nbsp;&nbsp;任务会在起始时间后才开始计算
-							<br/>&nbsp;&nbsp;&nbsp;&nbsp;例如：新建每日任务会在开始时间后的下一个早上六点进行布置。</p>
-						</div>
-						<div class="modal-footer">
-							<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-						</div>
-					</div>
-				</div>
-			</div>
+		
 	</form>
 	</article>
 
@@ -171,46 +132,32 @@
 		return fmt;
 	}		
 
-	function modaldemo(){
-		$("#modal-demo").modal("show")}
-		function add() {
-
-			$('.skin-minimal input').iCheck({
-				checkboxClass : 'icheckbox-blue',
-				radioClass : 'iradio-blue',
-				increaseArea : '20%'
-			});
-			var form = new FormData(document.getElementById("add"));			
-			var Request = new Object(); 
-			Request = GetRequest(); 
-			StationId = Request['StationId'];	
-			StationId=46
-			form.append("stationId",StationId)
-
-			$.ajax({
-
-				type : 'POST',
-				url : "/management/addtimer.do",
-				data : form,
-				async : false,
-				processData : false,
-				contentType : false,
-				
-				success : function(data) {
-					layer.msg('已添加!', {
-						icon : 1,
-						time : 15000
-					});
-					var index = parent.layer.getFrameIndex(window.name);
-					parent.$('.btn-refresh').click();
-					parent.layer.close(index);
-				},
-				error : function(data) {
-					console.log(data.msg);
-				},
-			});
-
+	$(document).ready(function() {	
+		var Request = new Object();
+		Request = GetRequest();
+		var timerId = Request['timerId'];
+		timerId =1
+		var params = {
+			"timerId" : timerId,
 		}
+	$.ajax({  
+		 type: "post",    
+	        async: true,    
+	        url: "/management/searchtimer.do",  
+	        data: JSON.stringify(params),
+	        dataType: "json", 
+	        contentType: "application/json; charset=utf-8",   
+	        error: function(data){  
+	        	alert("出错了！！:"+data.msg);
+	        } , 
+	        success: function(data) { 
+	        	$("#timename").val(data.timename);
+	        	$("#timer").val(data.timername);
+	        	$("#timerdescription").val(data.timerdescription);
+	        	$("#starttime").val(data.starttime);
+	        }
+		})
+})
 		function role(title,url,w,h){
 			layer_show(title,url,w,h);
 			

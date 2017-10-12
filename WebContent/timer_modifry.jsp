@@ -44,15 +44,15 @@
 		<br/>
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>定时类型</label>
 		<select  style='width:40%' class="select" size="1" name="timer" id="timer">
-			<option value="1" selected>每日</option>
+			<option value="1" >每日</option>
 			<option value="2" >每周</option>
 			<option value="3" >每月</option>
 		</select>
 			<br/>
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间</label>
 		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({minDate:'%y-%M-{%d}',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
-		id="starttime" name="starttime">
-	
+		id="start" name="start">
+	<input type="hidden" id='stationId' name='stationId'>
 		<br/>
 		<label class="form-label col-xs-6 col-sm-3"><span class="c-red">*</span>任务描述</label>	
 		<textarea name="timerdescription" id='timerdescription' style='width:60%' cols="" rows="" class="textarea" ></textarea>		
@@ -171,8 +171,41 @@
 		return fmt;
 	}		
 
-	function modaldemo(){
-		$("#modal-demo").modal("show")}
+	$(document).ready(function() {	
+		var Request = new Object();
+		Request = GetRequest();
+		var timerId = Request['timerId'];
+	
+		var params = {
+			"timerId" : timerId,
+		}
+	$.ajax({  
+		 type: "post",    
+	        async: true,    
+	        url: "/management/searchtimer.do",  
+	        data: JSON.stringify(params),
+	        dataType: "json", 
+	        contentType: "application/json; charset=utf-8",   
+	        error: function(data){  
+	        	alert("出错了！！:"+data.msg);
+	        } , 
+	        success: function(data) { 
+	        	$("#timername").val(data.timename);
+	        	$("#timer").val(data.timer);
+	        	$("#timerdescription").val(data.timerdescription);
+	        	$("#start").val(data.starttime);
+	        	$("#stationId").val(data.stationId);
+	        }
+		})
+})
+		function modaldemo(){
+				$("#modal-demo").modal("show")
+			}
+	
+		function role(title,url,w,h){
+			layer_show(title,url,w,h);
+			
+		}
 		function add() {
 
 			$('.skin-minimal input').iCheck({
@@ -183,19 +216,18 @@
 			var form = new FormData(document.getElementById("add"));			
 			var Request = new Object(); 
 			Request = GetRequest(); 
-			StationId = Request['StationId'];	
-			StationId=46
-			form.append("stationId",StationId)
-
+			var timerId = Request['timerId'];
+	
+			form.append("timeId",timerId)
+	
 			$.ajax({
 
 				type : 'POST',
-				url : "/management/addtimer.do",
+				url : "/management/modifrytimer.do",
 				data : form,
 				async : false,
 				processData : false,
 				contentType : false,
-				
 				success : function(data) {
 					layer.msg('已添加!', {
 						icon : 1,
@@ -210,10 +242,6 @@
 				},
 			});
 
-		}
-		function role(title,url,w,h){
-			layer_show(title,url,w,h);
-			
 		}
 	</script>
 

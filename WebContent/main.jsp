@@ -47,7 +47,7 @@
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 用户主页<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="admin_user.jsp" data-title="用户主页" href="javascript:void(0)">用户主页</a></li>
+					<li><a data-href="user-main.jsp" data-title="用户主页" href="javascript:void(0)">用户主页</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -63,7 +63,15 @@
 			<dt><i class="Hui-iconfont">&#xe6e0;</i>任务<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="gas_checklist_list.jsp" data-title="任务管理" href="javascript:void(0)">文档管理(废气)</a></li>
+					<li><a data-href="mission_list.jsp" data-title="任务管理" href="javascript:void(0)">任务管理</a></li>
+				</ul>
+			</dd>
+		</dl>	
+		<dl id="menu-timer">
+			<dt><i class="Hui-iconfont">&#xe6e0;</i>定时任务<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="timer_list.jsp" data-title="定时任务管理" href="javascript:void(0)">定时任务管理</a></li>
 				</ul>
 			</dd>
 		</dl>	
@@ -112,7 +120,7 @@
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-					<span title="用户主页" data-href="admin_user.jsp">用户主页</span>
+					<span title="用户主页" data-href="user-main.jsp">用户主页</span>
 					<em></em></li>
 		</ul>
 	</div>
@@ -121,7 +129,7 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="admin_user.jsp"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="user-main.jsp"></iframe>
 	</div>
 </div>
 </section>

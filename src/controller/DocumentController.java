@@ -85,7 +85,7 @@ public class DocumentController {
 			}
         }
         long  endTime=System.currentTimeMillis();
-        System.out.println("方法三的运行时间："+String.valueOf(endTime-startTime)+"ms");
+
 		
 		
 	}

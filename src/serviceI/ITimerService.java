@@ -15,4 +15,5 @@ public interface ITimerService {
 	public void modifryTimer(BeanTimer Timer)throws BaseException	;
 	public void DelTimer(int TimerId)throws BaseException;
 	public boolean checkTimer(BeanTimer Timer)throws BaseException;
+	public List<BeanTimer> loadmission(int timer) ;
 }

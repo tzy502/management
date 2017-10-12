@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -47,31 +48,46 @@ public class CompanyController {
 	}
 	@RequestMapping(value = "/addCompany.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String addCompany(BeanCompany bc) throws JSONException{
+	public String addCompany(BeanCompany bc) throws JSONException, UnsupportedEncodingException{
 		try {
+			String Companyname=new String(bc.getCompanyname().getBytes("ISO-8859-1"),"UTF-8"); 
+			String Companyaddress=new String(bc.getCompanyaddress().getBytes("ISO-8859-1"),"UTF-8"); 
+			String boss=new String(bc.getBoss().getBytes("ISO-8859-1"),"UTF-8"); 
+			String TEL=new String(bc.getTEL().getBytes("ISO-8859-1"),"UTF-8"); 
+			bc.setBoss(boss);
+			bc.setTEL(TEL);
+			bc.setCompanyname(Companyname);
+			bc.setCompanyaddress(Companyaddress);
 			ics.addCompany(bc);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			JSONObject jo = new JSONObject();
 			jo.put("msg", e.getMessage());
-			System.out.println(jo.toString());
+	
 			return jo.toString();
 		}
 		return null;
 	}
 	@RequestMapping(value = "/modifryCompany.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String modifryCompany(BeanCompany bc) throws JSONException{
+	public String modifryCompany(BeanCompany bc) throws JSONException, UnsupportedEncodingException{
 		try {
-			System.out.println(bc.getCompanyid()+"from controller");
+			String Companyname=new String(bc.getCompanyname().getBytes("ISO-8859-1"),"UTF-8"); 
+			String Companyaddress=new String(bc.getCompanyaddress().getBytes("ISO-8859-1"),"UTF-8"); 
+			String boss=new String(bc.getBoss().getBytes("ISO-8859-1"),"UTF-8"); 
+			String TEL=new String(bc.getTEL().getBytes("ISO-8859-1"),"UTF-8"); 
+			bc.setTEL(TEL);
+			bc.setBoss(boss);
+			bc.setCompanyname(Companyname);
+			bc.setCompanyaddress(Companyaddress);
 			ics.modifryCompany(bc);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			JSONObject jo = new JSONObject();
 			jo.put("msg", e.getMessage());
-			System.out.println(jo.toString());
+
 			return jo.toString();
 		}
 		return null;
@@ -92,7 +108,7 @@ public class CompanyController {
 	@RequestMapping(value = "/SearchCompany.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String SearchCompany(@RequestBody String params) throws JSONException{
-		System.out.println("asd");
+
 		JSONObject json = new JSONObject(params);
 		int id=Integer.valueOf(json.getString("companyId"));
 		JSONObject jo = new JSONObject();

@@ -30,7 +30,7 @@ public class DocumentDao implements IDocumentDao {
 	@Override
 	public BeanDocument SearchDocument(int DocumentId) {
 		// TODO 自动生成的方法存根
-		System.out.println("d");
+
 		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = s.beginTransaction();
 		String hql = "from BeanDocument where DocumentId = '" + DocumentId + "'";

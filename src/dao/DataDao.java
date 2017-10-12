@@ -195,7 +195,7 @@ public class DataDao implements IDataDao {
 					+ "' and  mTime> '"+start+"' and mTime< '"+end+"'";
 
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-			System.out.println(MN +"    "+InfectCode);
+	
 
 		
 			java.sql.ResultSet rs=pst.executeQuery();	

@@ -29,7 +29,7 @@ public class StandardController {
 	public String addStandard(BeanStandard bs) throws JSONException{
 		
 		try {
-			System.out.println("asdasdasdas"+bs.getMinvaule());
+		
 			iss.addStandard(bs);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
@@ -37,7 +37,7 @@ public class StandardController {
 			e.printStackTrace();
 			JSONObject jo = new JSONObject();
 			jo.put("msg", e.getMessage());
-			System.out.println(jo.toString());
+		
 			return jo.toString();
 		}
 		
@@ -53,7 +53,7 @@ public class StandardController {
 			// TODO Auto-generated catch block
 			JSONObject jo = new JSONObject();
 			jo.put("msg", e.getMessage());
-			System.out.println(jo.toString());
+	
 			return jo.toString();
 		
 		}
@@ -82,7 +82,7 @@ public class StandardController {
 			jo.put("minvaule", String.valueOf(result.get(i).getMinvaule()));
 			jsonarray.put(jo);	
 			}  
-		System.out.println("SearchStandard"+jsonarray);
+
 		return jsonarray.toString();
 	}
 	@RequestMapping(value = "/SearchStandard.do", produces = "application/json; charset=utf-8") 

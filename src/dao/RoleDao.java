@@ -34,7 +34,7 @@ public class RoleDao implements IRole {
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-			System.out.println("DAO role");
+	
 		org.hibernate.Query qry = session.createQuery("from BeanRole where roleId=?");
 		qry.setParameter(0, RoleId);
 		java.util.List list = qry.list();

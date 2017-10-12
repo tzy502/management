@@ -132,7 +132,7 @@ public class StationController {
 			e.printStackTrace();
 			JSONObject jo = new JSONObject();
 			jo.put("msg", e.getMessage());
-			System.out.println(jo.toString());
+	
 			return jo.toString();
 		}
 		return null;

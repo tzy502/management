@@ -30,7 +30,7 @@ public class MissionDao implements IMissionDao {
 	@Override
 	public BeanMission SearchMission(int MissionId) {
 		// TODO 自动生成的方法存根
-		System.out.println("d");
+
 		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = s.beginTransaction();
 		String hql = "from BeanMission where Missionid = '" + MissionId + "'";
@@ -96,7 +96,49 @@ public class MissionDao implements IMissionDao {
 	}
 
 	@Override
-	public List<BeanMission> loadUserMission(String userId) {
+	public List<BeanMission> loadUserMission(String userId,int type) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "from BeanMission where userid=? and type=? and status=1";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, userId);
+		qry.setParameter(1, type);
+		@SuppressWarnings("unchecked")
+		List<BeanMission> result = qry.list();
+		tx.commit();
+		return result;
+	}
+
+	@Override
+	public List<BeanMission> loadunfinishMission(String userId) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "from BeanMission where userid=? and (status=5 OR status=2)";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, userId);
+
+		@SuppressWarnings("unchecked")
+		List<BeanMission> result = qry.list();
+		tx.commit();
+		return result;
+	}
+	@Override
+	public List<BeanMission> loadnewMission(String userId) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "from BeanMission where userid=? and status=4 ";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, userId);
+
+		@SuppressWarnings("unchecked")
+		List<BeanMission> result = qry.list();
+		tx.commit();
+		return result;
+	}
+	@Override
+	public List<BeanMission> loadALLUserMission(String userId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		String hql = "from BeanMission where userid=?";
@@ -107,4 +149,5 @@ public class MissionDao implements IMissionDao {
 		tx.commit();
 		return result;
 	}
+	
 }

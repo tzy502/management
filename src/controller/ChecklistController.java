@@ -137,7 +137,6 @@ public class ChecklistController {
 			e.printStackTrace();
 		}
 	
-		System.out.println(jsonarraylist.toString());
 		return jsonarraylist.toString();
 	}
 }

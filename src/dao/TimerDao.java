@@ -1,5 +1,7 @@
 package dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -30,7 +32,7 @@ public class TimerDao implements ITimerDao {
 	@Override
 	public BeanTimer SearchTimer(int TimerId) {
 		// TODO 自动生成的方法存根
-		System.out.println("d");
+
 		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = s.beginTransaction();
 		String hql = "from BeanTimer where timeId = '" + TimerId + "'";
@@ -102,6 +104,20 @@ public class TimerDao implements ITimerDao {
 		String hql = "from BeanTimer where userid=?";
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, userId);
+		@SuppressWarnings("unchecked")
+		List<BeanTimer> result = qry.list();
+		tx.commit();
+		return result;
+	}
+
+	@Override
+	public List<BeanTimer> loadmission(int timer) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "from BeanTimer where timer=? and starttime<NOW()";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, timer);
 		@SuppressWarnings("unchecked")
 		List<BeanTimer> result = qry.list();
 		tx.commit();

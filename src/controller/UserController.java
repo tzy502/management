@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,15 +30,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import daoI.IStationDao;
+import model.BeanMission;
+import model.BeanTimer;
 import model.BeanUser;
+import serviceI.IMissionService;
+import serviceI.ITimerService;
 import serviceI.IUserService;
+import timer.Timing;
 import util.BaseException;
 
 @Controller  
 public class UserController {
 	@Autowired
 	private IUserService IUserService;
-
+	@Autowired
+	private  IStationDao isd;
+	@Autowired
+	private  ITimerService its;
+	@Autowired
+	private  IMissionService ims;
 	//登录
 	@RequestMapping(value = "/login.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
@@ -47,7 +60,7 @@ public class UserController {
 		JSONObject jo = new JSONObject();
 		BeanUser user = new BeanUser();
 		try {
-			System.out.println("c");
+
 			user = IUserService.login(userId, password);
 		} catch (BaseException e) {
 			// TODO �Զ����ɵ� catch ��
@@ -68,7 +81,7 @@ public class UserController {
 	@RequestMapping(value = "/updateUser.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String updateUser(@RequestBody String params) throws JSONException{
-		System.out.println(params);
+		
 		JSONObject json = new JSONObject(params);
 		String userId = (String) json.get("userId");
 		String userName = (String) json.get("userName");
@@ -90,7 +103,7 @@ public class UserController {
 	@RequestMapping(value = "/searchUser.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String searchUser(@RequestBody String params) throws JSONException{
-		System.out.println(params);
+		
 		JSONObject json = new JSONObject(params);
 		String userId = (String) json.get("userId");
 		JSONObject jo = new JSONObject();
@@ -118,7 +131,7 @@ public class UserController {
 	@ResponseBody
 	public String loadAllUser() throws JSONException{
 		List<BeanUser> users = null;
-		System.out.println("userId111111:");
+
 		try {
 			users = IUserService.loadAllUser();
 		} catch (BaseException e) {
@@ -144,7 +157,7 @@ public class UserController {
 	@RequestMapping(value = "/deleteUser.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String deleteUser(@RequestBody String params) throws JSONException{
-		System.out.println(params);
+		
 		JSONObject json = new JSONObject(params);
 		String userId = (String) json.get("userId");
 		JSONObject jo = new JSONObject();
@@ -187,7 +200,7 @@ public class UserController {
 	@RequestMapping(value = "/resetPassword.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String resetPassword(@RequestBody String params) throws JSONException{
-		System.out.println(params);
+		
 		JSONObject json = new JSONObject(params);
 		String userId = (String) json.get("userId");
 		JSONObject jo = new JSONObject();
@@ -206,11 +219,12 @@ public class UserController {
 	@RequestMapping(value = "/changePassword.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String changePassword(@RequestBody String params) throws JSONException{
-		System.out.println(params);
+		
 		JSONObject json = new JSONObject(params);
 		String userId = (String) json.get("userId");
 		String oldPassword = (String) json.get("oldPassword");
 		String newPassword = (String) json.get("newPassword");
+		
 		JSONObject jo = new JSONObject();
 		try {
 			IUserService.changePassword(userId, oldPassword, newPassword);
@@ -223,7 +237,31 @@ public class UserController {
 		return jo.toString();  
 	}
 
-
+	@RequestMapping(value = "/loadmain.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String loadmain(@RequestBody String params) throws JSONException{
+		JSONObject json = new JSONObject(params);
+		String userId = (String) json.get("userId");
+		JSONObject jo = new JSONObject();
+		try {
+			int newmission=ims.loaduserMission(userId, 1).size();
+			int newautomission=ims.loaduserMission(userId, 2).size();
+			int newwarning=ims.loaduserMission(userId, 3).size();
+			int unfinish=ims.loadunfinishMission(userId).size();
+			int newmessage=ims.loadnewMission(userId).size();
+			jo.put("newmission", newmission);
+			jo.put("newautomission", newautomission);
+			jo.put("newwarning", newwarning);
+			jo.put("unfinish", unfinish);
+			jo.put("newmessage", newmessage);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			jo.put("msg", e.getMessage());
+			return jo.toString();
+		}
+		return jo.toString();
+	}
+	
 	
 }
 

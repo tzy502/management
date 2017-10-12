@@ -18,7 +18,7 @@ public class RoleService implements IRoleService {
 	@Override
 	public void addRole(String roleName,String roleIntroduction,int level) throws BaseException {
 		// TODO Auto-generated method stub
-		System.out.println("正在添加来自s");
+
 		BeanRole br=new BeanRole();
 		br.setRoleName(roleName);
 		br.setRoleIntroduction(roleIntroduction);
@@ -32,7 +32,7 @@ public class RoleService implements IRoleService {
 		BeanRole br=new BeanRole();
 		br=null;
 		br=rd.SearchRole(roleId);
-		System.out.println(br.getRoleId());
+
 		if(br==null){
 			throw new BaseException("查无数据");
 		}

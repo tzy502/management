@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,16 +36,21 @@ public class TimerController {
 	private ITimerService its;
 	static Map<Integer,String> timer=new HashMap<Integer,String>(5);
 	static {
-		timer.put(1, "每日一次");
-		timer.put(2, "每周一次");
-		timer.put(3, "每月一次");
+		timer.put(1, "每日");
+		timer.put(2, "每周");
+		timer.put(3, "每月");
 		
 		}
 	@RequestMapping(value = "/addtimer.do", produces = "application/json; charset=utf-8") 	
-	public String addtimer(BeanTimer bt,HttpServletRequest request) throws JSONException{
-		System.out.println(bt.getTimername());
+	public String addtimer(BeanTimer bt,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
+	
 		try {
+			String timername=new String(bt.getTimername().getBytes("ISO-8859-1"),"UTF-8"); 
+			String timerdescription=new String(bt.getTimerdescription().getBytes("ISO-8859-1"),"UTF-8"); 
+			bt.setTimerdescription(timerdescription);
+			bt.setTimername(timername);
 			bt.setStarttime(Timestamp.valueOf(request.getParameter("start")));
+			
 			its.addTimer(bt);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
@@ -53,8 +59,13 @@ public class TimerController {
 		return "ok";
 	}
 	@RequestMapping(value = "/modifrytimer.do", produces = "application/json; charset=utf-8") 	
-	public String modifrytimer(BeanTimer bt) throws JSONException{
+	public String modifrytimer(BeanTimer bt,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
 		try {
+			String timername=new String(bt.getTimername().getBytes("ISO-8859-1"),"UTF-8"); 
+			String timerdescription=new String(bt.getTimerdescription().getBytes("ISO-8859-1"),"UTF-8"); 
+			bt.setTimerdescription(timerdescription);
+			bt.setTimername(timername);
+			bt.setStarttime(Timestamp.valueOf(request.getParameter("start")));
 			its.modifryTimer(bt);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
@@ -74,6 +85,32 @@ public class TimerController {
 			e.printStackTrace();
 		}
 		return json.toString();
+	}
+	@RequestMapping(value = "/searchtimer.do", produces = "application/json; charset=utf-8") 	
+	@ResponseBody
+	public String searchtimer(@RequestBody String params) throws JSONException
+	{
+		JSONObject json = new JSONObject(params);
+		int id=Integer.valueOf(json.getString("timerId"));
+		JSONArray jsonarraylist = new JSONArray();
+		BeanTimer result =new BeanTimer();
+		JSONObject jo = new JSONObject();
+		try {
+			result=its.SearchTimer(id);
+		
+			jo.put("timeId",result.getTimeId());
+			jo.put("stationId", result.getStationId());
+			jo.put("stationname", iss.SearchStation(result.getStationId()).getStationname());
+			jo.put("timername", timer.get(result.getTimer()));
+			jo.put("timer", result.getTimer());
+			jo.put("timename", result.getTimername());
+			jo.put("timerdescription", result.getTimerdescription());
+			jo.put("starttime", result.getStarttime());	
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jo.toString();
 	}
 	@RequestMapping(value = "/loadUsertimer.do", produces = "application/json; charset=utf-8") 	
 	@ResponseBody

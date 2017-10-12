@@ -61,6 +61,12 @@ public class TimerService implements ITimerService {
 		return md.loadUserTimer(UserId);
 	}
 
+	@Override
+	public List<BeanTimer> loadmission(int timer) {
+		// TODO Auto-generated method stub
+		return md.loadmission(timer);
+	}
+
 
 
 }

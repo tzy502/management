@@ -51,7 +51,7 @@ public class DataController {
 			for(int j=i;j<result.size();j++){
 				
 				k++;
-				System.out.println(k);
+
 				diffent=result.get(max).getTime().getTime()-result.get(j).getTime().getTime();
 				if(diffent<0){
 					max=j;
@@ -68,7 +68,7 @@ public class DataController {
 		
 		for(int i=0;i<result.size();i++){
 			JSONObject jo = new JSONObject();
-			System.out.println(result.get(i).getStationname());
+	
 			jo.put("stationId", result.get(i).getStationId());
 			jo.put("stationname", result.get(i).getStationname());
 			jo.put("time", String.valueOf(result.get(i).getTime()));
@@ -84,7 +84,7 @@ public class DataController {
 			jo.put("gS08", String.valueOf(result.get(i).getgS08()));
 			jo.put("gB02", String.valueOf(result.get(i).getgB02()));
 			jo.put("Sg05", String.valueOf(result.get(i).getSg05()));
-			System.out.println(result.get(i).getG02());
+
 			json.put(jo);			
 		}
 	

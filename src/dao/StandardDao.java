@@ -117,7 +117,7 @@ public class StandardDao implements IStandardDao {
 			tx.rollback();
 		}
 		if(result.size()==0){
-			System.out.println("asdasdafzsdfa"+result.size());
+
 			return true;
 		}
 		else{

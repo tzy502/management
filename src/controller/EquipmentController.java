@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class EquipmentController {
 		
 		try {
 			result=ies.loadAllEquipment(stationId);
-			System.out.println(result.size());
+
 			for(int i=0;i<result.size();i++){
 				JSONObject jo = new JSONObject();
 				jo.put("equipmentid", result.get(i).getEquipmentid());
@@ -52,33 +53,34 @@ public class EquipmentController {
 	}
 	@RequestMapping("modifryequipment.do")
 	@ResponseBody
-	public String modifryequipment (BeanEquipment be) throws NumberFormatException, JSONException{
+	public String modifryequipment (BeanEquipment be) throws NumberFormatException, JSONException, UnsupportedEncodingException{
 		try {
-			System.out.println(be.getEquipmentid());
-			
+			String effect=new String(be.getEffect().getBytes("ISO-8859-1"),"UTF-8"); 
+			be.setEffect(effect);
 			ies.modifryEquipment(be);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			JSONObject jo = new JSONObject();
 			jo.put("msg", e.getMessage());
-			System.out.println(jo.toString());
+
 			return jo.toString();
 		}
 		return null;
 	}
 	@RequestMapping("addequipment.do")
 	@ResponseBody
-	public String addequipment (BeanEquipment be) throws NumberFormatException, JSONException{
+	public String addequipment (BeanEquipment be) throws NumberFormatException, JSONException, UnsupportedEncodingException{
 		try {
-			
+			String effect=new String(be.getEffect().getBytes("ISO-8859-1"),"UTF-8"); 
+			be.setEffect(effect);
 			ies.addEquipment(be);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			JSONObject jo = new JSONObject();
 			jo.put("msg", e.getMessage());
-			System.out.println(jo.toString());
+
 			return jo.toString();
 		}
 		return null;
@@ -89,7 +91,7 @@ public class EquipmentController {
 		JSONArray jsonarrary = new JSONArray();
 		JSONObject json = new JSONObject(params);
 		int equipmentid =Integer.valueOf(json.getString("equipmentid"));
-		System.out.println(equipmentid);
+
 		try {
 			ies.DelEquipment(equipmentid);
 			
@@ -105,7 +107,7 @@ public class EquipmentController {
 		JSONObject json = new JSONObject(params);
 		int equipmentid =Integer.valueOf(json.getString("equipmentid"));
 		JSONObject jo = new JSONObject();
-		System.out.println(equipmentid);
+
 		try {
 			BeanEquipment be=new BeanEquipment();
 			be=ies.SearchEquipment(equipmentid);

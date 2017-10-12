@@ -47,17 +47,18 @@
 		<!-- Echo all executed SQL to stdout -->
 
 		<!-- <property name="show_sql">true</property> -->
-		<mapping class="model.BeanUser" />
-		<mapping class="model.BeanRole" />
-		<mapping class="model.BeanDocument" />
-		<mapping class="model.BeanCompany" />
-		 <mapping class="model.BeanStation"/>   
-		 <mapping class="model.BeanEquipment"/>   
-		  <mapping class="model.BeanInfect"/>   
-		   <mapping class="model.BeanStandard"/>   
-		   <mapping class="model.BeanChecklist"/>   
-<mapping class="model.BeanMission"/> 
-<mapping class="model.BeanTimer"/> 
+			<mapping class="model.BeanUser" />
+			<mapping class="model.BeanRole" />
+			<mapping class="model.BeanDocument" />
+			<mapping class="model.BeanCompany" />
+			<mapping class="model.BeanStation"/>   
+			<mapping class="model.BeanEquipment"/>   
+			<mapping class="model.BeanInfect"/>   
+			<mapping class="model.BeanStandard"/>   
+			<mapping class="model.BeanChecklist"/>   
+			<mapping class="model.BeanMission"/> 
+			<mapping class="model.BeanTimer"/> 
+			<mapping class="model.BeanWarning"/> 
 	</session-factory>
 
 </hibernate-configuration>

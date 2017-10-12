@@ -25,7 +25,7 @@ public class StationDao implements IStationDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			System.out.println(Station.getStationname()+"DAO");
+
 			session.save(Station);
 			tx.commit();
 		} catch (Exception e) {
@@ -95,7 +95,7 @@ public class StationDao implements IStationDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			System.out.println(Station.getStationname()+"DAO");
+
 			session.delete(Station);
 			tx.commit();
 		} catch (Exception e) {

@@ -1,6 +1,7 @@
 package controller;
 
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,11 +53,16 @@ public class MissionController {
 	
 	@RequestMapping(value = "/addmission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String addMission(BeanMission bm,HttpServletRequest request) throws JSONException{
+	public String addMission(BeanMission bm,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
 		bm.setEnddate(Timestamp.valueOf(request.getParameter("end")));
 		String start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( new Date()); 
 		bm.setStartdate(Timestamp.valueOf(start));
 		bm.setStatus(1);
+		bm.setType(1);
+		String missionname=new String(bm.getMissionname().getBytes("ISO-8859-1"),"UTF-8"); 
+		String description=new String(bm.getDescription().getBytes("ISO-8859-1"),"UTF-8"); 
+		bm.setMissionname(missionname);
+		bm.setDescription(description);
 		try {
 
 			ims.addMission(bm);
@@ -68,8 +74,12 @@ public class MissionController {
 		return "ok";
 	}
 	@RequestMapping(value = "/modifryMission.do", produces = "application/json; charset=utf-8") 
-	public String modifryMission(BeanMission bm,HttpServletRequest request) throws JSONException{
+	public String modifryMission(BeanMission bm,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
 		try {
+			String missionname=new String(bm.getMissionname().getBytes("ISO-8859-1"),"UTF-8"); 
+			String description=new String(bm.getDescription().getBytes("ISO-8859-1"),"UTF-8"); 
+			bm.setMissionname(missionname);
+			bm.setDescription(description);
 			bm.setEnddate(Timestamp.valueOf(request.getParameter("end")));
 			bm.setStatus(4);
 			bm.setStartdate(ims.SearchMission(bm.getMissionid()).getStartdate());
@@ -151,12 +161,15 @@ public class MissionController {
 	@RequestMapping(value = "/loadUserMission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String loadUserMission(@RequestBody String params) throws JSONException{
+		
 		JSONObject json = new JSONObject(params);
 		String id=json.getString("userId");
 		JSONArray jsonarraylist = new JSONArray();
 		try {
 			List<BeanMission> result =new ArrayList<BeanMission>();
-			result=ims.loaduserMission(id);		
+			
+			result=ims.loadALLUserMission(id);
+			
 			for(int i=0;i<result.size();i++){
 				JSONObject jo = new JSONObject();
 				jo.put("Missionid", result.get(i).getMissionid());
@@ -219,7 +232,6 @@ public class MissionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(jsonarray.toString());
 		return jsonarray.toString();
 	}
 	@RequestMapping(value = "/loadStationMission.do", produces = "application/json; charset=utf-8") 

@@ -56,9 +56,27 @@ public class MissionService implements IMissionService {
 	}
 
 	@Override
-	public List<BeanMission> loaduserMission(String UserId) throws BaseException {
+	public List<BeanMission> loaduserMission(String UserId,int type) throws BaseException {
 		// TODO Auto-generated method stub
-		return md.loadUserMission(UserId);
+		return md.loadUserMission(UserId,type);
+	}
+
+	@Override
+	public List<BeanMission> loadALLUserMission(String userId) {
+		// TODO Auto-generated method stub
+		return md.loadAllMission();
+	}
+
+	@Override
+	public List<BeanMission> loadunfinishMission(String userId) {
+		// TODO Auto-generated method stub
+		return md.loadunfinishMission(userId);
+	}
+
+	@Override
+	public List<BeanMission> loadnewMission(String userId) {
+		// TODO Auto-generated method stub
+		return md.loadnewMission(userId);
 	}
 
 

@@ -79,8 +79,7 @@ function add(){
 		increaseArea: '20%'
 	});
 	var form = new FormData(document.getElementById("add"));
-	
-	
+
 $.ajax({
 		
 		type: 'POST',

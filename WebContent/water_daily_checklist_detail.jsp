@@ -613,8 +613,7 @@
 					
 					var input=JSON.parse(data.checklistinput);	
 				
-					alert("123")
-					
+			
 					for(var i = 0; i < input.length; i++){ 
 						console.log(input[i].id);					
 						$("#"+input[i].id).val(input[i].value);					

@@ -53,7 +53,7 @@ public class UserService implements IUserService{
 		}
 		
 		try {
-			System.out.println(user.getPassword());
+	
 			if(checkPassword(password,user.getPassword()) != true){
 				throw new BaseException("密码错误！");
 			}

@@ -24,7 +24,6 @@ public class RoleController {
 	@RequestMapping(value = "/addRole.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String addRole(@RequestBody String params) throws JSONException{
-		System.out.println("正在添加 来自c");
 		JSONObject json = new JSONObject(params);
 		String rolename=json.getString("roleName");
 		String roleIntroduction=json.getString("roleIntroduction");
@@ -36,7 +35,7 @@ public class RoleController {
 			e.printStackTrace();
 			JSONObject jo = new JSONObject();
 			jo.put("msg", e.getMessage());
-			System.out.println(jo.toString());
+
 			return jo.toString();
 		}
 		return null;
@@ -73,7 +72,7 @@ public class RoleController {
 	public String delRole(@RequestBody String params) throws JSONException{
 		JSONObject jsonobject = new JSONObject(params);
 		int roleId=Integer.valueOf((String)jsonobject.get("roleId"));
-		System.out.println("from c role    "+roleId);
+
 		try {
 			irs.DelRole(roleId);
 		} catch (BaseException e) {
@@ -86,7 +85,7 @@ public class RoleController {
 	@ResponseBody
 	public String SearchRole(@RequestBody String params) throws JSONException{
 		JSONObject json = new JSONObject(params);
-		System.out.println("searchRole");
+	
 		int roleId=Integer.valueOf((String)json.get("roleId"));
 		BeanRole br=new BeanRole();
 		try {
@@ -110,7 +109,7 @@ public class RoleController {
 	@RequestMapping(value = "/modifryRole.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String modifryRole(@RequestBody String params) throws JSONException{
-		System.out.println("search");
+	
 		JSONObject json = new JSONObject(params);
 		int roleId=Integer.valueOf((String)json.get("roleId"));		
 		String rolename=json.getString("roleName");
@@ -123,7 +122,7 @@ public class RoleController {
 			e.printStackTrace();
 			JSONObject jo = new JSONObject();
 			jo.put("msg", e.getMessage());
-			System.out.println(jo.toString());
+		
 			return jo.toString();
 		}
 		return null;

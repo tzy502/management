@@ -20,6 +20,7 @@ public class BeanMission {
 	private int status;
 	private String description;
 	private String missionname;
+	private int type;//1手动 2定时 3报警 
 	@Id
 	@Column(name = "missionid")
 	public int getMissionid() {
@@ -84,6 +85,13 @@ public class BeanMission {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	@Column(name = "type")
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 	
 

@@ -49,7 +49,7 @@ public class EquipmentService implements IEquipmentService {
 		BeanEquipment be=new BeanEquipment();
 		be.setEquipmentid(EquipmentId);
 		ied.DelEquipment(be);
-		System.out.println(EquipmentId+"s");
+	
 	}
 
 	@Override

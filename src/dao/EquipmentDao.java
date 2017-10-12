@@ -20,7 +20,7 @@ public class EquipmentDao implements IEquipmentDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			System.out.println("dao");
+
 			session.save(Equipment);
 			tx.commit();
 		} catch (Exception e) {
@@ -32,7 +32,7 @@ public class EquipmentDao implements IEquipmentDao {
 	@Override
 	public BeanEquipment SearchEquipment(int EquipmentId) {
 		// TODO 自动生成的方法存根
-		System.out.println("d");
+
 		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = s.beginTransaction();
 		String hql = "from BeanEquipment where EquipmentId = '" + EquipmentId + "'";
@@ -52,7 +52,6 @@ public class EquipmentDao implements IEquipmentDao {
 		@SuppressWarnings("unchecked")
 		List<BeanEquipment> result = qry.list();
 		tx.commit();
-		System.out.println(result.size());
 		return result;
 	}
 
