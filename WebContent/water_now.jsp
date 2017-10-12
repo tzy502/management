@@ -25,12 +25,12 @@
 </head>
 <body>
 
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 职位管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 实时数据 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 		<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
-				<th scope="col" colspan="15">职位列表</th>
+				<th scope="col" colspan="15">实时数据</th>
 			</tr>
 			<tr class="text-c">
 				<th width="120">公司名</th>
@@ -75,18 +75,20 @@
 
 
 $(function(){ 
+	
 	$('body').on('click','#update',function(event){
-		layer_show('职位编辑','water_detail.jsp?stationid='+this.title,'1000','500');
+		layer_show('历史数据','water_detail.jsp?stationid='+this.title,'1000','500');
 	}); 
 
 	$.ajax({  
 		 type: "post",    
-	        async: true,    
+	        async: false,    
 	        url: "/management/loadnewwaterdata.do",  
 	        //data: JSON.stringify(params),
 	        dataType: "json", 
 	        contentType: "application/json; charset=utf-8",   
 	        error: function(data){  
+	        
 	        	alert("出错了！！:"+data.msg);
 	        } , 
 	        success: function(data) { 	        	
@@ -114,12 +116,13 @@ $(function(){
 					str+=""
 					
 	       			$("#tbody-allItem").html(str);  
-	    			
+				
 	    		}
 	        }
 		
 	}
 	)
+
 }
 )
 	

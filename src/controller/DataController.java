@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -33,7 +34,7 @@ public class DataController {
 	@RequestMapping(value = "/loadnewgasdata.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String loadnewgasdata() throws JSONException{
-		
+
 		JSONArray json = new JSONArray();
 		List<BeanGas> result =new ArrayList<BeanGas>();
 		try {
@@ -87,7 +88,7 @@ public class DataController {
 
 			json.put(jo);			
 		}
-	
+
 		return json.toString();
 	}
 	@RequestMapping(value = "/loadnewwaterdata.do", produces = "application/json; charset=utf-8") 
@@ -135,7 +136,8 @@ public class DataController {
 			jo.put("w42", String.valueOf(result.get(i).getW42()));
 			json.put(jo);			
 		}
-	
+
+
 		return json.toString();
 	}
 	@RequestMapping(value = "/loadoldwaterdata.do", produces = "application/json; charset=utf-8") 

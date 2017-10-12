@@ -89,6 +89,7 @@ function getCookie(Name){
         	alert("出错了！！:"+data.msg);
         } , 
         success: function(data) { 
+        	for(var i = 0; i < data.length; i++){  
         	str += "<tr class='text-c'>"+
 			"<td>"+(i+1)+"</td>"+
 			"<td>"+data[i].stationname+"</td>"+
@@ -96,10 +97,10 @@ function getCookie(Name){
 			"<td>"+data[i].type+"</td>"+
 			"<td>"+data[i].warningtime+"</td>"+
 			"</tr>";
-			str+=""
+			str+="";
         	
         	$("#tbody-alldoc").html(str);  
-        	 
+        	}
         }     
     });
 
