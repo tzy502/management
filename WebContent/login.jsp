@@ -92,6 +92,7 @@ function login(){
 	        		document.cookie="userId="+userId+";";
 	        		document.cookie="level="+data.level+";";
 	        		document.cookie="userName="+data.userName+";";
+	        		document.cookie="rolename="+data.rolename+";";
 	        		layer.msg('登录成功!',{icon:1,time:1000});
 
 	        		window.location.href = 'main.jsp';

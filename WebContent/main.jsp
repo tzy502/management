@@ -32,9 +32,15 @@
 		<div class="navbar navbar-fixed-top">
 		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" >运行服务信息化管理系统</a> 
 			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
-				<ul class="cl" id="ul" name="ul">
-				
-				</ul>
+				<ul class="cl">
+					<li id="username" name="username">管理员</li>
+					<li class="dropDown dropDown_hover">
+						<a href="#" class="dropDown_A"><i class='Hui-iconfont'>&#xe60a;</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="Hui-iconfont">&#xe6d5;</i></a>
+						<ul class="dropDown-menu menu radius box-shadow">
+							<li><a href="javascript:;" title= '修改密码' onclick="show('修改密码','changepassword.jsp','700','300')"><i class='Hui-iconfont'>&#xe63f;</i>修改密码</a></li>
+							<li><a href="javascript:;" title= '修改信息' onclick="show('修改信息','user_modirfy.jsp','700','300')"><i class='Hui-iconfont'>&#xe63f;</i>修改信息</a></li>
+							<li><a href="javascript:;" title= '注销' onclick = 'reset()'><i class='Hui-iconfont'>&#xe726;</i>注销</a></li>
+					</ul>
 				</li>
 			</ul>
 		</nav>
@@ -75,6 +81,14 @@
 				</ul>
 			</dd>
 		</dl>	
+		<dl id="menu-maintain">
+			<dt><i class="Hui-iconfont">&#xe6e0;</i>超标数据<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="warning_list.jsp" data-title="超标数据" href="javascript:void(0)">超标数据</a></li>
+				</ul>
+			</dd>
+		</dl>	
 		<dl id="menu-standard">
 			<dt><i class="Hui-iconfont">&#xe687;</i> 数据监控<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -84,7 +98,7 @@
 				</ul>
 			</dd>
 		</dl>
-		<dl id="menu-maintain">
+		<dl id="menu-checklist">
 			<dt><i class="Hui-iconfont">&#xe6e0;</i> 运维<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
@@ -167,27 +181,26 @@ function getCookie(Name){
 	   return returnvalue;
 }
 $(document).ready(function (){
-
 	var userId = getCookie("userId");
 	var userName = getCookie("userName");
+	var level =getCookie("level");
+	var rolename=getCookie("rolename");
 	var str="";
-	str+="<li>"+userName+"</li>"+
-			"<li class='dropDown dropDown_hover'>"+
-			"<a href='#' class='dropDown_A'><i class='Hui-iconfont'>&#xe60a;</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class='Hui-iconfont'>&#xe6d5;</i></a>"+
-			"<ul class='dropDown-menu menu radius box-shadow'>"+
-				"<li><a href='javascript:;' title= '修改密码' onclick='changePassword('修改密码','changepassword.jsp','700','300')'><i class='Hui-iconfont'>&#xe63f;</i>修改密码</a></li>"+
-				"<li><a href='javascript:;' title= '注销' onclick = 'reset()'><i class='Hui-iconfont'>&#xe726;</i>注销</a></li>"+
-				console.log("");
-				$("#ul").html(str);
+//	str+="<li>"+userName+"</li>"+
+	str+="<li id=\"username\" name=\"username\">"+userName+"</li>";
+	$("#username").html(str);
+	if(level>=2){
+		$("#menu-permission").css("display","none");
+		$("#menu-mission").css("display","none");
+		$("#menu-timer").css("display","none");
+		$("#menu-data").css("display","none");
 	
-	
-	
-	
-	
-	
+	}			
 }) 
 
-function changePassword(title,url,w,h){
+function show(title,url,w,h){
+	var userId = getCookie("userId");
+	url=url+"?userId="+userId
 	layer_show(title,url,w,h);
 }
 

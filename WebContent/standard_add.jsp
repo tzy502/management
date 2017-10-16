@@ -30,21 +30,20 @@
 	<form class="form form-horizontal" id="add" >
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>监测数据</label>
-				<td width='20%'><select class="select" size="1"
-					name="infectid" id="infectid">
+				<select style='width:45%' class="select" size="1"name="infectid" id="infectid">
 						<option value="-1" selected>请选择</option>
 
-				</select></td>
+				</select>
 	</div>
 		<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>下限</label>
-		<div class="formControls col-xs-8 col-sm-9">
+		<div class="formControls col-xs-6 col-sm-5">
 			<input type="text" class="input-text" value="" placeholder="下限" id="minvaule" name="minvaule">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上限</label>
-		<div class="formControls col-xs-8 col-sm-9">
+		<div class="formControls col-xs-6 col-sm-5">
 			<input type="text" class="input-text" value="" placeholder="上限" id="maxvaule" name="maxvaule">
 		</div>
 	</div>

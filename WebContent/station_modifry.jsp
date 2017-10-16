@@ -219,28 +219,27 @@
 			return returnvalue;
 		}
 		$(document)	.ready(function() {
-							$
-									.ajax({
-										type : "post",
-										async : true,
-										url : "/management/loadAllCompany.do",
-										//data: JSON.stringify(params),
-										dataType : "json",
-										contentType : "application/json; charset=utf-8",
-										error : function(data) {
-											alert("出错了！！:" + data.msg);
-										},
-										success : function(data) {
-											var str="";
-											for (var i = 0; i < data.length; i++) {
-												str += "<option value='"+data[i].companyId+"' >"
-														+ data[i].companyname
-														+ "</option>"
-											}
+			$.ajax({
+					type : "post",
+					async : true,
+					url : "/management/loadAllCompany.do",
+					//data: JSON.stringify(params),
+					dataType : "json",
+					contentType : "application/json; charset=utf-8",
+					error : function(data) {
+						alert("出错了！！:" + data.msg);
+					},
+					success : function(data) {
+						var str="";
+						for (var i = 0; i < data.length; i++) {
+							str += "<option value='"+data[i].companyId+"' >"
+									+ data[i].companyname
+									+ "</option>"
+						}
 
-											$("#companyid").html(str);
-										}
-									})
+						$("#companyid").html(str);
+					}
+				})
 
 							$
 									.ajax({

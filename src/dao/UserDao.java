@@ -63,7 +63,7 @@ public class UserDao implements IUserDao{
 		// TODO 自动生成的方法存根
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		String hql = "from BeanUser ";
+		String hql = "from BeanUser where userId<>'admin'";
 		hql += " order by userId ";
 		Query qry = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
