@@ -148,6 +148,7 @@ public class DataController {
 		Timestamp start=Timestamp.valueOf(json.getString("start"));
 		Timestamp end=Timestamp.valueOf(json.getString("end"));
 		int StationId=json.getInt("StationId");
+		int endnum;
 		List<BeanWater> result =new ArrayList<BeanWater>();
 		try {
 			result=ids.loadwaterdata(StationId, start, end);
@@ -155,7 +156,12 @@ public class DataController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for(int i=0;i<result.size();i++){
+		if(result.size()<100){
+			endnum=result.size();
+		}else{
+			endnum=100;
+		}
+		for(int i=0;i<endnum;i++){
 			JSONObject jo = new JSONObject();
 			jo.put("stationId", result.get(i).getStationId());
 			jo.put("stationname", result.get(i).getStationname());
@@ -179,7 +185,7 @@ public class DataController {
 
 		Timestamp start=Timestamp.valueOf(json.getString("start"));
 		Timestamp end=Timestamp.valueOf(json.getString("end"));
-		
+		int endnum;
 		int StationId=json.getInt("StationId");
 
 		List<BeanGas> result =new ArrayList<BeanGas>();
@@ -189,7 +195,12 @@ public class DataController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for(int i=0;i<result.size();i++){
+		if(result.size()<100){
+			endnum=result.size();
+		}else{
+			endnum=100;
+		}
+		for(int i=0;i<endnum;i++){
 			JSONObject jo = new JSONObject();
 			jo.put("stationId", result.get(i).getStationId());
 			jo.put("stationname", result.get(i).getStationname());

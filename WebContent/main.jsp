@@ -194,7 +194,13 @@ $(document).ready(function (){
 		$("#menu-mission").css("display","none");
 		$("#menu-timer").css("display","none");
 		$("#menu-data").css("display","none");
-	
+		if(level>=3){
+			$("#menu-checklist").css("display","none");
+			if(level>=4){
+				$("#menu-standard").css("display","none");
+			}
+		}
+		
 	}			
 }) 
 
