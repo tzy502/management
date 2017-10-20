@@ -60,7 +60,7 @@ public class MateriallogController {
 	public String loadMaterialMateriallog(@RequestBody String params) throws JSONException{
 		JSONArray jsonarry = new JSONArray();
 		JSONObject json = new JSONObject(params);
-		int id=Integer.valueOf(json.getString("material"));
+		int id=Integer.valueOf(json.getString("materialId"));
 		List<BeanMaterialLog> result =new ArrayList<BeanMaterialLog>();
 		try {
 			result=imls.loadMaterialMaterialLog(id);
@@ -68,7 +68,11 @@ public class MateriallogController {
 				JSONObject jo = new JSONObject();
 				jo.put("materialname",ims.SearchMaterial(result.get(i).getMaterialId()).getMaterialname());
 				jo.put("userId",ius.searchUser(result.get(i).getUserId()).getUserName() );
-				jo.put("num", result.get(i).getNum());
+				if(result.get(i).getNum()<0){
+					jo.put("num", "取出了"+(-1*result.get(i).getNum())+"件");
+				}else{
+					jo.put("num", "新增了"+result.get(i).getNum()+"件");
+				}
 				jo.put("date", result.get(i).getDate());
 				jsonarry.put(jo);
 			}

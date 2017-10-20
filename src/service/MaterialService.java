@@ -20,7 +20,7 @@ public class MaterialService implements IMaterialService {
 	@Resource
 	private IMaterialLogDao mdl;
 	@Override
-	public void addMaterial(BeanMaterial Material) throws BaseException {
+	public void addMaterial(BeanMaterial Material,String userId) throws BaseException {
 		// TODO Auto-generated method stub
 		md.addMaterial(Material);
 
@@ -42,17 +42,25 @@ public class MaterialService implements IMaterialService {
 	}
 
 	@Override
-	public void modifryMaterial(BeanMaterial Material,String userId) throws BaseException {
+	public void modifryMaterial(BeanMaterial Material) throws BaseException {
 		// TODO Auto-generated method stub
+		md.modifryMaterial(Material);
+	}
+
+	@Override
+	public void modifryMaterialover(BeanMaterial Material,String userId) throws BaseException {
+		// TODO Auto-generated method stub
+		BeanMaterial bm =md.SearchMaterial(Material.getMaterialId());
 		int oldnum=md.SearchMaterial(Material.getMaterialId()).getMaterialover();
 		BeanMaterialLog bml=new BeanMaterialLog();
 		bml.setMaterialId(Material.getMaterialId());
-		bml.setNum(oldnum-Material.getMaterialover());
+		bml.setNum(Material.getMaterialover());
 		Timestamp date = new Timestamp(System.currentTimeMillis()); 
 		bml.setDate(date);
-		bml.setUserId(userId);
+		bml.setUserId(userId);		
 		mdl.addMaterialLog(bml);
-		md.modifryMaterial(Material);
+		bm.setMaterialover(oldnum+Material.getMaterialover());
+		md.modifryMaterial(bm);
 
 	}
 

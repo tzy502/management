@@ -97,6 +97,14 @@
 				</ul>
 			</dd>
 		</dl>	
+		<dl id="menu-material">
+			<dt><i class="Hui-iconfont">&#xe6e0;</i>物质管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="material_list.jsp" data-title="物质管理" href="javascript:void(0)">物质管理</a></li>
+				</ul>
+			</dd>
+		</dl>	
 		<dl id="menu-standard">
 			<dt><i class="Hui-iconfont">&#xe687;</i> 数据监控<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -199,13 +207,15 @@ $(document).ready(function (){
 	$("#username").html(str);
 	if(level>=2){
 		$("#menu-permission").css("display","none");
-		$("#menu-user").css("display","none");
 		
+		$("#menu-material").css("display","none");
 		$("#menu-timer").css("display","none");
 		$("#menu-data").css("display","none");
 		if(level>=3){
+			$("#menu-user").css("display","none");
 			$("#menu-mission").css("display","none");
 			$("#menu-checklist").css("display","none");
+			
 			if(level>=4){
 				$("#menu-standard").css("display","none");
 			}

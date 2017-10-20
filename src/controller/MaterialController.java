@@ -27,13 +27,25 @@ public class MaterialController {
 	private IMaterialService ims;
 	@RequestMapping(value = "/addMaterial.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String addMaterial(BeanMaterial bm) throws JSONException, UnsupportedEncodingException{
+	public String addMaterial(BeanMaterial bm,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
 		String Materialname=new String (bm.getMaterialname().getBytes("ISO-8859-1"),"UTF-8");
 		String Materialuse=new String (bm.getMaterialuse().getBytes("ISO-8859-1"),"UTF-8");
 		bm.setMaterialname(Materialname);
 		bm.setMaterialuse(Materialuse);
+		bm.setMaterialover(0);
 		try {
-			ims.addMaterial(bm);
+			ims.addMaterial(bm,request.getParameter("userId"));
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "ok";
+	}
+	@RequestMapping(value = "/modifryMaterialover.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String modifryMaterialover(BeanMaterial bm,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
+		try {
+			ims.modifryMaterialover(bm,request.getParameter("userId"));		
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,10 +58,9 @@ public class MaterialController {
 		String Materialname=new String (bm.getMaterialname().getBytes("ISO-8859-1"),"UTF-8");
 		String Materialuse=new String (bm.getMaterialuse().getBytes("ISO-8859-1"),"UTF-8");
 		bm.setMaterialname(Materialname);
-		bm.setMaterialuse(Materialuse);
-		
+		bm.setMaterialuse(Materialuse);	
 		try {
-			ims.modifryMaterial(bm,request.getParameter("userId"));		
+			ims.modifryMaterial(bm);		
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -92,24 +103,24 @@ public class MaterialController {
 	@RequestMapping(value = "/SearchMaterial.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String SearchMaterial(@RequestBody String params) throws JSONException{
-		JSONArray jsonarry = new JSONArray();
+	
+		JSONObject jo = new JSONObject();
 		JSONObject json = new JSONObject(params);
 		int id=Integer.valueOf(json.getString("materialId"));
 		BeanMaterial result =new BeanMaterial();
 		try {
 			result=ims.SearchMaterial(id);
-			JSONObject jo = new JSONObject();
+	
 			jo.put("materialId", result.getMaterialId());
 			jo.put("materialname", result.getMaterialname());
 			jo.put("materialuse", result.getMaterialuse());
 			jo.put("materialover", result.getMaterialover());
-			jsonarry.put(jo);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 
-		return jsonarry.toString();	
+		return jo.toString();	
 	}
 }
