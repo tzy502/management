@@ -10,8 +10,8 @@ import javax.persistence.Table;
 public class BeanMaterial {
 	int materialId;
 	String materialname;
-	String materialuse;
-	String materialover;
+	String materialuse;//介绍
+	int materialover;//余额
 	@Id
 	@Column(name = "materialId")	
 	public int getMaterialId() {
@@ -35,10 +35,10 @@ public class BeanMaterial {
 		this.materialuse = materialuse;
 	}
 	@Column(name = "materialover")
-	public String getMaterialover() {
+	public int getMaterialover() {
 		return materialover;
 	}
-	public void setMaterialover(String materialover) {
+	public void setMaterialover(int materialover) {
 		this.materialover = materialover;
 	}
 	
