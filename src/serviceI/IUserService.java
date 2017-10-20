@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import model.BeanAssess;
 import model.BeanUser;
 import util.BaseException;
 
@@ -36,5 +37,7 @@ public interface IUserService {
 	
 	//模糊查询用户
 	public List<BeanUser> loadUser(String userName)throws BaseException;
+	
+	public BeanAssess  AssessUser(String userId,int year,int data);
 }
 

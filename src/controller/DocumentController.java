@@ -50,7 +50,7 @@ public class DocumentController {
 	@ResponseBody
 	public void upload(HttpServletRequest request)throws ServletException, IOException{
 		//文件上传下载
-		 long  startTime=System.currentTimeMillis();
+	
          //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
         CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(
                 request.getSession().getServletContext());
@@ -69,8 +69,10 @@ public class DocumentController {
                 MultipartFile file=multiRequest.getFile(iter.next().toString());
                 if(file!=null)
                 { 	
-                	
-                    path="E:/"+new String( file.getOriginalFilename() .getBytes("iso8859-1") , "utf-8"); 
+                	path=this.getClass().getClassLoader().getResource("").getPath();
+                	path=path.replace("/classes/", "");		
+                	path+="/upload/";
+                    path=path+new String( file.getOriginalFilename() .getBytes("iso8859-1") , "utf-8"); 
                     //上传
                     file.transferTo(new File(path));
                 }
@@ -78,13 +80,14 @@ public class DocumentController {
             }
             
             try {
-				ids.addDocument(request.getParameter("documentname"), path, Integer.valueOf(request.getParameter("level")));
+            	String documentname=new String( request.getParameter("documentname").getBytes("iso8859-1") , "utf-8");;
+            	
+				ids.addDocument(documentname, path, Integer.valueOf(request.getParameter("level")));
 			} catch (NumberFormatException | BaseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
-        long  endTime=System.currentTimeMillis();
 
 		
 		
@@ -182,6 +185,11 @@ public class DocumentController {
 			e.printStackTrace();
 		}
 		return json.toString();
+	}
+	@RequestMapping(value = "/text.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody 
+	public void text(HttpServletRequest request) throws JSONException{
+		System.out.println(this.getClass().getClassLoader().getResource("").getPath());
 	}
 }
 

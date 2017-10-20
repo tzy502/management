@@ -110,8 +110,11 @@ public class MissionController {
 		int id=Integer.valueOf(json.getString("missionId"));
 		try {
 			BeanMission bm=ims.SearchMission(id);
-			bm.setStatus(2);
-			ims.modifryMission(bm);
+			if(bm.getStatus()==1||bm.getStatus()==4){
+				bm.setStatus(2);
+				ims.modifryMission(bm);
+			}
+
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -125,7 +128,12 @@ public class MissionController {
 		int id=Integer.valueOf(json.getString("missionId"));
 		try {
 			BeanMission bm=ims.SearchMission(id);
-			bm.setStatus(3);
+			if(bm.getStatus()!=5){
+				bm.setStatus(3);
+			}else{
+				bm.setStatus(6);
+			}
+			
 			ims.modifryMission(bm);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block

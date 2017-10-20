@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import daoI.IUserDao;
+import model.BeanAssess;
 import model.BeanUser;
 import util.HibernateUtil;
 
@@ -121,6 +122,8 @@ public class UserDao implements IUserDao{
 
 		
 	}
+
+
 
 
 	

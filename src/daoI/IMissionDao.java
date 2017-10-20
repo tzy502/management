@@ -17,7 +17,10 @@ public interface IMissionDao {
 	public List<BeanMission> loadunfinishMission(String userId);
 	public void modifryMission(BeanMission Mission);
 	public List<BeanMission> loadnewMission(String userId);
-
+	public void overtimeMission();
 	public void DelMission(int MissionId);
-
+	public int unfinishMission(String userId,String start,String end);
+	public int finishMission(String userId,String start,String end);
+	public int overunfinishMission(String userId,String start,String end);
+	public int overfinishMission(String userId,String start,String end);
 }

@@ -79,7 +79,7 @@ public class DataService implements IDataService {
 					break;
 
 				default:  
-					System.out.println("去数据有问题 气");  
+			
 				}  
 			}
 			result.add(bg);
@@ -124,7 +124,7 @@ public class DataService implements IDataService {
 					break;
 
 				default:  
-					System.out.println("去数据有问题 水"+station.get(i).getStationid());  
+					
 				}  
 			}
 			result.add(bg);

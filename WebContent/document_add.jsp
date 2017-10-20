@@ -56,7 +56,7 @@
 </div>
 
 	<center>
-		<div class="row cl">
+	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-2">
 			<input class="btn btn-primary radius" type="button" onclick = "add()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">	
 		</div>
@@ -136,7 +136,6 @@ function add(){
 	    });
 		var index = parent.layer.getFrameIndex(window.name);
 		layer.msg('已添加!',{icon:1,time:15000});
-		console.log("123123213");
 		parent.$('.btn-refresh').click();
 		parent.layer.close(index);
 

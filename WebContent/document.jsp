@@ -27,7 +27,7 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 文档列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">	
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-		 <a href="javascript:;" onclick="add('添加文档','document_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加文档</a>
+		 <a href="javascript:;" id="add" name="add" onclick="add('添加文档','document_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加文档</a>
 	 </span>  
 	  </div>
 	
@@ -144,8 +144,10 @@ function getCookie(Name){
         	alert("出错了！！:"+data.msg);
         } , 
         success: function(data) { 
+    		var level =getCookie("level");
+    		if(level!=1){
+    		$("#add").css("display","none");
         	var str = "<from id='download' name='download'>";  
-        
         	var j=0;
     		for(var i = 0; i < data.length; i++){
     			j=i+1
@@ -156,25 +158,38 @@ function getCookie(Name){
     			"<td>"+
     			"<a href=' /management/download.do?documentid="+data[i].documentid+"'>点击下载</a>"	+
     			"</td>"+
-    			"<td class='td-manage'>"+
-    			
-    			"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].documentid+"'>"+
-				"<i class='Hui-iconfont'>&#xe6df;</i>"+
-			"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].documentid+"'>"+
-					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
-    			
-    			"</td>"+	
-    			
+    			"<td></td>"+
     			"</tr>";
         		}
+    		}
+    		else{
+    			$("#add").css("display","none");
+            	var str = "<from id='download' name='download'>";  
+            	var j=0;
+        		for(var i = 0; i < data.length; i++){
+        			j=i+1
+        			str += "<tr class='text-c'>"+
+        			
+        			"<td>"+j+"</td>"+
+        			"<td>"+data[i].documentname+"</td>"+
+        			"<td>"+
+        			"<a href=' /management/download.do?documentid="+data[i].documentid+"'>点击下载</a>"	+
+        			"</td>"+
+        			"<td class='td-manage'>"+
+        			
+        			"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].documentid+"'>"+
+    				"<i id=\"button\" class='Hui-iconfont'>&#xe6df;</i>"+
+    			"</a>"+
+    				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].documentid+"'>"+
+    					"<i id=\"button\" class='Hui-iconfont'>&#xe6e2;</i>"+
+        			
+        			"</td>"+	
+        			
+        			"</tr>";
+    		}
+    		
 
-			"<td>"+
-			
-		
-    		
-    		
-    		
+    		}
         	$("#tbody-alldoc").html(str);  
         	 
         }     

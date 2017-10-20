@@ -2,6 +2,7 @@ package daoI;
 
 import java.util.List;
 
+import model.BeanAssess;
 import model.BeanUser;
 
 public interface IUserDao {
@@ -23,4 +24,5 @@ public interface IUserDao {
 	public void delUser(BeanUser user);
 	//删除用户
 	public List<BeanUser> loadnormalUser() ;
+	
 }

@@ -50,7 +50,7 @@
 					</span> </div>
 					</div>
 					<div class="row cl">
-	<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上传文件</label>
+
 </div>
 
 	<center>
@@ -140,7 +140,7 @@ var documentid =Request['documentid'];
 
 $(function(){ 
 	var documentid =Request['documentid']; 
-	alert(documentid);
+
 	var params={
 			"documentid": documentid
 	}

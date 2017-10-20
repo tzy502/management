@@ -171,6 +171,9 @@ $(document).ready(function (){
 					icon : 1,
 					time : 1000
 				});
+				var index = parent.layer.getFrameIndex(window.name);
+				parent.$('.btn-refresh').click();
+				parent.layer.close(index);
 			},
 			error : function(XmlHttpRequest, textStatus, errorThrown) {
 				layer.msg('error!', {
@@ -179,9 +182,7 @@ $(document).ready(function (){
 				});
 			}
 		});
-		var index = parent.layer.getFrameIndex(window.name);
-		parent.$('.btn-refresh').click();
-		parent.layer.close(index);
+
 
 	}
 </script> 

@@ -56,14 +56,16 @@
 		<textarea name="description" id='description'  readonly="readonly" style='width:60%' cols="" rows="" class="textarea" ></textarea>	
 
 	</form>
+		<div class="row cl">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-2">
+			<input class="btn btn-primary radius" type="button" onclick = "add()" value="&nbsp;&nbsp;完成&nbsp;&nbsp;">	
+		</div>
+	</div>
 	</article>
 
 	<!--_footer 作为公共模版分离出去-->
-	<link
-		href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css"
-		rel="stylesheet" />
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+	
 	<script type="text/javascript"
 		src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
 	<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
@@ -143,26 +145,67 @@
 		var params = {
 			"missionId" : missionId,
 		}
-	$.ajax({  
-		 type: "post",    
-	        async: true,    
-	        url: "/management/searchMission.do",  
-	        data: JSON.stringify(params),
-	        dataType: "json", 
-	        contentType: "application/json; charset=utf-8",   
-	        error: function(data){  
-	        	alert("出错了！！:"+data.msg);
-	        } , 
-	        success: function(data) { 
-	        	$("#missionname").val(data.missionname);
-	        	$("#end").val(data.enddate);
-	        	$("#username").val(data.username);
-	        	$("#description").val(data.description);
-	        	$("#staus").val(data.statusname);   	
-	        }
+		var level =getCookie("level");
+		if(level!=1){
+			$.ajax({  
+				 type: "post",    
+			        async: true,    
+			        url: "/management/viewMission.do",  
+			        data: JSON.stringify(params),
+			        dataType: "json", 
+			        contentType: "application/json; charset=utf-8",   
+			        error: function(data){  
+			        	alert("出错了！！:"+data.msg);
+			        } , 
+			        success: function(data) { 
+						console.log("ok") 	
+			        }
+				})
+		}
+		
+		$.ajax({  
+			 type: "post",    
+		        async: true,    
+		        url: "/management/searchMission.do",  
+		        data: JSON.stringify(params),
+		        dataType: "json", 
+		        contentType: "application/json; charset=utf-8",   
+		        error: function(data){  
+		        	alert("出错了！！:"+data.msg);
+		        } , 
+		        success: function(data) { 
+		        	$("#missionname").val(data.missionname);
+		        	$("#end").val(data.enddate);
+		        	$("#username").val(data.username);
+		        	$("#description").val(data.description);
+		        	$("#staus").val(data.statusname);   	
+		        }
+			})
 		})
-})
-	
+		function add(){
+			var Request = new Object();
+			Request = GetRequest();
+			var missionId = Request['missionId'];
+		
+			var params = {
+				"missionId" : missionId,
+			}
+			$.ajax({  
+				 type: "post",    
+			        async: true,    
+			        url: "/management/endMission.do",  
+			        data: JSON.stringify(params),
+			        dataType: "json", 
+			        contentType: "application/json; charset=utf-8",   
+			        error: function(data){  
+			        	alert("出错了！！:"+data.msg);
+			        } , 
+			        success: function(data) { 
+			        	alert("完成");
+			        }
+				})
+			}
+		}
 		function role(title,url,w,h){
 			layer_show(title,url,w,h);
 			

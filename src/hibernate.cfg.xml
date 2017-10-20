@@ -59,6 +59,7 @@
 			<mapping class="model.BeanMission"/> 
 			<mapping class="model.BeanTimer"/> 
 			<mapping class="model.BeanWarning"/> 
+			<mapping class="model.BeanMaterial"/> 
 	</session-factory>
 
 </hibernate-configuration>

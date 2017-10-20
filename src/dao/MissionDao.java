@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -148,6 +149,91 @@ public class MissionDao implements IMissionDao {
 		List<BeanMission> result = qry.list();
 		tx.commit();
 		return result;
+	}
+
+	@Override
+	public void overtimeMission() {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String sql = "UPDATE mission"
+				+ "set `status`=3"
+				+ "WHERE enddate < now()";
+		
+		Query qry = session.createSQLQuery(sql);
+		tx.commit();
+	}
+
+	@Override
+	public int unfinishMission(String userId,String start,String end) {
+		// TODO Auto-generated method stub
+		int count=0;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "select count(*) from BeanMission"
+				+ " where userid=? and status<>3 and status<>5 and status<>6"
+				+ "and startdate>? and startdate<?";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, userId);
+		qry.setParameter(1, Timestamp.valueOf(start));
+		qry.setParameter(2, Timestamp.valueOf(end));
+		count= ((Number)qry.uniqueResult()).intValue();  
+		tx.commit();
+		return count;
+	}
+
+	@Override
+	public int finishMission(String userId,String start,String end) {
+		// TODO Auto-generated method stub
+		int count=0;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "select count(*) from BeanMission"
+				+ " where userid=? and status=3 "
+				+ "and startdate>? and startdate<?";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, userId);
+		qry.setParameter(1, Timestamp.valueOf(start));
+		qry.setParameter(2, Timestamp.valueOf(end));
+		count= ((Number)qry.uniqueResult()).intValue();  
+		tx.commit();
+		return count;
+	}
+
+	@Override
+	public int overunfinishMission(String userId,String start,String end) {
+		// TODO Auto-generated method stub
+		int count=0;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "select count(*) from BeanMission"
+				+ " where userid=? and  status=5"
+				+ "and startdate>? and startdate<?";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, userId);
+		qry.setParameter(1, Timestamp.valueOf(start));
+		qry.setParameter(2, Timestamp.valueOf(end));
+		count= ((Number)qry.uniqueResult()).intValue();  
+		tx.commit();
+		return count;
+	}
+
+	@Override
+	public int overfinishMission(String userId,String start,String end) {
+		// TODO Auto-generated method stub
+		int count=0;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "select count(*) from BeanMission"
+				+ " where userid=? and  status=6"
+				+ "and startdate>? and startdate<?";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, userId);
+		qry.setParameter(1, Timestamp.valueOf(start));
+		qry.setParameter(2, Timestamp.valueOf(end));
+		count= ((Number)qry.uniqueResult()).intValue();  
+		tx.commit();
+		return count;
 	}
 	
 }

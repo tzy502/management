@@ -65,67 +65,100 @@ function getCookie(Name){
 	   } 
 	   return returnvalue;
 }
-	function checklisttable(checklist){
-		var String=""
-		for(var i;i<checklist.length;i++)
-		return String;
-	}
-	$(document).ready(function (){
-	
-		$('body').on('click','#delete',function(event){
-			var missionId = this.name;
-			layer.confirm('确认要删除吗？',function(){
-				var params={
-				    	"missionId":missionId,
-				}
-				$.ajax({
-					type: 'POST',
-					url: "/management/delMission.do", 
-					data: JSON.stringify(params),
-					dataType: 'json',
-					contentType: "application/json; charset=utf-8",
-					error:function(data) {
-						layer.msg('删除失败!',{icon:1,time:15000});
-					},
-					success: function(data){
-						layer.msg('已删除!',{icon:1,time:15000});
-						window.location.href = 'mission_list.jsp';
-					},
-				});		
-			});
-		});
-
-		
-		//split
 	$('body').on('click','#update',function(event){
 		layer_show('任务修改','mission_modifry.jsp?missionId='+this.name,'800','500');
 	}); 
-	$('body').on('click','#datail',function(event){
-		
-		var str=this.name.split("|");
-		
-		/*if(str[1]==1||str[1]==4){
-			var params = {
-					"missionId" : str[0],
-				}
-			$.ajax({  
-				 type: "post",    
-			        async: true,    
-			        url: "/management/viewMission.do",  
-			        data: JSON.stringify(params),
-			        dataType: "json", 
-			        contentType: "application/json; charset=utf-8",   
-			        error: function(data){  
-			        	alert("出错了!!!!:"+data.msg);
-			        } , 
-			        success: function(data) { 
-			        		layer_show('任务详情','mission_detail.jsp?missionId='+str[1],'800','500');
-			       		}
-			        })
-		}else{*/
-			layer_show('任务详情','mission_detail.jsp?missionId='+str[1],'800','500');
-		//}	
+	$('body').on('click','#datail',function(event){	
+		layer_show('任务详情','mission_detail.jsp?missionId='+this.name,'800','500');
 	}); 
+	$('body').on('click','#delete',function(event){
+		var missionId = this.name;
+		layer.confirm('确认要删除吗？',function(){
+			var params={
+			    	"missionId":missionId,
+			}
+			$.ajax({
+				type: 'POST',
+				url: "/management/delMission.do", 
+				data: JSON.stringify(params),
+				dataType: 'json',
+				contentType: "application/json; charset=utf-8",
+				error:function(data) {
+					layer.msg('删除失败!',{icon:1,time:15000});
+				},
+				success: function(data){
+					layer.msg('已删除!',{icon:1,time:15000});
+					window.location.href = 'mission_list.jsp';
+				},
+			});		
+		});
+	});
+
+	$(document).ready(function (){
+		var level =getCookie("level");
+		if(level==1){
+			adminlist()
+		}else{
+			userlist()
+		}
+		
+		
+
+	})
+	function userlist(){
+		var str="";
+		str+="<table class='table table-border table-bordered table-bg'>"
+			+"<thead>"
+			+"<tr class='text-c'>"
+			+"<th width='5%'>编号</th>"
+			+"<th width='15%'>负责人</th>"		
+			+"<th width='30%'>任务名</th>"			
+			+"<th width='20%'>结束时间</th>"	
+			+"<th width='20%'>状态</th>"
+			+"<th width='10%'>操作</th>"
+			+"</tr>"
+			+"</thead>";
+			var userId = getCookie("userId");
+			var params={
+			    	"userId":userId,
+			}
+		$.ajax({    
+	        type: "post",    
+	        async: false,    
+	        url: "/management/loadUserMission.do",  
+			data : JSON.stringify(params),
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+	        error: function(data){  
+	        	alert("出错了！！:"+data.msg);
+	        } , 
+	        success: function(data) {         
+	    		for(var k=0;k<data.length;k++){
+	    			str+="<tr class='text-c'>"+
+	    			"<td>"+(k+1)+"</td>"+
+	    			"<td>"+data[k].username+"</td>"+
+	    			"<td>"+data[k].missionname+"</td>"+
+	    			"<td>"+data[k].enddate+"</td>"+
+	    			"<td>"+data[k].statusname+"</td>"+
+	    			"<td class='td-manage'>"+
+	    			"<a style='text-decoration:none' id = 'datail' href='javascript:;' name='"+data[k].Missionid+"'>"+
+	    				"<i class='Hui-iconfont'>&#xe720;</i>"+
+	    			"</a>"+
+	    				"</td>"
+	    			+"</tr>"
+	    		}
+	      		str+="</table>"
+	    		} 	
+	       
+	    });
+		 $("#Huifold1").html(str);
+	}
+	function adminlist(){
+		
+		
+		
+		//split
+
 	//加载页面数据
 	 station=[];
 		var str = "";  
@@ -234,9 +267,8 @@ function getCookie(Name){
 	$(function(){
 		$.Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",1,"click"); /*5个参数顺序不可打乱，分别是：相应区,隐藏显示的内容,速度,类型,事件*/
 	});
-
-})
-
+	}	
+	
 function add(stationId){
 	var url="mission_add.jsp?StationId="+stationId;	
 	layer_show("添加文档",url,800,500);

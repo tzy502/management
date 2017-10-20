@@ -43,7 +43,8 @@
 	
 			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>职位等级：</label>
-				<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
+				<div class="formControls col-xs-8 col-sm-9"> 
+				<span class="select-box">
 					<select class="select" size="1" name="level" id="level">
 						<option value="1" >1</option>
 						<option value="2">2</option>
@@ -51,7 +52,8 @@
 						<option value="4">4</option>
 						<option value="5"selected>5</option>
 					</select>
-					</span> </div>
+					</span> 
+					</div>
 			</div>
 	<div class="row cl">
 		<div class="form-label col-xs-4 col-sm-3">

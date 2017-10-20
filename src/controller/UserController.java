@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import daoI.IStationDao;
+import model.BeanAssess;
 import model.BeanMission;
 import model.BeanTimer;
 import model.BeanUser;
@@ -267,6 +268,35 @@ public class UserController {
 			return jo.toString();
 		}
 		return jo.toString();
+	}
+	@RequestMapping(value = "/AssessUser.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String AssessUser(@RequestBody String params) throws JSONException{  
+		List<BeanUser> users;
+		JSONObject json = new JSONObject(params);
+		String userId = json.getString("userId");
+		int year=Integer.valueOf(json.getString("year"));
+		int date=Integer.valueOf(json.getString("date"));
+		BeanAssess ba=IUserService.AssessUser(userId, year, date);
+		BeanUser user;
+		JSONObject jo = new JSONObject();
+		try {
+			user = IUserService.searchUser(userId);
+			String str=ba.getStr()+user.getUserName()+"一共运维"+ba.getChecklist()+"次，同时给用户布置了"+ba.getTotal()+"次任务，其中"+ba.getFinish()+"件任务已经完成；"
+					+ba.getOverfinish()+"件任务超时完成完成；目前仍有"+ba.getUnfinish()+"件任务未完成；同时"+ba.getOverunfiish()+"件任务已超过预先规定结束时间但并未完成";
+			jo.put("userName", user.getUserName());
+			jo.put("total", ba.getTotal());
+			jo.put("finish", ba.getFinish());
+			jo.put("overfinish", ba.getOverfinish());
+			jo.put("unoverfinish", ba.getOverunfiish());
+			jo.put("unfinish", ba.getUnfinish());
+			jo.put("str", str);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(jo.toString());
+			return jo.toString();
 	}
 	
 	

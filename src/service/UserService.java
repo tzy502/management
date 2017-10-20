@@ -18,6 +18,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import Decoder.BASE64Encoder;
 import daoI.IUserDao;
+import daoI.IMissionDao;
+import model.BeanAssess;
 import model.BeanUser;
 import serviceI.IUserService;
 import util.BaseException;
@@ -26,6 +28,8 @@ import util.BaseException;
 public class UserService implements IUserService{
 	@Resource
 	private IUserDao IUserDao;
+	@Resource
+	private IMissionDao IMissionDao;
 	public UserService(){
 		System.out.println("UserService Constructor...\n\n\n\n\n\n");
 	}
@@ -149,6 +153,60 @@ public class UserService implements IUserService{
 			return true;
 		else
 			return false;
+	}
+	@Override
+	public BeanAssess AssessUser(String userId,int year,int data){
+		// TODO Auto-generated method stub
+		String start = null;
+		String end = null;
+		
+		if(data>0 && data<12){
+			start=""+year+"-"+data+"-1 00:00:00";
+			int enddata=data+1;
+			end=""+year+"-"+enddata+"-1 00:00:00";
+		}else if(data==12){
+			start=""+year+"-"+data+"-1 00:00:00";
+			int enddata=year+1;
+			end=""+enddata+"-1-1 00:00:00";
+		}
+		else if(data==0){
+				start=""+year+"-1-1 00:00:00";
+				int enddata=year+1;
+				end=""+enddata+"-1-1 00:00:00";
+			}
+		 else{
+			switch (data) {
+			case -1:
+			{
+				start=""+year+"-1-1 00:00:00";
+				end=""+year+"-3-1 00:00:00";
+			}
+				break;
+			case -2:
+			{
+				start=""+year+"-4-1 00:00:00";
+				end=""+year+"-6-1 00:00:00";
+			}
+				break;
+			case -3:
+			{
+				start=""+year+"-7-1 00:00:00";
+				end=""+year+"-9-1 00:00:00";
+			}
+				break;
+			case -4:
+			{
+				start=""+year+"-10-1 00:00:00";
+				end=""+year+"-12-1 00:00:00";
+			}
+				break;
+			default:
+				break;
+			}
+		}
+		
+		BeanAssess result=new BeanAssess(userId,start,end);
+		return result;
 	}
 
 

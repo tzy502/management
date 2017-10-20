@@ -131,8 +131,8 @@ public class Timing {
 		long startTime = System.currentTimeMillis(); 
 		company();
 		detection();
+		ims.overtimeMission();
 		long endTime = System.currentTimeMillis();  
-
 		System.out.println("程序运行时间：" + (endTime - startTime) + "ms" +formatter.format(new Date()));
 	} 
 

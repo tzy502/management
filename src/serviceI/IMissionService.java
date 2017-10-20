@@ -18,4 +18,5 @@ public interface IMissionService {
 	public List<BeanMission> loadALLUserMission(String userId);
 	public List<BeanMission> loadunfinishMission(String userId);
 	public List<BeanMission> loadnewMission(String userId);
+	public void overtimeMission();
 }

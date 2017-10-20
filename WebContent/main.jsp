@@ -57,6 +57,14 @@
 				</ul>
 			</dd>
 		</dl>
+		<dl id="menu-user">
+			<dt><i class="Hui-iconfont">&#xe6e0;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="user_list.jsp" data-title="用户管理" href="javascript:void(0)">用户管理</a></li>
+				</ul>
+			</dd>
+		</dl>
 		<dl id="menu-permission">
 			<dt><i class="Hui-iconfont">&#xe6e0;</i> 权限管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -191,10 +199,12 @@ $(document).ready(function (){
 	$("#username").html(str);
 	if(level>=2){
 		$("#menu-permission").css("display","none");
-		$("#menu-mission").css("display","none");
+		$("#menu-user").css("display","none");
+		
 		$("#menu-timer").css("display","none");
 		$("#menu-data").css("display","none");
 		if(level>=3){
+			$("#menu-mission").css("display","none");
 			$("#menu-checklist").css("display","none");
 			if(level>=4){
 				$("#menu-standard").css("display","none");

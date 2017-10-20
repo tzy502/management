@@ -64,7 +64,7 @@ public class MissionService implements IMissionService {
 	@Override
 	public List<BeanMission> loadALLUserMission(String userId) {
 		// TODO Auto-generated method stub
-		return md.loadAllMission();
+		return md.loadALLUserMission(userId);
 	}
 
 	@Override
@@ -77,6 +77,12 @@ public class MissionService implements IMissionService {
 	public List<BeanMission> loadnewMission(String userId) {
 		// TODO Auto-generated method stub
 		return md.loadnewMission(userId);
+	}
+
+	@Override
+	public void overtimeMission() {
+		// TODO Auto-generated method stub
+		md.overtimeMission();
 	}
 
 

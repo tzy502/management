@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -106,6 +107,24 @@ public class ChecklistDao implements IChecklistDao {
 			e.printStackTrace();
 			tx.rollback();
 		}
+	}
+
+	@Override
+	public int totallist(String userId, String start, String end) {
+		// TODO Auto-generated method stub
+		int count=0;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "select count(*) from BeanChecklist"
+				+ " where userid=? "
+				+ "and checklisttime>? and checklisttime<?";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, userId);
+		qry.setParameter(1, Timestamp.valueOf(start));
+		qry.setParameter(2, Timestamp.valueOf(end));
+		count= ((Number)qry.uniqueResult()).intValue();  
+		tx.commit();
+		return count;
 	}
 
 }

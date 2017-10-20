@@ -234,7 +234,7 @@ function getCookie(Name){
 })
 
 function add(stationId){
-	var url="mission_add.jsp?StationId="+stationId;	
+	var url="timer_add.jsp?StationId="+stationId;	
 	layer_show("添加文档",url,800,500);
 	
 }
