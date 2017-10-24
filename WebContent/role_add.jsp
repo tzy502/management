@@ -52,8 +52,8 @@
 						<option value="4">4</option>
 						<option value="5"selected>5</option>
 					</select>
-					</span> 
-					</div>
+				</span> 
+				</div>
 			</div>
 	<div class="row cl">
 		<div class="form-label col-xs-4 col-sm-3">

@@ -178,7 +178,6 @@
 			var Request = new Object(); 
 			Request = GetRequest(); 
 			StationId = Request['StationId'];	
-			StationId=46
 			form.append("stationid",StationId)
 	
 			$.ajax({

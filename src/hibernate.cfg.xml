@@ -61,6 +61,10 @@
 			<mapping class="model.BeanWarning"/> 
 			<mapping class="model.BeanMaterial"/> 
 			<mapping class="model.BeanMaterialLog"/> 
+			<mapping class="model.BeanInstrument"/> 
+			<mapping class="model.BeanTrain"/> 
+			<mapping class="model.BeanTrainlog"/> 
+			<mapping class="model.BeanTrainuser"/> 
 	</session-factory>
 
 </hibernate-configuration>
