@@ -24,11 +24,11 @@
 <title>文档</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 培训计划列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">	
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
 	 <span class="l">
-		 <a href="javascript:;" onclick="add('添加培训计划','train_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加培训计划</a>
+		 <a href="javascript:;" onclick="add('添加项目','project_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加项目</a>
 	 </span>  
 	  </div>
 	
@@ -39,8 +39,7 @@
 			</tr>
 			<tr class="text-c">
 				<th width="40">序号</th>
-				<th width="200">培训名</th>
-				<th width="200">开始时间</th>
+				<th width="200">项目名</th>
 				<th width="40">操作</th>
 			</tr>
 		</thead>
@@ -82,24 +81,24 @@ function getCookie(Name){
 
 	$(document).ready(function (){
 		$('body').on('click','#delete',function(event){
-			var trainId = this.title;
+			var projectId = this.title;
 			layer.confirm('确认要删除吗？',function(){
 				var params={
-				    	"trainId":trainId,
+				    	"projectId":projectId,
 				}
 				$.ajax({
 					type: 'POST',
-					url: "/management/delTrain.do", 
+					url: "/management/delproject.do", 
 					data: JSON.stringify(params),
 					dataType: 'json',
 					contentType: "application/json; charset=utf-8",
 					error:function(data) {
 						layer.msg('删除失败!',{icon:1,time:15000});
-						window.location.href = 'train_list.jsp';
+						window.location.href = 'project_list.jsp';
 					},
 					success: function(data){
 						layer.msg('已删除!',{icon:1,time:15000});
-						window.location.href = 'train_list.jsp';
+						window.location.href = 'project_list.jsp';
 					},
 				});		
 			});
@@ -108,17 +107,17 @@ function getCookie(Name){
 		
 		
 	$('body').on('click','#update',function(event){
-		layer_show('培训计划编辑','train_modifry.jsp?trainId='+this.title,'800','500');
+		layer_show('项目编辑','project_modifry.jsp?projectId='+this.name,'800','500');
 	}); 
 	$('body').on('click','#datail',function(event){
-		layer_show('培训计划编辑','train_detail.jsp?trainId='+this.title,'800','500');
+		layer_show('项目编辑','project_detail.jsp?projectId='+this.name,'800','500');
 	}); 
 	//加载页面数据
 
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/management/loadTrain.do",  
+        url: "/management/loadAllproject.do",  
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
@@ -127,20 +126,17 @@ function getCookie(Name){
         success: function(data) { 
         	var str = "";  
     		for(var i = 0; i < data.length; i++){     
-    			var begintime=data[i].begintime
-    			begintime=begintime.replace(/00:00:00.0/,"");
        			str += "<tr class='text-c'>"+
 				"<td>"+(i+1)+"</td>"+
-				"<td>"+data[i].trainname+"</td>"+
-				"<td>"+begintime+"</td>"+
+				"<td>"+data[i].projectname+"</td>"+
 				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'datail' href='javascript:;' title='"+data[i].trainId+"'>"+
+				"<a style='text-decoration:none' id = 'datail' href='javascript:;' name='"+data[i].projectId+"'>"+
 				"<i class='Hui-iconfont'>&#xe720;</i>"+
 				"</a>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].trainId+"'>"+
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+data[i].projectId+"'>"+
 				"<i class='Hui-iconfont'>&#xe6df;</i>"+
 				"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].trainId+"'>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' name='"+data[i].projectId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
 

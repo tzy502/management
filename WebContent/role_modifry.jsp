@@ -88,14 +88,6 @@ var Request = new Object();
 Request = GetRequest(); 
 var roleId =Request['roleId']; 
 $(function(){ 
-
-	$('body').on('click','#delete',function(event){
-		roleId = this.title;
-	});	
-	alert(roleId); 
-	
-	
-
 	var params={
 			"roleId": roleId
 	}

@@ -28,34 +28,8 @@
 <body>
 <article class="page-container" id = 'form-item-add'>
 	<form class="form form-horizontal" id="add" >
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>培训名称：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="培训名称" id="trainname" name="trainname">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" value="" placeholder="开始时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd '})"
-					id="begin" name="begin">	
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>结束时间：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" value="" placeholder="结束时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd '})"
-					id="end" name="end">	
-		</div>
-	</div>
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>详情：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="detail" id='detail'  cols="" rows="" class="textarea" ></textarea>					
-		</div>
-		</div>
-		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>结果：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>培训结果：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<textarea name="result" id='result'  cols="" rows="" class="textarea" ></textarea>					
 		</div>
@@ -95,51 +69,23 @@
 		}
 		return theRequest;
 	}
-	$(document)	.ready(function() {
+
+	function add(){
 		var Request = new Object();
 		Request = GetRequest();
 		var trainId = Request['trainId'];
-
+		trainId=1;
 		var params = {
-			"trainId" : trainId,
-		}
+				"trainId" : trainId,
+				"result":$("#result").val()
+			}
 		$.ajax({
 			type : "post",
 			async : true,
-			url : "/management/searchTrain.do",
+			url : "/management/endTrain.do",
 			data : JSON.stringify(params),
 			dataType : "json",
 			contentType : "application/json; charset=utf-8",
-			success : function(data) {
-				$("#trainId").val(data.trainId);
-				$("#trainname").val(data.trainname);
-				$("#begin").val(data.begintime);
-				$("#end").val(data.endtime);
-				$("#detail").val(data.detail);
-				$("#result").val(data.result);
-				
-			},
-			error : function(data) {
-				console.log(data.msg);
-			},
-		});
-	})
-	function add(){
-	
-		$('.skin-minimal input').iCheck({
-			checkboxClass : 'icheckbox-blue',
-			radioClass : 'iradio-blue',
-			increaseArea : '20%'
-		});
-		var form = new FormData(document.getElementById("add"));
-		$.ajax({
-
-			type : 'POST',
-			url : "/management/modifryTrain.do",
-			data : form,
-			async : false,
-			processData : false,
-			contentType : false,
 			success : function(data) {
 				layer.msg('已添加!', {
 					icon : 1,
@@ -150,8 +96,15 @@
 				parent.layer.close(index);
 			},
 			error : function(data) {
-				console.log(data.msg);
+				layer.msg('已添加!', {
+					icon : 1,
+					time : 15000
+				});
+				var index = parent.layer.getFrameIndex(window.name);
+				parent.$('.btn-refresh').click();
+				parent.layer.close(index);
 			},
+			
 		});
 
 	}

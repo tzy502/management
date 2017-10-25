@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,12 +34,18 @@ public class TrainController {
 	@Autowired
 	private ITrainlogService itls;
 	@RequestMapping(value = "/addTrain.do", produces = "application/json; charset=utf-8") 
-	public String addTrain(BeanTrain bt,HttpServletRequest request) throws JSONException, ParseException{
+	public String addTrain(BeanTrain bt,HttpServletRequest request) throws JSONException, ParseException, UnsupportedEncodingException{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
 		String begin=request.getParameter("begin");
 		String end=request.getParameter("end");
 		bt.setBegintime(sdf.parse(begin));
 		bt.setEndtime(sdf.parse(end));
+		String trainname=new String(bt.getTrainname().getBytes("ISO-8859-1"),"UTF-8"); 
+		String detail=new String(bt.getDetail().getBytes("ISO-8859-1"),"UTF-8"); 
+		String result=new String(bt.getResult().getBytes("ISO-8859-1"),"UTF-8"); 
+		bt.setTrainname(trainname);
+		bt.setDetail(detail);
+		bt.setResult(result);
 		try {
 			its.addTrain(bt);
 		} catch (BaseException e) {
@@ -48,12 +55,18 @@ public class TrainController {
 		return null;
 	}
 	@RequestMapping(value = "/modifryTrain.do", produces = "application/json; charset=utf-8") 
-	public String modifryTrain(BeanTrain bt,HttpServletRequest request) throws JSONException, ParseException{
+	public String modifryTrain(BeanTrain bt,HttpServletRequest request) throws JSONException, ParseException, UnsupportedEncodingException{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");  
 		String begin=request.getParameter("begin");
 		String end=request.getParameter("end");
 		bt.setBegintime(sdf.parse(begin));
 		bt.setEndtime(sdf.parse(end));
+		String trainname=new String(bt.getTrainname().getBytes("ISO-8859-1"),"UTF-8"); 
+		String detail=new String(bt.getDetail().getBytes("ISO-8859-1"),"UTF-8"); 
+		String result=new String(bt.getResult().getBytes("ISO-8859-1"),"UTF-8"); 
+		bt.setTrainname(trainname);
+		bt.setDetail(detail);
+		bt.setResult(result);
 		try {
 			its.modifryTrain(bt);
 		} catch (BaseException e) {
@@ -78,11 +91,12 @@ public class TrainController {
 	public String endTrain(@RequestBody String params) throws JSONException, ParseException{
 		JSONObject json = new JSONObject(params);
 		int id=Integer.valueOf(json.getString("trainId"));
-		String result=json.getString("trainId");
+		String result=json.getString("result");
 		Date now=new Date();
 		
 		try {
 			BeanTrain bt=new BeanTrain();
+			
 			bt=its.SearchTrain(id);
 			bt.setEndtime(now);
 			bt.setResult(result);

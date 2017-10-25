@@ -60,6 +60,12 @@
 			<textarea name="result" id='result'  cols="" rows="" class="textarea" ></textarea>					
 		</div>
 	</div>
+		<div class="row cl">
+		<div class="form-label col-xs-4 col-sm-3">
+			<input class="btn btn-primary radius" type="button" onclick="end()"
+				value="&nbsp;&nbsp;结束项目&nbsp;&nbsp;">			
+		</div>
+	</div>
 	<input type="hidden" id="trainId" name="trainId">
 	</form>
 	<div class="mt-15 mb-15">
@@ -277,7 +283,14 @@
 		layer_show(title,url,w,h);
 	
 }
-	
+	function end(){
+		var Request = new Object();
+		Request = GetRequest();
+		var trainId = Request['trainId'];
+		var url="train_end.jsp?trainId="+trainId;	
+		layer_show("结束总结",url,300,200);
+		
+	}
 </script> 
 
 </body>

@@ -60,10 +60,7 @@
 			<div class="row cl">
 				<div class="form-label col-xs-4 col-sm-3">
 					<input class="btn btn-primary radius" type="button" onclick="add()"
-						value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-						
-
-					
+						value="&nbsp;&nbsp;提交&nbsp;&nbsp;">			
 				</div>
 			</div>
 			

@@ -126,8 +126,6 @@
 		var Request = new Object();
 		Request = GetRequest();
 		var trainId = Request['trainId'];
-		trainId=1;
-
 		var form = new FormData(document.getElementById("add"));
 		form.append("trainId",trainId)
 		$.ajax({
@@ -148,7 +146,13 @@
 				parent.layer.close(index);
 			},
 			error : function(data) {
-				console.log(data.msg);
+				layer.msg('已添加!', {
+					icon : 1,
+					time : 15000
+				});
+				var index = parent.layer.getFrameIndex(window.name);
+				parent.$('.btn-refresh').click();
+				parent.layer.close(index);
 			},
 		});
 

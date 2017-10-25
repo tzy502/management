@@ -62,6 +62,7 @@
 			<dd>
 				<ul>
 					<li><a data-href="user_list.jsp" data-title="用户管理" href="javascript:void(0)">用户管理</a></li>
+					<li><a data-href="train_list.jsp" data-title="人员培训" href="javascript:void(0)">人员培训</a></li>
 				</ul>
 			</dd>
 		</dl>

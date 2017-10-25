@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,8 +31,10 @@ public class TrainlogController {
 	@Autowired
 	private ITrainlogService itls;
 	@RequestMapping(value = "/addtrainlog.do", produces = "application/json; charset=utf-8") 
-	public String addtrainlog(BeanTrainlog btl,HttpServletRequest request) throws JSONException{		
+	public String addtrainlog(BeanTrainlog btl,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{		
 		btl.setTraintime(Timestamp.valueOf(request.getParameter("time")));
+		String traindetail=new String(btl.getTraindetail().getBytes("ISO-8859-1"),"UTF-8"); 
+		btl.setTraindetail(traindetail);
 		try {
 			itls.addTrainlog(btl);
 		} catch (BaseException e) {
@@ -41,8 +44,10 @@ public class TrainlogController {
 		return null;
 	}
 	@RequestMapping(value = "/modifrytrainlog.do", produces = "application/json; charset=utf-8") 
-	public String modifrytrainlog(BeanTrainlog btl,HttpServletRequest request) throws JSONException{		
+	public String modifrytrainlog(BeanTrainlog btl,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{		
 		btl.setTraintime(Timestamp.valueOf(request.getParameter("time")));
+		String traindetail=new String(btl.getTraindetail().getBytes("ISO-8859-1"),"UTF-8"); 
+		btl.setTraindetail(traindetail);
 		try {
 			itls.modifryTrainlog(btl);
 		} catch (BaseException e) {
