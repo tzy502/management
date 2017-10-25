@@ -58,7 +58,7 @@
 			</dd>
 		</dl>
 		<dl id="menu-user">
-			<dt><i class="Hui-iconfont">&#xe6e0;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe681;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="user_list.jsp" data-title="用户管理" href="javascript:void(0)">用户管理</a></li>
@@ -66,7 +66,7 @@
 			</dd>
 		</dl>
 		<dl id="menu-permission">
-			<dt><i class="Hui-iconfont">&#xe6e0;</i> 权限管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe681;</i> 权限管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="role_list.jsp" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
@@ -74,21 +74,15 @@
 			</dd>
 		</dl>
 		<dl id="menu-mission">
-			<dt><i class="Hui-iconfont">&#xe6e0;</i>任务<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe637;</i>任务<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="mission_list.jsp" data-title="任务管理" href="javascript:void(0)">任务管理</a></li>
-				</ul>
-			</dd>
-		</dl>	
-		<dl id="menu-timer">
-			<dt><i class="Hui-iconfont">&#xe6e0;</i>定时任务<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
 					<li><a data-href="timer_list.jsp" data-title="定时任务管理" href="javascript:void(0)">定时任务管理</a></li>
+				
 				</ul>
 			</dd>
-		</dl>	
+		</dl>		
 		<dl id="menu-maintain">
 			<dt><i class="Hui-iconfont">&#xe6e0;</i>超标数据<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -97,14 +91,7 @@
 				</ul>
 			</dd>
 		</dl>	
-		<dl id="menu-material">
-			<dt><i class="Hui-iconfont">&#xe6e0;</i>物质管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="material_list.jsp" data-title="物质管理" href="javascript:void(0)">物质管理</a></li>
-				</ul>
-			</dd>
-		</dl>	
+
 		<dl id="menu-standard">
 			<dt><i class="Hui-iconfont">&#xe687;</i> 数据监控<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -115,7 +102,7 @@
 			</dd>
 		</dl>
 		<dl id="menu-checklist">
-			<dt><i class="Hui-iconfont">&#xe6e0;</i> 运维<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe623;</i> 运维<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="gas_checklist_list.jsp" data-title="文档管理(废气)" href="javascript:void(0)">文档管理(废气)</a></li>
@@ -130,6 +117,16 @@
 				<ul>
 					<li><a data-href="company_list.jsp" data-title="企业管理" href="javascript:void(0)">企业管理</a></li>
 					<li><a data-href="station_list.jsp" data-title="检测站管理" href="javascript:void(0)">检测站管理</a></li>
+					</ul>
+			</dd>
+		</dl>
+		<dl id="menu-material">
+			<dt><i class="Hui-iconfont">&#xe634;</i> 物质管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="material_list.jsp" data-title="物质管理" href="javascript:void(0)">物质管理</a></li>
+				<li><a data-href="instrument_list.jsp" data-title="仪器管理" href="javascript:void(0)">仪器管理</a></li>
+			
 					</ul>
 			</dd>
 		</dl>
@@ -205,6 +202,7 @@ $(document).ready(function (){
 //	str+="<li>"+userName+"</li>"+
 	str+="<li id=\"username\" name=\"username\">"+userName+"</li>";
 	$("#username").html(str);
+	$("#menu-company").css("display","none");
 	if(level>=2){
 		$("#menu-permission").css("display","none");
 		

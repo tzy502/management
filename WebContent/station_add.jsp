@@ -46,7 +46,8 @@
 						<option value="-1" selected>请选择</option>
 				</select></td>
 				<th width='13%'>负责人</th>
-				<td width='20%'><select class="select" size="1"
+				<td width='20%'>
+				<select class="select" size="1"
 					name="principal" id="principal">
 					<option value="-1" selected>请选择</option>
 				</select></td>

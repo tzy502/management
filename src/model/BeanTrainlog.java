@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,6 +12,7 @@ import javax.persistence.Table;
 public class BeanTrainlog {
 	private int trainlogId;	
 	private int trainId;
+	private Timestamp traintime;
 	private String traindetail;
 	@Id
 	@Column(name = "trainlogId")
@@ -32,6 +35,13 @@ public class BeanTrainlog {
 	}
 	public void setTraindetail(String traindetail) {
 		this.traindetail = traindetail;
+	}
+	@Column(name = "traintime")
+	public Timestamp getTraintime() {
+		return traintime;
+	}
+	public void setTraintime(Timestamp traintime) {
+		this.traintime = traintime;
 	}
 	
 }

@@ -9,10 +9,11 @@ public interface ITrainuserDao {
 
 	public BeanTrainuser SearchTrainuser(int TrainuserId);
 
-	public List<BeanTrainuser> loadAllTrainuser();
+	public List<BeanTrainuser> loadAllTrainuser(int trainId);
 
 	public void modifryTrainuser(BeanTrainuser Trainuser);
 
 	public void DelTrainuser(int TrainuserId);
 
+	public void DelTrain(int TrainId);
 }

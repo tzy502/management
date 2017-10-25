@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import daoI.ITrainlogDao;
 import model.BeanTrainlog;
+import model.BeanTrainuser;
 import model.BeanDocument;
 import util.HibernateUtil;
 @Repository
@@ -42,11 +43,12 @@ public class TrainlogDao implements ITrainlogDao {
 	}
 
 	@Override
-	public List<BeanTrainlog> loadAllTrainlog() {
+	public List<BeanTrainlog> loadAllTrainlog(int trainId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		String hql = "from BeanTrainlog ";
+		String hql = "from BeanTrainlog where trainId=?";
 		Query qry = session.createQuery(hql);
+		qry.setParameter(0, trainId);
 		@SuppressWarnings("unchecked")
 		List<BeanTrainlog> result = qry.list();
 		tx.commit();
@@ -72,7 +74,7 @@ public class TrainlogDao implements ITrainlogDao {
 		// TODO Auto-generated method stub
 		// TODO 自动生成的方法存根
 		BeanTrainlog bc=new BeanTrainlog();
-		bc.setTrainId(TrainlogId);
+		bc.setTrainlogId(TrainlogId);
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
@@ -82,6 +84,20 @@ public class TrainlogDao implements ITrainlogDao {
 			e.printStackTrace();
 			tx.rollback();
 		}
+	}
+
+	@Override
+	public void DelTrain(int TrainId) {
+		// TODO Auto-generated method stub
+		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = s.beginTransaction();
+		String hql = "delete from BeanTrainlog where trainId=?";	
+		Query qry = s.createQuery(hql);
+		qry.setParameter(0, TrainId);
+		qry.executeUpdate() ;   
+		Object Document = qry.uniqueResult();
+		tx.commit();
+
 	}
 
 }

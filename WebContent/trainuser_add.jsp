@@ -34,26 +34,25 @@
 	content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
-	<form class="form form-horizontal" id="add"	enctype="multipart/form-data">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>任务名</label>
-		<input type="text" style='width:40%' class="input-text" value="" disable="disable" placeholder="" 
-					id="timename" name="timename">
-		<br/>
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>定时类型</label>
-		<input type="text" style='width:40%' class="input-text" value="" disable="disable" placeholder="" 
-					id="timer" name="timer">
-			<br/>
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间</label>
-		<input type="text" style='width:40%' class="input-text" value="" disable="disable" placeholder="" 
-					id="starttime" name="starttime">
-	
-		<br/>
-		<label class="form-label col-xs-6 col-sm-3"><span class="c-red">*</span>任务描述</label>	
-		<textarea name="timerdescription" id='timerdescription'disable="disable" style='width:60%' cols="" rows="" class="textarea" ></textarea>		
-
-		
+<article class="page-container" id = 'form-item-add'>
+	<form class="form form-horizontal" id="add" >
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+				<select class="select" name="userId" id="userId">
+					<option value="-1" selected>请选择</option>	
+		</div>
+	</div>
+	</div>
+<center>
+<div class="row cl">
+		<div class="form-label col-xs-4 col-sm-3">
+			<input class="btn btn-primary radius" type="button" onclick = "add()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+		</div>
+	</div>
+</center>
 	</form>
-	</article>
+</article>
 
 	<!--_footer 作为公共模版分离出去-->
 	<link
@@ -79,88 +78,81 @@
 	<script type="text/javascript"
 		src="lib/jquery.validation/1.14.0/messages_zh.js"></script>
 	<script type="text/javascript">
-	var j = 0;
-	function getCookie(Name){
-		var search = Name + "="//查询检索的值
-		   var returnvalue = "";//返回值
-		   if (document.cookie.length > 0) {
-		     sd = document.cookie.indexOf(search);
-		     if (sd!= -1) {
-		        sd += search.length;
-		        end = document.cookie.indexOf(";", sd);
-		        if (end == -1)
-		         end = document.cookie.length;
-		         //unescape() 函数可对通过 escape() 编码的字符串进行解码。
-		        returnvalue=unescape(document.cookie.substring(sd, end))
-		      }
-		   } 
-		   return returnvalue;
-	}
-	function GetRequest() {   
-		   var url = location.search; 
-		   url=decodeURI(url)
-		   var theRequest = new Object();   
-		   if (url.indexOf("?") != -1) {   
-		      var str = url.substr(1);   
-		      strs = str.split("&");   
-		      for(var i = 0; i < strs.length; i ++) {   
-		         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
-		      }   
-		   }   
-		   return theRequest;   
-	}   
-	Date.prototype.Format = function(fmt) {
-		var o = {
-			"M+" : this.getMonth() + 1, //月份 
-			"d+" : this.getDate(), //日 
-			"h+" : this.getHours(), //小时 
-			"m+" : this.getMinutes(), //分 
-			"s+" : this.getSeconds(), //秒 
-			"S" : this.getMilliseconds()
-		//毫秒 
-		};
-		if (/(y+)/.test(fmt))
-			fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
-					.substr(4 - RegExp.$1.length));
-		for ( var k in o) {
-			if (new RegExp("(" + k + ")").test(fmt)) {
-				fmt = fmt.replace(RegExp.$1,
-						(RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k])
-								.substr(("" + o[k]).length)));
-			}
-		}
-		return fmt;
-	}		
-
-	$(document).ready(function() {	
-		var Request = new Object();
-		Request = GetRequest();
-		var timerId = Request['timerId'];
-		var params = {
-			"timerId" : timerId,
-		}
+	
+	$(document).ready(function() {		
 	$.ajax({  
 		 type: "post",    
 	        async: true,    
-	        url: "/management/searchtimer.do",  
-	        data: JSON.stringify(params),
+	        url: "/management/loadAllUser.do",  
+	        //data: JSON.stringify(params),
 	        dataType: "json", 
 	        contentType: "application/json; charset=utf-8",   
 	        error: function(data){  
 	        	alert("出错了！！:"+data.msg);
 	        } , 
 	        success: function(data) { 
-	        	$("#timename").val(data.timename);
-	        	$("#timer").val(data.timername);
-	        	$("#timerdescription").val(data.timerdescription);
-	        	$("#starttime").val(data.starttime);
+	        	var str="<option value='1' selected>请选择</option>";
+	        	for(var i=0;i<data.length;i++){
+	        		str+="<option value='"+data[i].userId+"' >"+data[i].userName+"</option>"
+	        	}
+	        	
+	        	$("#userId").html(str); 
 	        }
-		})
-})
-		function role(title,url,w,h){
-			layer_show(title,url,w,h);
+		})	
+		$('select').select2();
 			
-		}
+		})
+	function GetRequest() {   
+	   var url = location.search; 
+	   url=decodeURI(url)
+	   var theRequest = new Object();   
+	   if (url.indexOf("?") != -1) {   
+	      var str = url.substr(1);   
+	      strs = str.split("&");   
+	      for(var i = 0; i < strs.length; i ++) {   
+	         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
+	      }   
+	   }   
+	   return theRequest;   
+}  	
+	function add(){
+		
+		$('.skin-minimal input').iCheck({
+			checkboxClass : 'icheckbox-blue',
+			radioClass : 'iradio-blue',
+			increaseArea : '20%'
+		});
+		var form = new FormData(document.getElementById("add"));
+		var Request = new Object();
+		Request = GetRequest();
+		var trainId = Request['trainId'];
+		trainId=1;
+
+		var form = new FormData(document.getElementById("add"));
+		form.append("trainId",trainId)
+		$.ajax({
+
+			type : 'POST',
+			url : "/management/addtrainuser.do",
+			data : form,
+			async : false,
+			processData : false,
+			contentType : false,
+			success : function(data) {
+				layer.msg('已添加!', {
+					icon : 1,
+					time : 15000
+				});
+				var index = parent.layer.getFrameIndex(window.name);
+				parent.$('.btn-refresh').click();
+				parent.layer.close(index);
+			},
+			error : function(data) {
+				console.log(data.msg);
+			},
+		});
+
+	}
 	</script>
 
 </body>

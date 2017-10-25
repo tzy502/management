@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import daoI.ITrainuserDao;
 import model.BeanTrainuser;
 import model.BeanDocument;
+import model.BeanMaterial;
 import util.HibernateUtil;
 @Repository
 public class TrainuserDao implements ITrainuserDao {
@@ -42,11 +43,12 @@ public class TrainuserDao implements ITrainuserDao {
 	}
 
 	@Override
-	public List<BeanTrainuser> loadAllTrainuser() {
+	public List<BeanTrainuser> loadAllTrainuser(int trainId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		String hql = "from BeanTrainuser ";
+		String hql = "from BeanTrainuser where trainId=?";
 		Query qry = session.createQuery(hql);
+		qry.setParameter(0, trainId);
 		@SuppressWarnings("unchecked")
 		List<BeanTrainuser> result = qry.list();
 		tx.commit();
@@ -82,6 +84,19 @@ public class TrainuserDao implements ITrainuserDao {
 			e.printStackTrace();
 			tx.rollback();
 		}
+	}
+
+	@Override
+	public void DelTrain(int TrainId) {
+		// TODO Auto-generated method stub
+		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = s.beginTransaction();
+		String hql = "delete from BeanTrainuser where trainId=?";	
+		Query qry = s.createQuery(hql);
+		qry.setParameter(0, TrainId);
+		Object Document = qry.uniqueResult();
+		tx.commit();
+
 	}
 
 }

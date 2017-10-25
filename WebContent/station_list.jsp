@@ -147,7 +147,7 @@ function getCookie(Name){
 				"<td class='td-manage'>"+
 				"<a style='text-decoration:none' id = 'datail' href='javascript:;' title='"+data[i].stationId+"'>"+
 				"<i class='Hui-iconfont'>&#xe720;</i>"+
-			"</a>"+
+				"</a>"+
 				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].stationId+"'>"+
 				"<i class='Hui-iconfont'>&#xe6df;</i>"+
 			"</a>"+

@@ -24,11 +24,11 @@
 <title>文档</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 企业列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 培训计划列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">	
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
 	 <span class="l">
-		 <a href="javascript:;" onclick="add('添加企业','instrument_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加仪器</a>
+		 <a href="javascript:;" onclick="add('添加培训计划','train_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加培训计划</a>
 	 </span>  
 	  </div>
 	
@@ -39,11 +39,9 @@
 			</tr>
 			<tr class="text-c">
 				<th width="40">序号</th>
-				<th width="200">仪器名</th>
-				<th width="250">购买时间</th>		
-				<th width="250">最后使用时间</th>	
-				<th width="250">最后校准时间</th>		
-				<th width="100">操作</th>
+				<th width="200">培训名</th>
+				<th width="200">开始时间</th>
+				<th width="40">操作</th>
 			</tr>
 		</thead>
 		<tbody id = 'tbody-alldoc'>
@@ -84,88 +82,43 @@ function getCookie(Name){
 
 	$(document).ready(function (){
 		$('body').on('click','#delete',function(event){
-			var instrumentId = this.name;
+			var trainId = this.title;
 			layer.confirm('确认要删除吗？',function(){
 				var params={
-				    	"instrumentId":instrumentId,
+				    	"trainId":trainId,
 				}
 				$.ajax({
 					type: 'POST',
-					url: "/management/delinstrument.do", 
+					url: "/management/delTrain.do", 
 					data: JSON.stringify(params),
 					dataType: 'json',
 					contentType: "application/json; charset=utf-8",
 					error:function(data) {
 						layer.msg('删除失败!',{icon:1,time:15000});
-						location.reload() 
+						window.location.href = 'train_list.jsp';
 					},
 					success: function(data){
 						layer.msg('已删除!',{icon:1,time:15000});
-						location.reload() 
+						window.location.href = 'train_list.jsp';
 					},
 				});		
 			});
 		});
 		
-		$('body').on('click','#calibration',function(event){
 		
-			var instrumentId = this.name;
-			layer.confirm('确认要更新信息吗？',function(){
-				var params={
-				    	"instrumentId":instrumentId,
-				}
-				$.ajax({
-					type: 'POST',
-					url: "/management/calibrationinstrument.do", 
-					data: JSON.stringify(params),
-					dataType: 'json',
-					contentType: "application/json; charset=utf-8",
-					error:function(data) {
-						layer.msg('删除失败!',{icon:1,time:15000});
-						location.reload() 
-					},
-					success: function(data){
-						layer.msg('已删除!',{icon:1,time:15000});
-						location.reload() 
-					},
-				});		
-			});
-		});
-		$('body').on('click','#use',function(event){
-		
-			var instrumentId = this.name;
-			layer.confirm('确认要更新信息吗？',function(){
-				var params={
-				    	"instrumentId":instrumentId,
-				}
-				$.ajax({
-					type: 'POST',
-					url: "/management/useinstrument.do", 
-					data: JSON.stringify(params),
-					dataType: 'json',
-					contentType: "application/json; charset=utf-8",
-					error:function(data) {
-						layer.msg('删除失败!',{icon:1,time:15000});
-						location.reload() 
-					},
-					success: function(data){
-						layer.msg('已删除!',{icon:1,time:15000});
-						location.reload() 
-					},
-				});		
-			});
-		});
 		
 	$('body').on('click','#update',function(event){
-		layer_show('企业编辑','company_modifey.jsp?companyid='+this.title,'800','500');
+		layer_show('培训计划编辑','train_modifey.jsp?trainid='+this.title,'800','500');
 	}); 
-
+	$('body').on('click','#datail',function(event){
+		layer_show('培训计划编辑','train_datail.jsp?trainid='+this.title,'800','500');
+	}); 
 	//加载页面数据
 
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/management/loadinstrument.do",  
+        url: "/management/loadTrain.do",  
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
@@ -173,37 +126,28 @@ function getCookie(Name){
         } , 
         success: function(data) { 
         	var str = "";  
-    		for(var i = 0; i < data.length; i++){         		
-    			var buytime=data[i].buytime;
-    			var lastusetime=data[i].lastusetime;
-    			var calibrationtime=data[i].calibrationtime;
-				buytime=buytime.replace(/00:00:00.0/,"");
-				lastusetime=lastusetime.replace(/00:00:00.0/,"");
-				calibrationtime=calibrationtime.replace(/00:00:00.0/,"");
-      			str += "<tr class='text-c'>"+
+    		for(var i = 0; i < data.length; i++){     
+    			var begintime=data[i].begintime
+    			begintime=begintime.replace(/00:00:00.0/,"");
+       			str += "<tr class='text-c'>"+
 				"<td>"+(i+1)+"</td>"+
-				"<td>"+data[i].instrumentname+"</td>"+
-				"<td>"+buytime+"</td>"+
-				"<td>"+lastusetime+"</td>"+
-				"<td>"+calibrationtime+"</td>"+
+				"<td>"+data[i].trainname+"</td>"+
+				"<td>"+begintime+"</td>"+
 				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+data[i].instrumentId+"'>"+
+				"<a style='text-decoration:none' id = 'datail' href='javascript:;' title='"+data[i].trainId+"'>"+
+				"<i class='Hui-iconfont'>&#xe720;</i>"+
+				"</a>"+
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].trainId+"'>"+
 				"<i class='Hui-iconfont'>&#xe6df;</i>"+
 				"</a>"+
-				"<a style='text-decoration:none' id = 'calibration' href='javascript:;' title='一键更新最后校准日期' name='"+data[i].instrumentId+"'>"+
-				"<i class='Hui-iconfont'>&#xe63c;</i>"+
-				"</a>"+
-				"<a style='text-decoration:none' id = 'use' href='javascript:;' title='一键更新最后使用日期' name='"+data[i].instrumentId+"'>"+
-				"<i class='Hui-iconfont'>&#xe615;</i>"+
-				"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' name='"+data[i].instrumentId+"'>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].trainId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
 
 				
 				"</td>"
 				"</tr>";
-				
+				str+=""
 			
     			
     		}

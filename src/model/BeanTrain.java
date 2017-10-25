@@ -17,7 +17,7 @@ public class BeanTrain {
 	private String detail;
 	private String result;
 	@Id
-	@Column(name = "timeId")
+	@Column(name = "trainId")
 	public int getTrainId() {
 		return trainId;
 	}

@@ -9,10 +9,11 @@ public interface ITrainlogDao {
 
 	public BeanTrainlog SearchTrainlog(int TrainlogId);
 
-	public List<BeanTrainlog> loadAllTrainlog();
+	public List<BeanTrainlog> loadAllTrainlog(int trainId);
 
 	public void modifryTrainlog(BeanTrainlog Trainlog);
 
 	public void DelTrainlog(int TrainlogId);
 
+	public void DelTrain(int TrainId);
 }

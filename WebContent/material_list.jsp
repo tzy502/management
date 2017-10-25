@@ -84,7 +84,6 @@ function getCookie(Name){
 
 	$(document).ready(function (){
 		var level =getCookie("level");
-		alert(level)
 		if(level>=3){
 			$("#add").css("display","none");
 			$("#delete").css("display","none");

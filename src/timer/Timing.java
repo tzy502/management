@@ -5,17 +5,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import daoI.IStationDao;
-import daoI.ITimerDao;
+
 import model.BeanGas;
 import model.BeanMission;
 import model.BeanStandard;
@@ -49,6 +48,7 @@ public class Timing {
 	private  IWarningService iws;
 	@Scheduled(cron = "0 0 6 * * ?") 
 	public void daymission() throws UnsupportedEncodingException { 
+		
 		List<BeanTimer> result=its.loadmission(1);
 		Timestamp start = new Timestamp(System.currentTimeMillis()); 
 		Timestamp end =start;
