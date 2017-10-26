@@ -9,7 +9,7 @@ public interface ICostDao {
 
 	public BeanCost SearchCost(int CostId);
 
-	public List<BeanCost> loadAllCost();
+	public List<BeanCost> loadAllCost(int projectId);
 
 	public void modifryCost(BeanCost Cost);
 

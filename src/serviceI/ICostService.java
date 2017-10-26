@@ -12,7 +12,7 @@ public interface ICostService {
 	
 	public BeanCost SearchCost(int compayid)throws BaseException;
 	
-	public List<BeanCost> loadAllCost()throws BaseException;
+	public List<BeanCost> loadAllCost(int projectId)throws BaseException;
 	
 		
 	public void modifryCost(BeanCost Cost)throws BaseException;

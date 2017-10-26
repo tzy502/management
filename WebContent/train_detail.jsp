@@ -31,33 +31,33 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>培训名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="培训名称" id="trainname" name="trainname">
+			<input type="text" class="input-text" value="" placeholder="培训名称" readonly="readonly" id="trainname" name="trainname">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" value="" placeholder="开始时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd '})"
+		<input type="text" style='width:40%' class="input-text" value="" readonly="readonly" placeholder="开始时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd '})"
 					id="begin" name="begin">	
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>结束时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" value="" placeholder="结束时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd '})"	
+		<input type="text" style='width:40%' class="input-text" value="" readonly="readonly" placeholder="结束时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd '})"	
 					id="end" name="end">	
 		</div>
 	</div>
 		<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>详情：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="detail" id='detail'  cols="" rows="" class="textarea" ></textarea>					
+			<textarea name="detail" id='detail'  cols="" rows=""readonly="readonly" class="textarea" ></textarea>					
 		</div>
 		</div>
 		<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>结果：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="result" id='result'  cols="" rows="" class="textarea" ></textarea>					
+			<textarea name="result" id='result'  cols="" rows=""readonly="readonly" class="textarea" ></textarea>					
 		</div>
 	</div>
 		<div class="row cl">

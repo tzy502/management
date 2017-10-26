@@ -31,9 +31,9 @@ public class CostService implements ICostService {
 	}
 
 	@Override
-	public List<BeanCost> loadAllCost() throws BaseException {
+	public List<BeanCost> loadAllCost(int projectId) throws BaseException {
 		// TODO Auto-generated method stub
-		List<BeanCost> resutl =cd.loadAllCost();
+		List<BeanCost> resutl =cd.loadAllCost(projectId);
 		return resutl;
 	}
 

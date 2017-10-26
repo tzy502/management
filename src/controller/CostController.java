@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +27,9 @@ public class CostController {
 	private IProjectService ips;
 	@RequestMapping(value = "/addcost.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String addcost(BeanCost bc) throws JSONException{
+	public String addcost(BeanCost bc,HttpServletRequest request) throws JSONException{
+		int flag=Integer.valueOf(request.getParameter("type"));
+		bc.setCost(bc.getCost()*flag);
 		try {
 			ics.addCost(bc);
 		} catch (BaseException e) {
@@ -36,7 +40,9 @@ public class CostController {
 	}
 	@RequestMapping(value = "/modifrycost.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String modifrycost(BeanCost bc) throws JSONException{
+	public String modifrycost(BeanCost bc,HttpServletRequest request) throws JSONException{
+		int flag=Integer.valueOf(request.getParameter("type"));
+		bc.setCost(bc.getCost()*flag);
 		try {
 			ics.modifryCost(bc);
 		} catch (BaseException e) {
@@ -60,25 +66,30 @@ public class CostController {
 	}
 	@RequestMapping(value = "/loadAllcost.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String loadAllcost() throws JSONException{
+	public String loadAllcost(@RequestBody String params) throws JSONException{
+		JSONObject js = new JSONObject(params);
+		int id=Integer.valueOf(js.getString("projectId"));
 		JSONArray json = new JSONArray();
 		List<BeanCost> result =new ArrayList<BeanCost>();
+		float total=0;
 		try {
-			result=ics.loadAllCost();
+			result=ics.loadAllCost(id);
 			for(int i=0;i<result.size();i++){
 				JSONObject jo = new JSONObject();
 				jo.put("costId", result.get(i).getCostId());
 				jo.put("costname", result.get(i).getCostname());
-				jo.put("projectId", result.get(i).getProjectId());
-				jo.put("projectname", ips.SearchProject(result.get(i).getCostId()).getProjectname());
-				jo.put("cost",String.valueOf(result.get(i).getCostId()));
+				jo.put("cost",String.valueOf(result.get(i).getCost()));
+				total+=result.get(i).getCost();
 				json.put(jo);
 			}
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		JSONObject jo = new JSONObject();
+		jo.put("total", String.valueOf(total));
+		json.put(jo);
+		System.out.println(json.toString());
 		return json.toString();
 	}
 	@RequestMapping(value = "/searchcost.do", produces = "application/json; charset=utf-8") 
@@ -93,7 +104,6 @@ public class CostController {
 			jo.put("costId", result.getCostId());
 			jo.put("costname", result.getCostname());
 			jo.put("projectId", result.getProjectId());
-			jo.put("projectname", ips.SearchProject(result.getCostId()).getProjectname());
 			jo.put("cost",String.valueOf(result.getCostId()));
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block

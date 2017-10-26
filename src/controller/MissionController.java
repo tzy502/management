@@ -55,7 +55,7 @@ public class MissionController {
 	@ResponseBody
 	public String addMission(BeanMission bm,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
 		bm.setEnddate(Timestamp.valueOf(request.getParameter("end")));
-		String start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( new Date()); 
+		String start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()); 
 		bm.setStartdate(Timestamp.valueOf(start));
 		bm.setStatus(1);
 		bm.setType(1);

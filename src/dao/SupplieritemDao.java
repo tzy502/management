@@ -7,20 +7,20 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import daoI.ICostDao;
-import model.BeanCost;
+import daoI.ISupplieritemDao;
+import model.BeanSupplieritem;
 import model.BeanDocument;
 import util.HibernateUtil;
 @Repository
-public class CostDao implements ICostDao {
+public class SupplieritemDao implements ISupplieritemDao {
 
 	@Override
-	public void addCost(BeanCost Cost) {
+	public void addSupplieritem(BeanSupplieritem Supplieritem) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			session.save(Cost);
+			session.save(Supplieritem);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -29,37 +29,37 @@ public class CostDao implements ICostDao {
 	}
 
 	@Override
-	public BeanCost SearchCost(int CostId) {
+	public BeanSupplieritem SearchSupplieritem(int SupplieritemId) {
 		// TODO 自动生成的方法存根
 
 		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = s.beginTransaction();
-		String hql = "from BeanCost where CostId = '" + CostId + "'";
+		String hql = "from BeanSupplieritem where SupplieritemId = '" + SupplieritemId + "'";
 		Query qry = s.createQuery(hql);
 		Object Document = qry.uniqueResult();
 		tx.commit();
-		return (BeanCost)Document;
+		return (BeanSupplieritem)Document;
 	}
 
 	@Override
-	public List<BeanCost> loadAllCost(int projectId) {
+	public List<BeanSupplieritem> loadAllSupplieritem(int SupplierId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		String hql = "from BeanCost where projectId="+projectId;
+		String hql = "from BeanSupplieritem where supplierId="+SupplierId;
 		Query qry = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
-		List<BeanCost> result = qry.list();
+		List<BeanSupplieritem> result = qry.list();
 		tx.commit();
 		return result;
 	}
 
 	@Override
-	public void modifryCost(BeanCost Cost) {
+	public void modifrySupplieritem(BeanSupplieritem Supplieritem) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			session.update(Cost);
+			session.update(Supplieritem);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,11 +68,11 @@ public class CostDao implements ICostDao {
 	}
 
 	@Override
-	public void DelCost(int CostId) {
+	public void DelSupplieritem(int SupplieritemId) {
 		// TODO Auto-generated method stub
 		// TODO 自动生成的方法存根
-		BeanCost bc=new BeanCost();
-		bc.setCostId(CostId);
+		BeanSupplieritem bc=new BeanSupplieritem();
+		bc.setSupplieritemId(SupplieritemId);
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {

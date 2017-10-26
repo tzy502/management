@@ -36,20 +36,20 @@
 <body>
 	<form class="form form-horizontal" id="add"	enctype="multipart/form-data">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>任务名</label>
-		<input type="text" style='width:40%' class="input-text" value="" disable="disable" placeholder="" 
+		<input type="text" style='width:40%' class="input-text" value="" readonly="readonly" placeholder="" 
 					id="timename" name="timename">
 		<br/>
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>定时类型</label>
-		<input type="text" style='width:40%' class="input-text" value="" disable="disable" placeholder="" 
+		<input type="text" style='width:40%' class="input-text" value="" readonly="readonly" placeholder="" 
 					id="timer" name="timer">
 			<br/>
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间</label>
-		<input type="text" style='width:40%' class="input-text" value="" disable="disable" placeholder="" 
+		<input type="text" style='width:40%' class="input-text" value="" readonly="readonly" placeholder="" 
 					id="starttime" name="starttime">
 	
 		<br/>
 		<label class="form-label col-xs-6 col-sm-3"><span class="c-red">*</span>任务描述</label>	
-		<textarea name="timerdescription" id='timerdescription'disable="disable" style='width:60%' cols="" rows="" class="textarea" ></textarea>		
+		<textarea name="timerdescription" id='timerdescription' readonly="readonly" style='width:60%' cols="" rows="" class="textarea" ></textarea>		
 
 		
 	</form>

@@ -29,47 +29,34 @@
 <article class="page-container" id = 'form-item-add'>
 	<form class="form form-horizontal" id="add" >
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">物质名称：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>支出名称；</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" readonly="readonly" placeholder="物质名称" id="materialname" name="materialname">
+			<input type="text" class="input-text" value="" placeholder="支出名称" id="costname" name="costname">
 		</div>
 	</div>
-	
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">物质介绍:</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>支出类型：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" readonly="readonly" placeholder="物质介绍" id="materialuse" name="materialuse">
+		    <input type="radio" id="type1" name="type" selected="" value=-1>
+		    <label for="radio-1">支出</label>
+		    <input type="radio" id="type2" name="type" value=1>
+		    <label for="radio-1">收入</label>
 		</div>
 	</div>
-		
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">余额</label>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>支出详情；</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" readonly="readonly" readonly="readonly" placeholder="余额" id="materialover" name="materialover">
+			<input type="number" class="input-text" value="" placeholder="支出详情" id="cost" name="cost">
 		</div>
 	</div>
-	<input type="hidden" id="materialId" name="materialId">
-
-	<div class="mt-15 mb-15">
-	<hr/>
-	</div>	
+<center>
+<div class="row cl">
+		<div class="form-label col-xs-4 col-sm-3">
+			<input class="btn btn-primary radius" type="button" onclick = "add()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+		</div>
+	</div>
+</center>
 	</form>
-	<table class="table table-border table-bordered table-bg">
-			<thead>
-				<tr>
-					<th scope="col" colspan="9">物质操作记录</th>
-				</tr>
-				<tr class="text-c">
-					<th width="10%">序号</th>
-					<th width="25%">时间</th>		
-					<th width="45%">操作员</th>
-					<th width="20%">操作</th>		
-				</tr>
-			</thead>
-			<tbody id = 'tbody-alldoc'>
-			</tbody>
-			
-		</table>
 </article>
 
 <!--_footer 作为公共模版分离出去-->
@@ -82,25 +69,8 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
-function getCookie(Name){
-	var search = Name + "="//查询检索的值
-	   var returnvalue = "";//返回值
-	   if (document.cookie.length > 0) {
-	     sd = document.cookie.indexOf(search);
-	     if (sd!= -1) {
-	        sd += search.length;
-	        end = document.cookie.indexOf(";", sd);
-	        if (end == -1)
-	         end = document.cookie.length;
-	         //unescape() 函数可对通过 escape() 编码的字符串进行解码。
-	        returnvalue=unescape(document.cookie.substring(sd, end))
-	      }
-	   } 
-	   return returnvalue;
-}
 function GetRequest() {   
 	   var url = location.search; 
-	   url=decodeURI(url)
 	   var theRequest = new Object();   
 	   if (url.indexOf("?") != -1) {   
 	      var str = url.substr(1);   
@@ -110,68 +80,52 @@ function GetRequest() {
 	      }   
 	   }   
 	   return theRequest;   
-}
-$(document).ready(function (){
-	var Request = new Object();
-	Request = GetRequest();
-	var materialId = Request["materialId"];
-	var params={
-			"materialId":materialId,
-	}
-	
-	$.ajax({
-
-		type : 'POST',
-		url : "/management/SearchMaterial.do",
-        data: JSON.stringify(params),
-        dataType: "json", 
-		async : false,
-		processData : false,
-		contentType : false,
-		success : function(data) {
-			$("#materialname").val(data.materialname);
-			$("#materialuse").val(data.materialuse);
-			$("#materialId").val(data.materialId);
-			$("#materialover").val(data.materialover);
-		
-		},
-		error : function(data) {
-			console.log(data.msg);
-		},
-	});
-	
-	$.ajax({
-
-		type : 'POST',
-		url : "/management/loadMaterialMateriallog.do",
-        data: JSON.stringify(params),
-        dataType: "json", 
-		async : false,
-		processData : false,
-		contentType : false,
-		success : function(data) {
-
-	      	var str = "";  
-    		for(var i = 0; i < data.length; i++){     	
-    			str += "<tr class='text-c'>"+
-				"<td>"+(i+1)+"</td>"+
-				"<td>"+data[i].date+"</td>"+
-				"<td>"+data[i].userId+"</td>"+
-				"<td>"+data[i].num+"</td>"+
-				"</tr>";
-				str+=""   			
-    		}
-        	$("#tbody-alldoc").html(str); 
-		},
-		error : function(data) {
-			console.log(data.msg);
-		},
-	});
+}   
+$(function(){ 
+	$("#type").attr("checked",true); 
 	
 })
 
+function add(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	var Request = new Object(); 
+	Request = GetRequest(); 
+	var projectId =Request['projectId']; 
+	projectId=1;
+	var form = new FormData(document.getElementById("add"));
+	form.append("projectId",projectId)
+	$.ajax({
+			
+			type: 'POST',
+			url: "/management/addcost.do", 
+			data:form, 
+	        async: false,
+	        processData:false,
+	        contentType:false,
+			success: function(data){
+				layer.msg('已添加!',{icon:1,time:15000});
+				
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});	
+		
+	
+	
+	
+	
+		var index = parent.layer.getFrameIndex(window.name);
+		layer.msg('已添加!',{icon:1,time:15000});
+		console.log("123123213");
+		parent.$('.btn-refresh').click();
+		parent.layer.close(index);
 
-
+}
 </script> 
 
 </body>

@@ -67,6 +67,9 @@
 			<mapping class="model.BeanTrainuser"/> 
 			<mapping class="model.BeanProject"/> 
 			<mapping class="model.BeanCost"/> 
+			<mapping class="model.BeanSupplier"/> 
+			<mapping class="model.BeanSupplieritem"/> 
+		
 	</session-factory>
 
 </hibernate-configuration>
