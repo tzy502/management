@@ -24,26 +24,26 @@
 <title>文档</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 供应商列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 车辆列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">	
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
 	 <span class="l">
-		 <a href="javascript:;" onclick="add('添加供应商','supplier_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加供应商</a>
+		 <a href="javascript:;" onclick="add('添加车辆','car_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加车辆</a>
 	 </span>  
 	  </div>
 	
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
-				<th scope="col" colspan="9">供应商名</th>
+				<th scope="col" colspan="9">车辆列表</th>
 			</tr>
 			<tr class="text-c">
-				<th width="40">序号</th>
-				<th width="200">供应商名</th>
-				<th width="400">地址</th>		
-				<th width="120">负责人</th>	
-				<th width="120">电话</th>		
-				<th width="40">操作</th>
+				<th width="5%">序号</th>
+				<th width="15%">车牌</th>
+				<th width="15%">车型</th>
+				<th width="25%">购买时间</th>		
+				<th width="25%">保险到期时间</th>		
+				<th width="15%">操作</th>
 			</tr>
 		</thead>
 		<tbody id = 'tbody-alldoc'>
@@ -84,24 +84,24 @@ function getCookie(Name){
 
 	$(document).ready(function (){
 		$('body').on('click','#delete',function(event){
-			var supplierId = this.name;
+			var carId = this.name;
 			layer.confirm('确认要删除吗？',function(){
 				var params={
-				    	"supplierId":supplierId,
+				    	"carId":carId,
 				}
 				$.ajax({
 					type: 'POST',
-					url: "/management/delsupplier.do", 
+					url: "/management/delcar.do", 
 					data: JSON.stringify(params),
 					dataType: 'json',
 					contentType: "application/json; charset=utf-8",
 					error:function(data) {
 						layer.msg('删除失败!',{icon:1,time:15000});
-						window.location.href = 'supplier_list.jsp';
+						window.location.href = 'car_list.jsp';
 					},
 					success: function(data){
 						layer.msg('已删除!',{icon:1,time:15000});
-						window.location.href = 'supplier_list.jsp';
+						window.location.href = 'car_list.jsp';
 					},
 				});		
 			});
@@ -110,17 +110,17 @@ function getCookie(Name){
 		
 		
 	$('body').on('click','#update',function(event){
-		layer_show('供应商编辑','supplier_modifry.jsp?supplierId='+this.name,'800','500');
+		layer_show('车辆编辑','car_modifry.jsp?carId='+this.name,'800','500');
 	}); 
-	$('body').on('click','#datail',function(event){	
-		layer_show('供应商详情','supplier_detail.jsp?supplierId='+this.name,'800','500');
+	$('body').on('click','#detail',function(event){
+		layer_show('车辆详情','car_detail.jsp?carId='+this.name,'800','500');
 	}); 
 	//加载页面数据
 
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/management/loadAllsupplier.do",  
+        url: "/management/loadAllcar.do",  
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
@@ -129,27 +129,31 @@ function getCookie(Name){
         success: function(data) { 
         	var str = "";  
     		for(var i = 0; i < data.length; i++){     	
+    			var carbuytime=data[i].carbuytime;
+    			carbuytime=carbuytime.replace(/ 00:00:00.0/,"");
+    			var carinsurancetime=data[i].carinsurancetime;
+    			carinsurancetime=carinsurancetime.replace(/ 00:00:00.0/,"");
        			str += "<tr class='text-c'>"+
 				"<td>"+(i+1)+"</td>"+
-				"<td>"+data[i].suppliername+"</td>"+
-				"<td>"+data[i].supplieraddress+"</td>"+
-				"<td>"+data[i].supplieruser+"</td>"+
-				"<td>"+data[i].supplierTEL+"</td>"+
+				"<td>"+data[i].carId+"</td>"+
+				"<td>"+data[i].cartype+"</td>"+
+				"<td>"+carbuytime+"</td>"+
+				"<td>"+carinsurancetime+"</td>"+
 				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'datail' href='javascript:;'title=\"详情\" name='"+data[i].supplierId+"'>"+
+				"<a style='text-decoration:none' id = 'detail' href='javascript:;'	title=\"详情\" name='"+data[i].carId+"'>"+
 				"<i class='Hui-iconfont'>&#xe720;</i>"+
 				"</a>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;'title=\"更新\" name='"+data[i].supplierId+"'>"+
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' title=\"编辑\" name='"+data[i].carId+"'>"+
 				"<i class='Hui-iconfont'>&#xe6df;</i>"+
-				"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;'title=\"删除\" name='"+data[i].supplierId+"'>"+
+			"</a>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title=\"删除 \"name='"+data[i].carId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
-				"</a>"+			
+				"</a>"+
+
+				
 				"</td>"
 				"</tr>";
-				str+=""
-			
-    			
+				str+=""			
     		}
  
     	

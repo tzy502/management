@@ -13,7 +13,7 @@ public class BeanSupplieritem {
 	private int supplieritemId;
 	private int supplierId;
 	private String supplieritemname;
-	private float supplieritemprice;
+	private double supplieritemprice;
 	private Timestamp supplieritemtime;
 	private String supplieritemtassess;
 	@Id
@@ -32,10 +32,10 @@ public class BeanSupplieritem {
 		this.supplieritemname = supplieritemname;
 	}
 	@Column(name = "supplieritemprice")
-	public float getSupplieritemprice() {
+	public double getSupplieritemprice() {
 		return supplieritemprice;
 	}
-	public void setSupplieritemprice(float supplieritemprice) {
+	public void setSupplieritemprice(double supplieritemprice) {
 		this.supplieritemprice = supplieritemprice;
 	}
 	@Column(name = "supplieritemtime")

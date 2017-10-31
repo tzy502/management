@@ -54,13 +54,29 @@
 	</div>
 	<input type="hidden" id="supplierId" name="supplierId">
 <center>
-	<div class="row cl">
-		<div class="form-label col-xs-4 col-sm-3">
-			<input class="btn btn-primary radius" type="button" onclick = "add()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-		</div>
-	</div>
 </center>
 	</form>
+	<div class="mt-15 mb-15">
+		<hr/>
+	</div>	
+	 <span class="l">
+		 <a href="javascript:;" onclick="add('添加商品','supplieritem_add.jsp','400','350')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加商品</a>
+	 </span>  
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+			<tr>
+				<th scope="col" colspan="9">商品记录</th>
+			</tr>
+			<tr class="text-c">
+				<th width="40">序号</th>
+				<th width="150">商品名</th>	
+				<th width="150">购买时间</th>	
+				<th width="40">操作</th>
+			</tr>
+		</thead>
+		<tbody id = 'tbody-log'>
+		</tbody>		
+	</table>
 </article>
 
 <!--_footer 作为公共模版分离出去-->
@@ -95,30 +111,98 @@ var params={
 
 }
 	
-$(document).ready(function() {
-	$.ajax({    
-        type: "post",    
-        async: true,    
-        url: "/management/searchsupplier.do",  
-        data: JSON.stringify(params),
-        dataType: "json", 
-        contentType: "application/json; charset=utf-8", 
-        success: function(data) { 	        	
-        	$("#suppliername").val(data.suppliername);
-        	$("#supplieraddress").val(data.supplieraddress);
-        	$("#supplierTEL").val(data.supplierTEL);
-        	$("#supplieruser").val(data.supplieruser);
-        	$("#supplierId").val(data.supplierId);
-        }
-	
-	
-	
-})
-})
+	$(document).ready(function() {
+		$('body').on('click','#delete',function(event){
+			var supplieritemId = this.name;
+			layer.confirm('确认要删除吗？',function(){
+				var params={
+				    	"supplieritemId":supplieritemId,
+				}
+				$.ajax({
+					type: 'POST',
+					url: "/management/delsupplieritem.do", 
+					data: JSON.stringify(params),
+					dataType: 'json',
+					contentType: "application/json; charset=utf-8",
+					error:function(data) {
+						layer.msg('删除失败!',{icon:1,time:15000});
+						window.location.reload();
+					},
+					success: function(data){
+						layer.msg('已删除!',{icon:1,time:15000});
+						window.location.reload();
+					},
+				});		
+			});
+		});
+		
+		
+		
+	$('body').on('click','#update',function(event){
+		layer_show('培训计划编辑','supplieritem_modifry.jsp?supplieritemId='+this.name,'400','350');
+	}); 
+	$('body').on('click','#detail',function(event){
+		layer_show('培训计划编辑','supplieritem_detail.jsp?supplieritemId='+this.name,'400','350');
+	}); 
+		$.ajax({    
+	        type: "post",    
+	        async: true,    
+	        url: "/management/searchsupplier.do",  
+	        data: JSON.stringify(params),
+	        dataType: "json", 
+	        contentType: "application/json; charset=utf-8", 
+	        success: function(data) { 	        	
+	        	$("#suppliername").val(data.suppliername);
+	        	$("#supplieraddress").val(data.supplieraddress);
+	        	$("#supplierTEL").val(data.supplierTEL);
+	        	$("#supplieruser").val(data.supplieruser);
+	        	$("#supplierId").val(data.supplierId);
+	        }	        
+		})
+		console.log(supplierId)
+		var str="";
+			$.ajax({    
+	        type: "post",    
+	        async: true,    
+	        url: "/management/loadAllsupplieritem.do",  
+	        data: JSON.stringify(params),
+	        dataType: "json", 
+	        contentType: "application/json; charset=utf-8", 
+	        success: function(data) { 	    
+	        	console.log(data)
+	        	for(var i = 0; i < data.length; i++){ 
+		        	var supplieritemtime=data[i].supplieritemtime;
+		        	supplieritemtime=supplieritemtime.replace(/00:00:00.0/,"");
+		        	console.log(supplieritemtime)
+					str += "<tr class='text-c'>"+
+					"<td>"+(i+1)+"</td>"+
+					"<td>"+data[i].supplieritemname+"</td>"+
+					"<td>"+supplieritemtime+"</td>"+
+					"<td class='td-manage'>"+
+					"<a style='text-decoration:none' id = 'detail' href='javascript:;'title=\"详情\" name='"+data[i].supplieritemId+"'>"+
+					"<i class='Hui-iconfont'>&#xe720;</i>"+
+					"</a>"+	
+					"<a style='text-decoration:none' id = 'update' href='javascript:;'title=\"更新\" name='"+data[i].supplieritemId+"'>"+
+					"<i class='Hui-iconfont'>&#xe6df;</i>"+
+					"</a>"+
+					"<a style='text-decoration:none' id = 'delete' href='javascript:;'title=\"删除\" name='"+data[i].supplieritemId+"'>"+
+						"<i class='Hui-iconfont'>&#xe6e2;</i>"+
+					"</a>"+			
+
+					"</td>"+
+					"</tr>";
+				
+	        	}
+	        	
+	        	$("#tbody-log").html(str);  
+	        }
+			})
+	})
 
 
-function add(){
-
+function add(title,url,w,h){
+	url+="?supplierId="+supplierId;
+	layer_show(title,url,w,h);
 }
 </script> 
 

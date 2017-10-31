@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class BeanCost {
 	private int costId;
 	private String costname;
-	private float cost;
+	private double cost;
 	private int projectId;
 	@Id
 	@Column(name = "costId")
@@ -28,10 +28,10 @@ public class BeanCost {
 		this.costname = costname;
 	}
 	@Column(name = "cost")
-	public float getCost() {
+	public double getCost() {
 		return cost;
 	}
-	public void setCost(float cost) {
+	public void setCost(double cost) {
 		this.cost = cost;
 	}
 	@Column(name = "projectId")

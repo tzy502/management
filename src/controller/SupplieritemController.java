@@ -29,7 +29,9 @@ public class SupplieritemController {
 	@ResponseBody
 	public String addsupplieritem(BeanSupplieritem bs,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
 		try {
-			bs.setSupplieritemtime(Timestamp.valueOf(request.getParameter("time")));
+			String time=request.getParameter("time");
+			time+=" 00:00:00";
+			bs.setSupplieritemtime(Timestamp.valueOf(time));
 			String supplieritemtassess=new String(bs.getSupplieritemtassess().getBytes("ISO-8859-1"),"UTF-8");
 			String supplieritemname=new String(bs.getSupplieritemname().getBytes("ISO-8859-1"),"UTF-8"); 
 			bs.setSupplieritemname(supplieritemname);
@@ -82,18 +84,16 @@ public class SupplieritemController {
 			for(int i=0;i<result.size();i++){
 				JSONObject jo = new JSONObject();
 				jo.put("supplieritemId", result.get(i).getSupplieritemId());
-				jo.put("supplierId", result.get(i).getSupplierId());
 				jo.put("supplieritemname", result.get(i).getSupplieritemname());
-				jo.put("supplieritemprice", String.valueOf(result.get(i).getSupplieritemprice()));
-				jo.put("supplieritemtime", result.get(i).getSupplieritemtime());
-				jo.put("supplieritemtassess", result.get(i).getSupplieritemtassess());		
+				jo.put("supplieritemtime", result.get(i).getSupplieritemtime());	
 				json.put(jo);
 			}
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		System.out.println(json.toString());
+		
 		return json.toString();
 	}
 	@RequestMapping(value = "/searchsupplieritem.do", produces = "application/json; charset=utf-8") 
@@ -110,7 +110,7 @@ public class SupplieritemController {
 			jo.put("supplieritemname", result.getSupplieritemname());
 			jo.put("supplieritemprice", String.valueOf(result.getSupplieritemprice()));
 			jo.put("supplieritemtime", result.getSupplieritemtime());
-			jo.put("supplieritemtassess", result.getSupplieritemtassess());		
+			jo.put("supplieritemtassess", result.getSupplieritemtassess());			
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
