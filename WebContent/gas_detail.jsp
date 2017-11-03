@@ -27,6 +27,19 @@
 
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 历史数据 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
+<div>
+	选择时间:
+	<input type="text" style='width:30%' class="input-text" value="" placeholder="开始时间" onclick="WdatePicker({maxDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+	id="start" name="start">
+	到
+		<input type="text" style='width:30%' class="input-text" value="" placeholder="结束时间" onclick="WdatePicker({maxDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+	id="end" name="end">
+	<input class="btn btn-primary radius" type="button" onclick = "button()" value="&nbsp;&nbsp;查看&nbsp;&nbsp;">
+	
+</div>	
+	<div class="mt-5 mb-5">
+	<br/>
+	</div>	
 		<table class="table table-border table-bordered table-bg">
 		<thead id=thead>
 		
@@ -91,8 +104,29 @@ function GetRequest() {
 	}
 	return theRequest;
 }
+
+var Request = new Object();
+Request = GetRequest();
+var stationid = Request['stationid'];
+var end=new Date().Format("yyyy-MM-dd hh:mm:ss");
+var start =new Date(new Date()-24*60*60*1000).Format("yyyy-MM-dd hh:mm:ss");//取前一天的时间
+	  //“今天”转换成可识别的格式输出
+
 $(function(){ 
- 
+	$("#start").val(start);
+	$("#end").val(end);
+	generate()
+
+})
+function button(){
+	generate()
+}
+function generate(){
+	var params = {
+			"StationId" : stationid,
+			"end":$("#end").val(),
+			"start":$("#start").val(),
+		}
 	$('body').on('click','#detail ',function(event){
 		var Request = new Object();
 		Request = GetRequest();
@@ -100,19 +134,7 @@ $(function(){
 		
 		layer_show('数据趋势','data_detail.jsp?stationid='+stationid+'&InfectCode='+this.title,'650','450');
 	}); 	
-	
-	var Request = new Object();
-	Request = GetRequest();
-	var stationid = Request['stationid'];
-	var end=new Date().Format("yyyy-MM-dd hh:mm:ss");
-	var start =new Date(new Date()-24*60*60*1000).Format("yyyy-MM-dd hh:mm:ss");//取前一天的时间
-		  //“今天”转换成可识别的格式输出
-	var params = {
-		"StationId" : stationid,
-		"end":end,
-		"start":start,
-	}
-	
+
 	$.ajax({  
 		 type: "post",    
 	        async: true,    
@@ -220,7 +242,7 @@ $(function(){
 	        		}	
 	        	} 
 	        		else{
-	        			alert("近一天没有新数据更新");
+	        			alert("并没有详细数据");
 	        			
 	        		}
 	        		
@@ -231,7 +253,8 @@ $(function(){
 	}
 	)
 }
-)
+
+
 	
 	//加载页面数据
 	

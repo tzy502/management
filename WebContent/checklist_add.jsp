@@ -138,8 +138,7 @@ function add(){
 		 break;
 		case "8":
 			 str="gas_monitor_comparison_add.jsp";
-		 break;
-		 
+		 break;	 
 		}
 		stationname=encodeURIComponent(stationname);
 		url=str+"?StationId="+StationId+"&stationname="	+stationname

@@ -77,7 +77,7 @@ public class TimerController {
 	@ResponseBody
 	public String delMission(@RequestBody String params) throws JSONException{
 		JSONObject json = new JSONObject(params);
-		int id=Integer.valueOf(json.getString("missionId"));
+		int id=Integer.valueOf(json.getString("timerId"));
 		try {
 			its.DelTimer(id);
 			} catch (BaseException e) {

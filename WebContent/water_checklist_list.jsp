@@ -159,6 +159,10 @@ function getCookie(Name){
 		 
 		}
 	}); 
+	$('body').on('click','#history',function(event){
+		var str=this.name.split("|");
+		layer_show('历史文档','checklist_history.jsp?stationId='+str[1]+'&checklisttype='+str[0],'900','550');
+	});	
 	//加载页面数据
 	 station=[];
 		var str = "";  
@@ -232,7 +236,11 @@ function getCookie(Name){
 		+"</thead>"
 		for(var k=0;k<allchecklist[j].length;k++){
 			str+="<tr class='text-c'>"+
-			"<td>"+allchecklist[j][k].Checklisttypename+"</td>"+
+			"<td>"+
+			"<a style='text-decoration:none' id = 'history' href='javascript:;' name='"+allchecklist[j][k].Checklisttype+"|"+station[i].stationId+"'>"	
+			+allchecklist[j][k].Checklisttypename+
+			"</a>"+
+			"</td>"+
 			"<td>"+allchecklist[j][k].Checklisttime+"</td>"+
 			"<td>"+allchecklist[j][k].userId+"</td>"+
 			"<td class='td-manage'>"+

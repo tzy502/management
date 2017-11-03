@@ -82,24 +82,25 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
 
-function GetRequest() {
-	var url = location.search;
-	var theRequest = new Object();
-	if (url.indexOf("?") != -1) {
-		var str = url.substr(1);
-		strs = str.split("&");
-		for (var i = 0; i < strs.length; i++) {
-			theRequest[strs[i].split("=")[0]] = unescape(strs[i]
-					.split("=")[1]);
-		}
-	}
-	return theRequest;
+function GetRequest() {   
+	   var url = location.search; 
+	   url=decodeURI(url)
+	   var theRequest = new Object();   
+	   if (url.indexOf("?") != -1) {   
+	      var str = url.substr(1);   
+	      strs = str.split("&");   
+	      for(var i = 0; i < strs.length; i ++) {   
+	         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
+	      }   
+	   }   
+	   return theRequest;   
 }
 var Request = new Object();
 Request = GetRequest();
 var carId = Request["carId"];
 $(document).ready(function() {
 	$("#carId").val(carId);
+	console.log(carId)
 })
 
 

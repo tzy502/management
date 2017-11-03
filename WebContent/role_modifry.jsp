@@ -141,7 +141,7 @@ function add(){
 		},
 	});	
 		var index = parent.layer.getFrameIndex(window.name);
-		alert("sadasd");
+
 		parent.$('.btn-refresh').click();
 		parent.layer.close(index);
 

@@ -34,6 +34,7 @@
 	content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
+<article class="page-container" id='form-item-add'>
 	<form class="form form-horizontal" id="add"	enctype="multipart/form-data">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>任务名</label>
 		<input type="text" style='width:40%' class="input-text" value="" readonly="readonly" placeholder="" 

@@ -37,7 +37,7 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>支出类型：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		    <input type="radio" id="type1" name="type" selected="" value=-1>
+		    <input type="radio" id="type1" name="type" value=-1>
 		    <label for="radio-1">支出</label>
 		    <input type="radio" id="type2" name="type" value=1>
 		    <label for="radio-1">收入</label>
@@ -82,7 +82,7 @@ function GetRequest() {
 	   return theRequest;   
 }   
 $(function(){ 
-	$("#type").attr("checked",true); 
+	$("#type1").attr("checked",true); 
 	
 })
 
@@ -95,7 +95,6 @@ function add(){
 	var Request = new Object(); 
 	Request = GetRequest(); 
 	var projectId =Request['projectId']; 
-	projectId=1;
 	var form = new FormData(document.getElementById("add"));
 	form.append("projectId",projectId)
 	$.ajax({

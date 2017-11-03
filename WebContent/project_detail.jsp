@@ -92,7 +92,6 @@ function GetRequest() {
 var Request = new Object(); 
 Request = GetRequest(); 
 var projectId =Request['projectId']; 
-projectId=1
 $(function(){ 
 	$('body').on('click','#delete',function(event){
 		var costId = this.name;

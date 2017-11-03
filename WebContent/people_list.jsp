@@ -24,26 +24,25 @@
 <title>文档</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 仪器列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 人员信息列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">	
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
 	 <span class="l">
-		 <a href="javascript:;" onclick="add('添加仪器','instrument_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加仪器</a>
+		 <a href="javascript:;" onclick="add('添加人员信息','people_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加人员信息</a>
 	 </span>  
 	  </div>
 	
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
-				<th scope="col" colspan="9">仪器列表</th>
+				<th scope="col" colspan="9">人员信息列表</th>
 			</tr>
 			<tr class="text-c">
-				<th width="40">序号</th>
-				<th width="200">仪器名</th>
-				<th width="250">购买时间</th>		
-				<th width="250">最后使用时间</th>	
-				<th width="250">最后校准时间</th>		
-				<th width="100">操作</th>
+				<th width="5%">序号</th>
+				<th width="20%">姓名</th>	
+				<th width="30%">岗位</th>	
+				<th width="30%">部门</th>	
+				<th width="15%">操作</th>
 			</tr>
 		</thead>
 		<tbody id = 'tbody-alldoc'>
@@ -84,88 +83,43 @@ function getCookie(Name){
 
 	$(document).ready(function (){
 		$('body').on('click','#delete',function(event){
-			var instrumentId = this.name;
+			var peopleId = this.name;
 			layer.confirm('确认要删除吗？',function(){
 				var params={
-				    	"instrumentId":instrumentId,
+				    	"peopleId":peopleId,
 				}
 				$.ajax({
 					type: 'POST',
-					url: "/management/delinstrument.do", 
+					url: "/management/delpeople.do", 
 					data: JSON.stringify(params),
 					dataType: 'json',
 					contentType: "application/json; charset=utf-8",
 					error:function(data) {
 						layer.msg('删除失败!',{icon:1,time:15000});
-						location.reload() 
+						window.location.href = 'people_list.jsp';
 					},
 					success: function(data){
 						layer.msg('已删除!',{icon:1,time:15000});
-						location.reload() 
+						window.location.href = 'people_list.jsp';
 					},
 				});		
 			});
 		});
 		
-		$('body').on('click','#calibration',function(event){
 		
-			var instrumentId = this.name;
-			layer.confirm('确认要更新信息吗？',function(){
-				var params={
-				    	"instrumentId":instrumentId,
-				}
-				$.ajax({
-					type: 'POST',
-					url: "/management/calibrationinstrument.do", 
-					data: JSON.stringify(params),
-					dataType: 'json',
-					contentType: "application/json; charset=utf-8",
-					error:function(data) {
-						layer.msg('删除失败!',{icon:1,time:15000});
-						location.reload() 
-					},
-					success: function(data){
-						layer.msg('已删除!',{icon:1,time:15000});
-						location.reload() 
-					},
-				});		
-			});
-		});
-		$('body').on('click','#use',function(event){
-		
-			var instrumentId = this.name;
-			layer.confirm('确认要更新信息吗？',function(){
-				var params={
-				    	"instrumentId":instrumentId,
-				}
-				$.ajax({
-					type: 'POST',
-					url: "/management/useinstrument.do", 
-					data: JSON.stringify(params),
-					dataType: 'json',
-					contentType: "application/json; charset=utf-8",
-					error:function(data) {
-						layer.msg('删除失败!',{icon:1,time:15000});
-						location.reload() 
-					},
-					success: function(data){
-						layer.msg('已删除!',{icon:1,time:15000});
-						location.reload() 
-					},
-				});		
-			});
-		});
 		
 	$('body').on('click','#update',function(event){
-		layer_show('仪器编辑','company_modifey.jsp?companyid='+this.title,'800','500');
+		layer_show('人员信息编辑','people_modifry.jsp?peopleId='+this.name,'800','500');
 	}); 
-
+	$('body').on('click','#detail',function(event){
+		layer_show('人员信息详情','people_detail.jsp?peopleId='+this.name,'800','500');
+	}); 
 	//加载页面数据
 
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/management/loadinstrument.do",  
+        url: "/management/loadAllpeople.do",  
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
@@ -173,39 +127,28 @@ function getCookie(Name){
         } , 
         success: function(data) { 
         	var str = "";  
-    		for(var i = 0; i < data.length; i++){         		
-    			var buytime=data[i].buytime;
-    			var lastusetime=data[i].lastusetime;
-    			var calibrationtime=data[i].calibrationtime;
-				buytime=buytime.replace(/00:00:00.0/,"");
-				lastusetime=lastusetime.replace(/00:00:00.0/,"");
-				calibrationtime=calibrationtime.replace(/00:00:00.0/,"");
-      			str += "<tr class='text-c'>"+
+    		for(var i = 0; i < data.length; i++){     	
+       			str += "<tr class='text-c'>"+
 				"<td>"+(i+1)+"</td>"+
-				"<td>"+data[i].instrumentname+"</td>"+
-				"<td>"+buytime+"</td>"+
-				"<td>"+lastusetime+"</td>"+
-				"<td>"+calibrationtime+"</td>"+
+				"<td>"+data[i].name+"</td>"+
+				"<td>"+data[i].department+"</td>"+
+				"<td>"+data[i].post+"</td>"+
+				
 				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+data[i].instrumentId+"'>"+
+				"<a style='text-decoration:none' id = 'detail' href='javascript:;'	title=\"详情\" name='"+data[i].peopleId+"'>"+
+				"<i class='Hui-iconfont'>&#xe720;</i>"+
+				"</a>"+
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' title=\"编辑\" name='"+data[i].peopleId+"'>"+
 				"<i class='Hui-iconfont'>&#xe6df;</i>"+
-				"</a>"+
-				"<a style='text-decoration:none' id = 'calibration' href='javascript:;' title='一键更新最后校准日期' name='"+data[i].instrumentId+"'>"+
-				"<i class='Hui-iconfont'>&#xe63c;</i>"+
-				"</a>"+
-				"<a style='text-decoration:none' id = 'use' href='javascript:;' title='一键更新最后使用日期' name='"+data[i].instrumentId+"'>"+
-				"<i class='Hui-iconfont'>&#xe615;</i>"+
-				"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' name='"+data[i].instrumentId+"'>"+
+			"</a>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title=\"删除 \"name='"+data[i].peopleId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
 
 				
 				"</td>"
 				"</tr>";
-				
-			
-    			
+				str+=""			
     		}
  
     	

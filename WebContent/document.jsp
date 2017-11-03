@@ -145,8 +145,8 @@ function getCookie(Name){
         } , 
         success: function(data) { 
     		var level =getCookie("level");
-    		if(level!=1){
-    		$("#add").css("display","none");
+    		if(level>1){
+    			$("#add").css("display","none");
         	var str = "<from id='download' name='download'>";  
         	var j=0;
     		for(var i = 0; i < data.length; i++){
@@ -163,7 +163,7 @@ function getCookie(Name){
         		}
     		}
     		else{
-    			$("#add").css("display","none");
+
             	var str = "<from id='download' name='download'>";  
             	var j=0;
         		for(var i = 0; i < data.length; i++){

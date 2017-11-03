@@ -60,19 +60,14 @@
 			<textarea name="result" id='result'  cols="" rows=""readonly="readonly" class="textarea" ></textarea>					
 		</div>
 	</div>
-		<div class="row cl">
-		<div class="form-label col-xs-4 col-sm-3">
-			<input class="btn btn-primary radius" type="button" onclick="end()"
-				value="&nbsp;&nbsp;结束项目&nbsp;&nbsp;">			
-		</div>
-	</div>
+
 	<input type="hidden" id="trainId" name="trainId">
 	</form>
 	<div class="mt-15 mb-15">
 		<hr/>
 	</div>	
 		 <span class="l">
-		 <a href="javascript:;" onclick="add('添加参与人员','trainuser_add.jsp','400','250')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加培训计划</a>
+		 <a href="javascript:;" onclick="add('添加参与人员','trainuser_add.jsp','400','250')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加参与人员</a>
 	 </span>  
 		<table class="table table-border table-bordered table-bg">
 		<thead>
@@ -92,7 +87,7 @@
 		<hr/>
 	</div>	
 	 <span class="l">
-		 <a href="javascript:;" onclick="add('添加培训计划','trainlog_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加培训计划</a>
+		 <a href="javascript:;" onclick="add('添加培训记录','trainlog_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加培训记录</a>
 	 </span>  
 	<table class="table table-border table-bordered table-bg">
 		<thead>

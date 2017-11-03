@@ -73,10 +73,10 @@ function getCookie(Name){
 	$(document).ready(function (){
 	
 		$('body').on('click','#delete',function(event){
-			var missionId = this.name;
+			var timerId = this.name;
 			layer.confirm('确认要删除吗？',function(){
 				var params={
-				    	"missionId":missionId,
+				    	"timerId":timerId,
 				}
 				$.ajax({
 					type: 'POST',
@@ -89,7 +89,7 @@ function getCookie(Name){
 					},
 					success: function(data){
 						layer.msg('已删除!',{icon:1,time:15000});
-						window.location.href = 'mission_list.jsp';
+						window.location.href = 'timer_list.jsp';
 					},
 				});		
 			});
@@ -98,33 +98,12 @@ function getCookie(Name){
 		
 		//split
 	$('body').on('click','#update',function(event){
-		layer_show('任务修改','mission_modifry.jsp?missionId='+this.name,'800','500');
+		layer_show('定时任务修改','timer_modifry.jsp?timerId='+this.name,'800','500');
 	}); 
 	$('body').on('click','#datail',function(event){
-		
-		var str=this.name.split("|");
-		
-		/*if(str[1]==1||str[1]==4){
-			var params = {
-					"missionId" : str[0],
-				}
-			$.ajax({  
-				 type: "post",    
-			        async: true,    
-			        url: "/management/viewtimer.do",  
-			        data: JSON.stringify(params),
-			        dataType: "json", 
-			        contentType: "application/json; charset=utf-8",   
-			        error: function(data){  
-			        	alert("出错了!!!!:"+data.msg);
-			        } , 
-			        success: function(data) { 
-			        		layer_show('任务详情','mission_detail.jsp?missionId='+str[1],'800','500');
-			       		}
-			        })
-		}else{*/
-			layer_show('任务详情','mission_detail.jsp?missionId='+str[1],'800','500');
-		//}	
+
+			layer_show('定时任务详情','timer_detail.jsp?timerId='+this.name,'800','500');
+
 	}); 
 	//加载页面数据
 	 station=[];
@@ -147,7 +126,7 @@ function getCookie(Name){
         }
     });
 	
-	var mission=[];
+	var timer=[];
 	$.ajax({    
         type: "post",    
         async: false,    
@@ -160,7 +139,7 @@ function getCookie(Name){
         } , 
         success: function(data) {         
         	for(var i = 0; i < data.length; i++){     		
-        		mission.push(data[i]);
+        		timer.push(data[i]);
         	 	}
         	
         }
@@ -178,14 +157,14 @@ function getCookie(Name){
 			    
 			    
 		var item = -1;
-		for(var j = 0; j < mission.length; j++){	
-			if(station[i].stationId==mission[j][0].stationId){
+		for(var j = 0; j < timer.length; j++){	
+			if(station[i].stationId==timer[j][0].stationId){
 				item=1;
 				break;
 			}	
 		}
 
-		if(mission[j][0].timeId!=0){
+		if(timer[j][0].timeId!=0){
 		str+="<table class='table table-border table-bordered table-bg'>"
 		+"<thead>"
 		+"<tr class='text-c'>"
@@ -195,19 +174,19 @@ function getCookie(Name){
 		+"<th width='15%'>操作</th>"
 		+"</tr>"
 		+"</thead>"
-		for(var k=0;k<mission[j].length;k++){
+		for(var k=0;k<timer[j].length;k++){
 			str+="<tr class='text-c'>"+
-			"<td>"+mission[j][k].timeId+"</td>"+
-			"<td>"+mission[j][k].timename+"</td>"+
-			"<td>"+mission[j][k].timername+"</td>"+
+			"<td>"+(k+1)+"</td>"+
+			"<td>"+timer[j][k].timename+"</td>"+
+			"<td>"+timer[j][k].timername+"</td>"+
 			"<td class='td-manage'>"+
-			"<a style='text-decoration:none' id = 'datail' href='javascript:;' name='"+mission[j][k].timerid+"'>"+
+			"<a style='text-decoration:none' id = 'datail' href='javascript:;' name='"+timer[j][k].timeId+"'>"+
 				"<i class='Hui-iconfont'>&#xe720;</i>"+
 			"</a>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+mission[j][k].timerid+"'>"+
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+timer[j][k].timeId+"'>"+
 				"<i class='Hui-iconfont'>&#xe6df;</i>"+
 			"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' name='"+mission[j][k].timerid+"'>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' name='"+timer[j][k].timeId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
 				"</td>"

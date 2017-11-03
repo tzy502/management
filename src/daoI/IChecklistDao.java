@@ -9,7 +9,7 @@ public interface IChecklistDao {
 	//添加角色
 	public BeanChecklist SearchChecklist(int ChecklistId);
 	//搜索角色
-	public List<BeanChecklist> loadAllChecklist();
+	public List<BeanChecklist> loadChecklisthistory(int StationId,int type);
 	//搜索角色
 	public void modifryChecklist(BeanChecklist Checklist);
 	//修改角色

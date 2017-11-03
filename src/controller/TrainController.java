@@ -39,13 +39,11 @@ public class TrainController {
 		String begin=request.getParameter("begin");
 		String end=request.getParameter("end");
 		bt.setBegintime(sdf.parse(begin));
-		bt.setEndtime(sdf.parse(end));
 		String trainname=new String(bt.getTrainname().getBytes("ISO-8859-1"),"UTF-8"); 
 		String detail=new String(bt.getDetail().getBytes("ISO-8859-1"),"UTF-8"); 
-		String result=new String(bt.getResult().getBytes("ISO-8859-1"),"UTF-8"); 
+	
 		bt.setTrainname(trainname);
 		bt.setDetail(detail);
-		bt.setResult(result);
 		try {
 			its.addTrain(bt);
 		} catch (BaseException e) {

@@ -28,7 +28,7 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 职位管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入职位名称" id="" name="">
+		<input type="text" class="input-text" style="width:250px" placeholder="输入职位名称" id="searchitem" name="">
 		<button type="submit" class="btn btn-success" id="searchItem" name="searchItem" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="add('添加职位','role_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加职位</a></span>   </div>
@@ -73,6 +73,9 @@
 
 
 $(function(){ 
+	$("#searchItem").css("display","none");
+	$("#searchitem").css("display","none");
+	
 	$('body').on('click','#update',function(event){
 		layer_show('职位编辑','role_modifry.jsp?roleId='+this.title,'800','500');
 	}); 

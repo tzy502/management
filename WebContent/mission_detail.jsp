@@ -138,6 +138,7 @@
 	}
 	
 	$(document).ready(function() {	
+		console.log(123)
 		var Request = new Object();
 		Request = GetRequest();
 		var missionId = Request['missionId'];
@@ -204,7 +205,7 @@
 			        	alert("完成");
 			        }
 				})
-			}
+			
 		}
 		function role(title,url,w,h){
 			layer_show(title,url,w,h);

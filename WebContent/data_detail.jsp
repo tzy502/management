@@ -33,6 +33,8 @@
 <body>
 	<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
 	<div id="main" style="width: 600px; height: 400px;"></div>
+
+
 </body>
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
@@ -95,111 +97,99 @@
 			return theRequest;
 		}
 
-		
-		
 
-			var Request = new Object();
-			Request = GetRequest();
-			var stationid = Request['stationid'];
-			var InfectCode = Request['InfectCode'];
-			var end=new Date().Format("yyyy-MM-dd hh:mm:ss");
-			var start =new Date(new Date()-(24*60*60*1000*3)).Format("yyyy-MM-dd hh:mm:ss");//取前一天的时间
-				  //“今天”转换成可识别的格式输出
-				  
-			$(function() {
-	
+		var Request = new Object();
+		Request = GetRequest();
+		var stationid = Request['stationid'];
+		var InfectCode = Request['InfectCode'];
+		var end=new Date().Format("yyyy-MM-dd hh:mm:ss");
+		var start =new Date(new Date()-(24*60*60*1000*3)).Format("yyyy-MM-dd hh:mm:ss");//取前一天的时间
+		  
+		$(function() {
+			console.log(123)
+			generate()
+		})
+
+		
+		
+		function generate() {
 			var params = {
-				"StationId" : stationid,
-				"end":end,
-				"start":start,
-				"InfectCode":InfectCode,
-			}
-			  var myChart = echarts.init(document.getElementById('main'));
-
-  
-			         
-			
-			     
-			   var vaule=[];
-			   var time=[];
-			$.ajax({
-				type : "post",
-				async : true,
-				url : "/management/loaddata.do",
-				data: JSON.stringify(params),
-				dataType : "json",
-				contentType : "application/json; charset=utf-8",
-				error : function(data) {
-					alert("出错了！！:" + data.msg);
-				},
-				success : function(data) {
-					if( data.length>0){	
-						for(var i = 0; i < data.length; i++){ 
-				 		time.push(data[i].mTime);
-				 		
-				 		vaule.push(data[i].InfectValue);
-				 	}
-	
-					    
-					 var option = {
-					            title: {    //图表标题
-					                text: '过去三天数值趋势'
-					            },
-					            tooltip: {
-					                trigger: 'axis', 
-					            },
-			
-					            dataZoom: [
-					                 {
-					                     type: 'inside',    //支持单独的滑动条缩放
-					                     start: 0,            //默认数据初始缩放范围为10%到90%
-					                     end: 100
-					                 }
-					            ],
-					            toolbox: {    //工具栏显示             
-					                show: true,
-					                feature: {                
-					                    saveAsImage: {}        //显示“另存为图片”工具
-					                }
-					            },
-					            xAxis:  { 
-					            
-					            	 data: time
-					            },
-					            yAxis : [   
-			                        {
-			      
-	
-			                             type : 'value',
-			                             name : '',
-			                         }
-					            
-					            ],
-					            series : [  
-					            	{
-					                    name: '数值',
-					                    type: 'line',
-					                    data: vaule
-		                       
-					            	}
-					       ]
-					};
-					    
-	
-					 myChart.setOption(option); 
-				 }
-					    // 为echarts对象加载数据
-				
-			 	else{
-	        			alert("近三天没有新数据更新");
-	        			
-	        		}
+					"StationId" : stationid,
+					"end":end,
+					"start":start,
+					"InfectCode":InfectCode,
 				}
+				  var myChart = echarts.init(document.getElementById('main'));     
+				   var vaule=[];
+				   var time=[];
+				$.ajax({
+					type : "post",
+					async : true,
+					url : "/management/loaddata.do",
+					data: JSON.stringify(params),
+					dataType : "json",
+					contentType : "application/json; charset=utf-8",
+					error : function(data) {
+						alert("出错了！！:" + data.msg);
+					},
+					success : function(data) {
+						if( data.length>0){	
+							for(var i = 0; i < data.length; i++){ 
+					 		time.push(data[i].mTime);
+					 		
+					 		vaule.push(data[i].InfectValue);
+					 	}					    
+						 var option = {
+						            title: {    //图表标题
+						                text: '过去三天数值趋势'
+						            },
+						            tooltip: {
+						                trigger: 'axis', 
+						            },
+						            dataZoom: [
+						                 {
+						                     type: 'inside',    //支持单独的滑动条缩放
+						                     start: 0,            //默认数据初始缩放范围为10%到90%
+						                     end: 100
+						                 }
+						            ],
+						            toolbox: {    //工具栏显示             
+						                show: true,
+						                feature: {                
+						                    saveAsImage: {}        //显示“另存为图片”工具
+						                }
+						            },
+						            xAxis:  { 
+						            
+						            	 data: time
+						            },
+						            yAxis : [   
+				                        {
+				                             type : 'value',
+				                             name : '',
+				                         }
+						            
+						            ],
+						            series : [  
+						            	{
+						                    name: '数值',
+						                    type: 'line',
+						                    data: vaule		                       
+						            	}
+						       ]
+						};
+						 myChart.setOption(option); 
+					 }
+				 	else{
+		        			alert("近三天没有新数据更新");
+		        		}
+					}
 
-		})
-			
-			
-		})
+			})
+		}
+		
+
+				  //“今天”转换成可识别的格式输出
 
 
 	

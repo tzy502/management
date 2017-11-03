@@ -23,14 +23,14 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>运行服务信息化管理系统</title>
+<title>杭州利晟运行服务信息化管理系统</title>
 <meta name="keywords" content="H-ui.admin 3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
 <header class="navbar-wrapper">
 		<div class="navbar navbar-fixed-top">
-		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" >运行服务信息化管理系统</a> 
+		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" >杭州利晟运行服务信息化管理系统</a> 
 			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 				<ul class="cl">
 					<li id="username" name="username">管理员</li>
@@ -63,6 +63,7 @@
 				<ul>
 					<li><a data-href="user_list.jsp" data-title="用户管理" href="javascript:void(0)">用户管理</a></li>
 					<li><a data-href="train_list.jsp" data-title="人员培训" href="javascript:void(0)">人员培训</a></li>
+					<li><a data-href="people_list.jsp" data-title="人员信息管理" href="javascript:void(0)">人员信息管理</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -116,9 +117,11 @@
 			<dt><i class="Hui-iconfont">&#xe687;</i> 数据管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="company_list.jsp" data-title="企业管理" href="javascript:void(0)">企业管理</a></li>
 					<li><a data-href="station_list.jsp" data-title="检测站管理" href="javascript:void(0)">检测站管理</a></li>
-					</ul>
+					<li><a data-href="project_list.jsp" data-title="成本管理" href="javascript:void(0)">成本管理</a></li>
+					<li><a data-href="supplier_list.jsp" data-title="供应商管理" href="javascript:void(0)">供应商管理</a></li>
+
+				</ul>
 			</dd>
 		</dl>
 		<dl id="menu-material">
@@ -126,9 +129,9 @@
 			<dd>
 				<ul>
 					<li><a data-href="material_list.jsp" data-title="物质管理" href="javascript:void(0)">物质管理</a></li>
-				<li><a data-href="instrument_list.jsp" data-title="仪器管理" href="javascript:void(0)">仪器管理</a></li>
-			
-					</ul>
+					<li><a data-href="instrument_list.jsp" data-title="仪器管理" href="javascript:void(0)">仪器管理</a></li>
+					<li><a data-href="car_list.jsp" data-title="车辆管理" href="javascript:void(0)">车辆管理</a></li>
+							</ul>
 			</dd>
 		</dl>
 		<dl id="menu-doc">

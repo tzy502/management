@@ -93,7 +93,7 @@ function GetRequest() {
 var Request = new Object();
 Request = GetRequest();
 var carrepairId = Request["carrepairId"];
-carrepairId=1
+
 var params = {
 	"carrepairId" : carrepairId,
 }

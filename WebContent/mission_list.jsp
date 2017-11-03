@@ -68,7 +68,7 @@ function getCookie(Name){
 	$('body').on('click','#update',function(event){
 		layer_show('任务修改','mission_modifry.jsp?missionId='+this.name,'800','500');
 	}); 
-	$('body').on('click','#datail',function(event){	
+	$('body').on('click','#detail',function(event){	
 		layer_show('任务详情','mission_detail.jsp?missionId='+this.name,'800','500');
 	}); 
 	$('body').on('click','#delete',function(event){
@@ -141,7 +141,7 @@ function getCookie(Name){
 	    			"<td>"+data[k].enddate+"</td>"+
 	    			"<td>"+data[k].statusname+"</td>"+
 	    			"<td class='td-manage'>"+
-	    			"<a style='text-decoration:none' id = 'datail' href='javascript:;' name='"+data[k].Missionid+"'>"+
+	    			"<a style='text-decoration:none' id = 'detail' href='javascript:;' name='"+data[k].Missionid+"'>"+
 	    				"<i class='Hui-iconfont'>&#xe720;</i>"+
 	    			"</a>"+
 	    				"</td>"
@@ -238,7 +238,7 @@ function getCookie(Name){
 			"<td>"+mission[j][k].enddate+"</td>"+
 			"<td>"+mission[j][k].statusname+"</td>"+
 			"<td class='td-manage'>"+
-			"<a style='text-decoration:none' id = 'datail' href='javascript:;' name='"+mission[j][k].Missionid+"|"+mission[j][k].status+"'>"+
+			"<a style='text-decoration:none' id = 'detail' href='javascript:;' name='"+mission[j][k].Missionid+"'>"+
 				"<i class='Hui-iconfont'>&#xe720;</i>"+
 			"</a>"+
 				"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+mission[j][k].Missionid+"'>"+

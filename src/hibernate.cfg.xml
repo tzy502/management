@@ -72,6 +72,7 @@
 		<mapping class="model.BeanCar" />
 		<mapping class="model.BeanCarrepair" />
 		<mapping class="model.BeanCaruse" />
+<mapping class="model.BeanPeople" />
 
 	</session-factory>
 

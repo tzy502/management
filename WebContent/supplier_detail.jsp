@@ -139,10 +139,10 @@ var params={
 		
 		
 	$('body').on('click','#update',function(event){
-		layer_show('培训计划编辑','supplieritem_modifry.jsp?supplieritemId='+this.name,'400','350');
+		layer_show('商品编辑','supplieritem_modifry.jsp?supplieritemId='+this.name,'400','350');
 	}); 
 	$('body').on('click','#detail',function(event){
-		layer_show('培训计划编辑','supplieritem_detail.jsp?supplieritemId='+this.name,'400','350');
+		layer_show('商品编辑','supplieritem_detail.jsp?supplieritemId='+this.name,'400','350');
 	}); 
 		$.ajax({    
 	        type: "post",    

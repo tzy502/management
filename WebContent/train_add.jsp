@@ -91,15 +91,14 @@
 					icon : 1,
 					time : 15000
 				});
-				var index = parent.layer.getFrameIndex(window.name);
-				parent.$('.btn-refresh').click();
-				parent.layer.close(index);
 			},
 			error : function(data) {
 				console.log(data.msg);
 			},
 		});
-
+		var index = parent.layer.getFrameIndex(window.name);
+		parent.$('.btn-refresh').click();
+		parent.layer.close(index);
 	}
 </script> 
 

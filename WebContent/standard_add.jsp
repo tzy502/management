@@ -36,15 +36,27 @@
 				</select>
 	</div>
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>下限</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>预警下限</label>
 		<div class="formControls col-xs-6 col-sm-5">
-			<input type="text" class="input-text" value="" placeholder="下限" id="minvaule" name="minvaule">
+			<input type="text" class="input-text" value="" placeholder="预警下限" id="minvaule" name="minvaule">
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上限</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>预警上限</label>
 		<div class="formControls col-xs-6 col-sm-5">
-			<input type="text" class="input-text" value="" placeholder="上限" id="maxvaule" name="maxvaule">
+			<input type="text" class="input-text" value="" placeholder="预警上限" id="maxvaule" name="maxvaule">
+		</div>
+	</div>
+			<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>报警下限</label>
+		<div class="formControls col-xs-6 col-sm-5">
+			<input type="text" class="input-text" value="" placeholder="报警下限" id="minalarm" name="minalarm">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>报警上限</label>
+		<div class="formControls col-xs-6 col-sm-5">
+			<input type="text" class="input-text" value="" placeholder="报警上限" id="maxalarm" name="maxalarm">
 		</div>
 	</div>
 		<input type="hidden"  id="stationid" name="stationid">

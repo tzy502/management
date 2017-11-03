@@ -37,26 +37,29 @@
 	<article class="page-container" id='form-item-add'>
 	<form class="form form-horizontal" id="add">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span
-				class="c-red">*</span>监测数据</label> <input type="text" class="input-text"
-				value=""  disabled="disabled"  id="name" name="name">
-
-		</div>
-			</div>
-		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>下限</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="下限" id="minvaule" name="minvaule">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>预警下限</label>
+		<div class="formControls col-xs-6 col-sm-5">
+			<input type="text" class="input-text" value="" placeholder="预警下限" id="minvaule" name="minvaule">
 		</div>
 	</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span
-				class="c-red">*</span>上限</label>
-			<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" class="input-text" value="" placeholder="上限" id="maxvaule" name="maxvaule">
-
-			</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>预警上限</label>
+		<div class="formControls col-xs-6 col-sm-5">
+			<input type="text" class="input-text" value="" placeholder="预警上限" id="maxvaule" name="maxvaule">
 		</div>
+	</div>
+			<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>报警下限</label>
+		<div class="formControls col-xs-6 col-sm-5">
+			<input type="text" class="input-text" value="" placeholder="报警下限" id="minalarm" name="minalarm">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>报警上限</label>
+		<div class="formControls col-xs-6 col-sm-5">
+			<input type="text" class="input-text" value="" placeholder="报警上限" id="maxalarm" name="maxalarm">
+		</div>
+	</div>
 		<input type="hidden" id="stationid" name="stationid">
 		 <input	type="hidden" id="standardid" name="standardid">
 <input	type="hidden" id="infectid" name="infectid">
@@ -128,6 +131,8 @@
 					$("#name").val(data.name);
 					$("#minvaule").val(data.minvaule);
 					$("#maxvaule").val(data.maxvaule);
+					$("#maxalarm").val(data.maxalarm);
+					$("#minalarm").val(data.minalarm);
 					$("#stationid").val(data.stationid);
 					$("#standardid").val(data.standardid);
 					$("#infectid").val(data.infectid);

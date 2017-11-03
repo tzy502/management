@@ -92,7 +92,7 @@
 		<hr/>
 	</div>	
 	 <span class="l">
-		 <a href="javascript:;" onclick="add('添加维修记录','car_add.jsp','400','350')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加维修记录</a>
+		 <a href="javascript:;" onclick="add('添加维修记录','carrepair_add.jsp','400','350')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加维修记录</a>
 	 </span>  
 	<table class="table table-border table-bordered table-bg">
 		<thead>
@@ -102,13 +102,13 @@
 			<tr class="text-c">
 				<th width="10%">序号</th>
 				<th width="15%">车牌</th>	
-				<th width="15%">维修时间</th>	
+				<th width="15%">维修开始时间</th>	
 				<th width="15%">维修花费</th>
 				<th width="35%">维修原因</th>
 				<th width="10%">操作</th>
 			</tr>
 		</thead>
-		<tbody id = 'tbody-log'>
+		<tbody id = 'tbody-repair'>
 		</tbody>		
 	</table>
 	</form>
@@ -127,6 +127,7 @@
 <script type="text/javascript">
 function GetRequest() {
 	var url = location.search;
+	 url=decodeURI(url)
 	var theRequest = new Object();
 	if (url.indexOf("?") != -1) {
 		var str = url.substr(1);
@@ -170,7 +171,7 @@ $(document).ready(function() {
 		$('body').on('click','#deleteuse',function(event){
 			var carId = this.name;
 			layer.confirm('确认要删除吗？',function(){
-				alert(carId)
+				
 				var params={
 				    	"caruseId":carId,
 				}
@@ -194,7 +195,7 @@ $(document).ready(function() {
 	$('body').on('click','#enduse',function(event){
 		var carId = this.name;
 		layer.confirm('车辆已经归还？',function(){
-			alert(carId)
+
 			var params={
 			    	"caruseId":carId,
 			}
@@ -266,13 +267,85 @@ $(document).ready(function() {
 				$("#tbody-use").html(str); 
 	        }
 		});
+		//use完成
+		$('body').on('click','#deleterepair',function(event){
+			var carId = this.name;
+			layer.confirm('确认要删除吗？',function(){
 		
-		
+				var params={
+				    	"carrepairId":carId,
+				}
+				$.ajax({
+					type: 'POST',
+					url: "/management/delcarrepair.do", 
+					data: JSON.stringify(params),
+					dataType: 'json',
+					contentType: "application/json; charset=utf-8",
+					error:function(data) {
+				
+						window.location.reload()
+					},
+					success: function(data){
+						layer.msg('已删除!',{icon:1,time:15000});
+						window.location.reload()
+					},
+				});		
+			});
+		});
+
 	
+		$('body').on('click','#updaterepair',function(event){
+			layer_show('车辆使用编辑','carrepair_modifry.jsp?carrepairId='+this.name,'500','450');
+		}); 
+		$('body').on('click','#detailrepair',function(event){
+			layer_show('车辆使用详情','carrepair_detail.jsp?carrepairId='+this.name,'500','450');
+		}); 
+		
+		$.ajax({    
+	        type: "post",    
+	        async: true,    
+	        url: "/management/loadAllcarrepair.do",  
+	        data: JSON.stringify(params),
+	        dataType: "json", 
+	        contentType: "application/json; charset=utf-8", 
+			error:function(data) {
+			
+			},
+	        success: function(data) { 	        	
+				var str="" 
+		    		for(var i = 0; i < data.length; i++){     	
+		    			var carrepairtime=data[i].carrepairtime;
+		    			carrepairtime=carrepairtime.replace(/ 00:00:00.0/,"");
+		       			str += "<tr class='text-c'>"+
+						"<td>"+(i+1)+"</td>"+
+						"<td>"+data[i].carId+"</td>"+
+						"<td>"+carrepairtime+"</td>"+	
+						"<td>"+data[i].carrepairnumber+"</td>"+
+						"<td>"+data[i].carrepairreason+"</td>"+
+								
+						"<td class='td-manage'>"+
+						"<a style='text-decoration:none' id = 'detailrepair' href='javascript:;'	title=\"详情\" name='"+data[i].carrepairId+"'>"+
+						"<i class='Hui-iconfont'>&#xe720;</i>"+
+						"</a>"+
+						"<a style='text-decoration:none' id = 'updaterepair' href='javascript:;' title=\"编辑\" name='"+data[i].carrepairId+"'>"+
+						"<i class='Hui-iconfont'>&#xe6df;</i>"+
+						"</a>"+
+						"<a style='text-decoration:none' id = 'deleterepair' href='javascript:;' title=\"删除 \"name='"+data[i].carrepairId+"'>"+
+							"<i class='Hui-iconfont'>&#xe6e2;</i>"+
+						"</a>"+					
+						"</td>"
+						"</tr>";
+						str+=""			
+		    		}
+				$("#tbody-repair").html(str); 
+	        }
+		});
 })
 
 function add(title,url,w,h){
-	url+="?carId="+carId;
+	var Id=encodeURIComponent(carId);
+	console.log(carId+"   "+Id)
+	url+="?carId="+Id;
 	layer_show(title,url,w,h);
 	
 }

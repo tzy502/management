@@ -37,7 +37,7 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>职位介绍：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" readonly="readonly" placeholder="职位介绍" id="roleIntroduction" name="roleIntroduction">
+			<input type="text" class="input-text" value=""  placeholder="职位介绍" id="roleIntroduction" name="roleIntroduction">
 		</div>
 	</div>
 	

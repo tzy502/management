@@ -108,10 +108,10 @@ function getCookie(Name){
 		
 		
 	$('body').on('click','#update',function(event){
-		layer_show('培训计划编辑','train_modifry.jsp?trainId='+this.title,'800','500');
+		layer_show('培训计划编辑','train_modifry.jsp?trainId='+this.title,'900','550');
 	}); 
 	$('body').on('click','#datail',function(event){
-		layer_show('培训计划编辑','train_detail.jsp?trainId='+this.title,'800','500');
+		layer_show('培训计划编辑','train_detail.jsp?trainId='+this.title,'900','550');
 	}); 
 	//加载页面数据
 

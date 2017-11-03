@@ -124,7 +124,6 @@
 			var params={
 					"equipmentid":equipmentid,
 			}
-			alert(equipmentid);
 			$.ajax({
 
 				type : 'POST',
@@ -134,6 +133,7 @@
 		        contentType: "application/json; charset=utf-8", 
 
 				success : function(data) {
+					
 					$("#model").val(data.model);
 					$("#number").val(data.number);
 					$("#effect").val(data.effect);
@@ -160,7 +160,7 @@
 
 			
 			form.append("equipmentid",equipmentid);
-			alert(equipmentid);
+
 			$.ajax({
 
 				type : 'POST',

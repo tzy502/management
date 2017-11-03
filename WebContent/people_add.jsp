@@ -29,32 +29,79 @@
 <article class="page-container" id = 'form-item-add'>
 	<form class="form form-horizontal" id="add" >
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>车牌：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" readonly="readonly" placeholder="车牌" id="carId" name="carId">
+			<input type="text" class="input-text" value="" placeholder="" id=name name="name">
 		</div>
 	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>维修开始时间：</label>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>身份证：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text"  class="input-text" value="" placeholder="维修开始时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
-			id="time" name="time">	
-		</div>
-	</div>	
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>维修花费：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="number" class="input-text" value="" placeholder="维修花费" id="carrepairnumber" name="carrepairnumber">
+			<input type="text" class="input-text" value="" placeholder="" id="IDcard" name="IDcard">
 		</div>
 	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>维修原因：</label>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>部门：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<textarea  id='carrepairreason' name='carrepairreason' cols="" rows="" class="textarea" ></textarea>
-			</div>
+			<input type="text" class="input-text" value="" placeholder="" id="department" name="department">
+		</div>
 	</div>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>岗位：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="post" name="post">
+		</div>
+	</div>
+			<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+				    <input type="radio" id="gender1" name="gender" selected="" value=1>
+		    <label for="radio-1">男</label>
+		    <input type="radio" id="gender2" name="gender" value=0>
+		    <label for="radio-1">女</label>
+		</div>
+	</div>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>入职时间：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+			id="entry" name="entry">
+		</div>
+	</div>
+
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>学历：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="education" name="education">
+		</div>
+	</div>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所学专业：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="profession" name="profession">
+		</div>
+	</div>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>毕业时间：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+			id="graduation" name="graduation">
+		</div>
+	</div>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>毕业学校：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="graduationschool" name="graduationschool">
+		</div>
+		</div>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="job" name="job">
+		</div>
+		</div>
 <center>
-<div class="row cl">
+	<div class="row cl">
 		<div class="form-label col-xs-4 col-sm-3">
 			<input class="btn btn-primary radius" type="button" onclick = "add()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 		</div>
@@ -74,29 +121,6 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
-
-function GetRequest() {   
-	   var url = location.search; 
-	   url=decodeURI(url)
-	   var theRequest = new Object();   
-	   if (url.indexOf("?") != -1) {   
-	      var str = url.substr(1);   
-	      strs = str.split("&");   
-	      for(var i = 0; i < strs.length; i ++) {   
-	         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
-	      }   
-	   }   
-	   return theRequest;   
-}
-var Request = new Object();
-Request = GetRequest();
-var carId = Request["carId"];
-$(document).ready(function() {
-	$("#carId").val(carId);
-	console.log(carId)
-})
-
-
 function add(){
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
@@ -108,7 +132,7 @@ function add(){
 $.ajax({
 		
 		type: 'POST',
-		url: "/management/addcarrepair.do", 
+		url: "/management/addpeople.do", 
 		data:form, 
         async: false,
         processData:false,

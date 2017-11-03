@@ -44,13 +44,16 @@ public class ChecklistDao implements IChecklistDao {
 	}
 
 	@Override
-	public List<BeanChecklist> loadAllChecklist() {
+	public List<BeanChecklist> loadChecklisthistory(int StationId,int type) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		String hql = "from BeanChecklist ";
+		String hql = "from BeanChecklist where checklisttype=? and stationId=?";
 		Query qry = session.createQuery(hql);
+		qry.setInteger(0, type);
+		qry.setInteger(1, StationId);
 		@SuppressWarnings("unchecked")
 		List<BeanChecklist> result = qry.list();
+		System.out.println(result.size());
 		tx.commit();
 		return result;
 	}

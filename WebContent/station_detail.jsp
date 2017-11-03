@@ -169,11 +169,13 @@
 				<th scope="col" colspan="9">报警数据设置</th>
 			</tr>
 			<tr class="text-c">
-				<th width="40">序号</th>
-				<th width="100">名称</th>
-				<th width="80">下限</th>		
-				<th width="80">上限</th>		
-				<th width="40">操作</th>
+				<th width="5%">序号</th>
+				<th width="15%">名称</th>
+				<th width="15%">预警下限</th>	
+				<th width="15%">预警上限</th>	
+				<th width="15%">报警下限</th>	
+				<th width="15%">报警上限</th>		
+				<th width="20%">操作</th>
 			</tr>
 		</thead>
 		<tbody id = 'Standard'>
@@ -385,7 +387,8 @@
 									"<td>"+data[i].name+"</td>"+
 									"<td>"+data[i].minvaule+"</td>"+
 									"<td>"+data[i].maxvaule+"</td>"+
-									
+									"<td>"+data[i].minalarm+"</td>"+
+									"<td>"+data[i].maxalarm+"</td>"+
 									"<td class='td-manage'>"+
 									"<a style='text-decoration:none' id = 'updateStandard' href='javascript:;' title='"+data[i].standardid+"'>"+
 									"<i class='Hui-iconfont'>&#xe6df;</i>"+

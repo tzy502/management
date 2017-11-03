@@ -21,7 +21,7 @@ import util.BaseException;
 public class EquipmentController {
 	@Autowired 
 	private IEquipmentService ies;
-	@RequestMapping("loadAllequipment.do")
+	@RequestMapping(value = "loadAllequipment.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String loadAllequipment (@RequestBody String params) throws NumberFormatException, JSONException{
 		JSONArray jsonarrary = new JSONArray();
@@ -88,7 +88,6 @@ public class EquipmentController {
 	@RequestMapping("delequipment.do")
 	@ResponseBody
 	public void delequipment (@RequestBody String params) throws NumberFormatException, JSONException{
-		JSONArray jsonarrary = new JSONArray();
 		JSONObject json = new JSONObject(params);
 		int equipmentid =Integer.valueOf(json.getString("equipmentid"));
 
@@ -100,10 +99,9 @@ public class EquipmentController {
 			e.printStackTrace();
 		}
 	}
-	@RequestMapping("Searchequipment.do")
+	@RequestMapping(value = "Searchequipment.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String  Searchequipment (@RequestBody String params) throws NumberFormatException, JSONException{
-		JSONArray jsonarrary = new JSONArray();
 		JSONObject json = new JSONObject(params);
 		int equipmentid =Integer.valueOf(json.getString("equipmentid"));
 		JSONObject jo = new JSONObject();

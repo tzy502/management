@@ -105,11 +105,13 @@ public class CarController {
 	}
 	@RequestMapping(value = "/searchcar.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String searchcar(@RequestBody String params) throws JSONException{
+	public String searchcar(@RequestBody String params) throws JSONException, UnsupportedEncodingException{
 		JSONObject json = new JSONObject(params);
 		String id=json.getString("carId");
+		String carId=new String(id.getBytes("ISO-8859-1"),"UTF-8"); 
 		BeanCar result=new BeanCar();
 		JSONObject jo = new JSONObject();
+		System.out.println(carId);
 		try {
 			result=ics.SearchCar(id);		
 			jo.put("carId", result.getCarId());

@@ -38,25 +38,32 @@
 						<input class="btn btn-primary radius" type="button" onClick="modaldemo()"
 						value="&nbsp;&nbsp;使用指南&nbsp;&nbsp;">
 	<form class="form form-horizontal" id="add"	enctype="multipart/form-data">
+		<div>
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>任务名</label>
 		<input type="text" style='width:40%' class="input-text" value="" placeholder="" 
 					id="timername" name="timername">
+		</div>
 		<br/>
+		<div>
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>定时类型</label>
 		<select  style='width:40%' class="select" size="1" name="timer" id="timer">
 			<option value="1" >每日</option>
 			<option value="2" >每周</option>
 			<option value="3" >每月</option>
 		</select>
+		</div>
 			<br/>
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间</label>
-		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({minDate:'%y-%M-{%d}',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+			<div>
+	<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间</label>
+		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
 		id="start" name="start">
 	<input type="hidden" id='stationId' name='stationId'>
+	</div>
 		<br/>
+		<div>
 		<label class="form-label col-xs-6 col-sm-3"><span class="c-red">*</span>任务描述</label>	
 		<textarea name="timerdescription" id='timerdescription' style='width:60%' cols="" rows="" class="textarea" ></textarea>		
-
+</div>
 			<div class="row cl">
 				<div class="form-label col-xs-4 col-sm-3">
 					<input class="btn btn-primary radius" type="button" onclick="add()"
@@ -230,15 +237,15 @@
 						icon : 1,
 						time : 15000
 					});
-					var index = parent.layer.getFrameIndex(window.name);
-					parent.$('.btn-refresh').click();
-					parent.layer.close(index);
+
 				},
 				error : function(data) {
 					console.log(data.msg);
 				},
 			});
-
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.$('.btn-refresh').click();
+			parent.layer.close(index);
 		}
 	</script>
 

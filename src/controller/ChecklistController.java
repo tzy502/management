@@ -40,7 +40,7 @@ public class ChecklistController {
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		
+
 		}
 		return null;
 	}
@@ -104,39 +104,71 @@ public class ChecklistController {
 		JSONArray jsonarraylist = new JSONArray();
 		BeanChecklisttype bcl=new BeanChecklisttype();
 		try {
-				station=iss.loadStation(type);		
-				for(int j=0;j<station.size();j++){
-			
-					result=ics.loadChecklist(station.get(j).getStationid());
-					JSONArray jsonarray = new JSONArray();
-					if(result.size()==0){
-						JSONObject jo = new JSONObject();
-						jo.put("stationId",station.get(j).getStationid());
-						jo.put("checklistId",0);
-						jo.put("Checklisttype", 0);
-						jo.put("Checklisttime", 0);
-						jo.put("userId", 0);
-						jsonarray.put(jo);
-					}
-					
-					for(int i=0;i<result.size();i++){
-						JSONObject jo = new JSONObject();
-						jo.put("stationId",station.get(j).getStationid());
-						jo.put("checklistId",result.get(i).getChecklistId());
-						jo.put("Checklisttype",result.get(i).getChecklisttype());
-						jo.put("Checklisttypename", bcl.getMap().get(result.get(i).getChecklisttype()));
-						jo.put("Checklisttime", result.get(i).getChecklisttime().toString());
-						jo.put("userId",ius.searchUser(result.get(i).getUserId()).getUserName() );
-						jsonarray.put(jo);
-						
-					}
-					jsonarraylist.put(jsonarray);
+			station=iss.loadStation(type);		
+			for(int j=0;j<station.size();j++){
+
+				result=ics.loadChecklist(station.get(j).getStationid());
+				JSONArray jsonarray = new JSONArray();
+				if(result.size()==0){
+					JSONObject jo = new JSONObject();
+					jo.put("stationId",station.get(j).getStationid());
+					jo.put("checklistId",0);
+					jo.put("Checklisttype", 0);
+					jo.put("Checklisttime", 0);
+					jo.put("userId", 0);
+					jsonarray.put(jo);
 				}
+
+				for(int i=0;i<result.size();i++){
+					JSONObject jo = new JSONObject();
+					jo.put("stationId",station.get(j).getStationid());
+					jo.put("checklistId",result.get(i).getChecklistId());
+					jo.put("Checklisttype",result.get(i).getChecklisttype());
+					jo.put("Checklisttypename", bcl.getMap().get(result.get(i).getChecklisttype()));
+					jo.put("Checklisttime", result.get(i).getChecklisttime().toString());
+					jo.put("userId",ius.searchUser(result.get(i).getUserId()).getUserName() );
+					jsonarray.put(jo);
+
+				}
+				jsonarraylist.put(jsonarray);
+			}
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 		return jsonarraylist.toString();
 	}
+	@RequestMapping(value = "/loadChecklisthistory.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String loadChecklisthistory(@RequestBody String params) throws JSONException{
+		JSONObject json = new JSONObject(params);
+		int type=Integer.valueOf(json.getString("type"));
+		int id=Integer.valueOf(json.getString("stationId"));
+		List<BeanChecklist> result =new ArrayList<BeanChecklist>();
+		JSONArray jsonarraylist = new JSONArray();
+		BeanChecklisttype bcl=new BeanChecklisttype();
+		result=ics.loadChecklisthistory(id, type);
+		System.out.println(result.size());
+		try {
+			JSONObject j1 = new JSONObject();
+			j1.put("name", iss.SearchStation(id).getStationname());
+			jsonarraylist.put(j1);
+			for(int i=0;i<result.size();i++){
+				JSONObject jo = new JSONObject();
+				jo.put("checklistId",result.get(i).getChecklistId());
+				jo.put("Checklisttype",result.get(i).getChecklisttype());
+				jo.put("Checklisttypename", bcl.getMap().get(result.get(i).getChecklisttype()));
+				jo.put("Checklisttime", result.get(i).getChecklisttime().toString());
+				jo.put("userId",ius.searchUser(result.get(i).getUserId()).getUserName() );
+				jsonarraylist.put(jo);			
+			}
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(jsonarraylist.toString());
+		return jsonarraylist.toString();
+	}
+
 }

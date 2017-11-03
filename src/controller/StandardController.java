@@ -80,6 +80,8 @@ public class StandardController {
 			jo.put("name", iis.search(result.get(i).getInfectid()).getInfectName());
 			jo.put("maxvaule", String.valueOf(result.get(i).getMaxvaule()));	
 			jo.put("minvaule", String.valueOf(result.get(i).getMinvaule()));
+			jo.put("maxalarm", String.valueOf(result.get(i).getMaxalarm()));	
+			jo.put("minalarm", String.valueOf(result.get(i).getMinalarm()));
 			jsonarray.put(jo);	
 			}  
 
@@ -99,6 +101,8 @@ public class StandardController {
 		jo.put("name", iis.search(result.getInfectid()).getInfectName());
 		jo.put("maxvaule", String.valueOf(result.getMaxvaule()));	
 		jo.put("minvaule", String.valueOf(result.getMinvaule()));
+		jo.put("maxalarm", String.valueOf(result.getMaxalarm()));	
+		jo.put("minalarm", String.valueOf(result.getMinalarm()));
 		jo.put("stationid", result.getStationid());	
 		
 		return jo.toString();

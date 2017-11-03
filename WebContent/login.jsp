@@ -91,7 +91,7 @@ function login(){
 	        	else{
 	        		document.cookie="userId="+userId+";";
 	        		document.cookie="level="+data.level+";";
-					alert(data.level)
+				
 	        		document.cookie="userName="+encodeURIComponent(data.userName)+";";
 	    
 	        		document.cookie="rolename="+encodeURIComponent(data.rolename)+";";

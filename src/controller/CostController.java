@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,9 @@ public class CostController {
 	private IProjectService ips;
 	@RequestMapping(value = "/addcost.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String addcost(BeanCost bc,HttpServletRequest request) throws JSONException{
+	public String addcost(BeanCost bc,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
+		String name=new String(bc.getCostname().getBytes("ISO-8859-1"),"UTF-8"); 
+		bc.setCostname(name);
 		int flag=Integer.valueOf(request.getParameter("type"));
 		bc.setCost(bc.getCost()*flag);
 		try {
@@ -40,7 +43,9 @@ public class CostController {
 	}
 	@RequestMapping(value = "/modifrycost.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String modifrycost(BeanCost bc,HttpServletRequest request) throws JSONException{
+	public String modifrycost(BeanCost bc,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
+		String name=new String(bc.getCostname().getBytes("ISO-8859-1"),"UTF-8"); 
+		bc.setCostname(name);
 		int flag=Integer.valueOf(request.getParameter("type"));
 		bc.setCost(bc.getCost()*flag);
 		try {
@@ -78,7 +83,12 @@ public class CostController {
 				JSONObject jo = new JSONObject();
 				jo.put("costId", result.get(i).getCostId());
 				jo.put("costname", result.get(i).getCostname());
-				jo.put("cost",String.valueOf(result.get(i).getCost()));
+				if(result.get(i).getCost()<0){
+					jo.put("cost","支出"+String.valueOf(-1*result.get(i).getCost()));
+				}
+				else{
+					jo.put("cost","收入"+String.valueOf(result.get(i).getCost()));
+				}
 				total+=result.get(i).getCost();
 				json.put(jo);
 			}
@@ -87,7 +97,12 @@ public class CostController {
 			e.printStackTrace();
 		}
 		JSONObject jo = new JSONObject();
-		jo.put("total", String.valueOf(total));
+		if(total<0){
+			jo.put("total", "支出"+String.valueOf(-1*total));
+		}else{
+			jo.put("total","收入"+String.valueOf(total));
+		}
+		
 		json.put(jo);
 		System.out.println(json.toString());
 		return json.toString();
