@@ -144,7 +144,7 @@ public class StationDao implements IStationDao {
 		Connection conn=null;
 		try {
 			conn=DBUtil.getConnection();
-			String sql="SELECT MN,StationName,StationType,StationAdd FROM HJ212_Station";
+			String sql="SELECT MN,StationName,StationType,StationAdd,StationIP FROM HJ212_Station";
 
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			java.sql.ResultSet rs=pst.executeQuery();	
@@ -153,11 +153,11 @@ public class StationDao implements IStationDao {
 				BeanStation bs=new BeanStation();
 				bs.setMN(rs.getString(1));
 				bs.setStationname(rs.getString(2));
-				bs.setType(rs.getString(3));
+				bs.setType(Integer.valueOf(rs.getString(3)));
 				String add=rs.getString(4);
 				bs.setCity(add.substring(0, 2));
 				bs.setArea(add.substring(3, 5));
-				bs.setCompanyid(1);
+				bs.setIP(rs.getString(5));
 				bs.setPrincipal("admin");
 				result.add(bs);
 			}

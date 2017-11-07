@@ -44,7 +44,7 @@
 			<input type="text" style='width:40%'  readonly="readonly" class="input-text" value="" placeholder="" 
 				id="username" name="username">
 			<br/>
-		<label class="form-label col-xs-4 col-sm-3">结束时间</label>
+		<label class="form-label col-xs-4 col-sm-3">预计结束时间</label>
 		<input type="text" style='width:40%'  readonly="readonly" class="input-text" value="" placeholder="" 
 					id="end" name="end">
 		<br/>
@@ -58,9 +58,31 @@
 	</form>
 		<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-2">
-			<input class="btn btn-primary radius" type="button" onclick = "add()" value="&nbsp;&nbsp;完成&nbsp;&nbsp;">	
+			<input class="btn btn-primary radius" id="over" type="button" onclick = "add()" value="&nbsp;&nbsp;完成&nbsp;&nbsp;">	
 		</div>
 	</div>
+	<div class="mt-15 mb-15">
+		<hr/>
+	</div>	
+	 <span class="l">
+		 <a href="javascript:;" onclick="add('运维日志添加','supplieritem_add.jsp','400','350')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 运维日志添加</a>
+	 </span>  
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+			<tr>
+				<th scope="col" colspan="9">运维日志</th>
+			</tr>
+			<tr class="text-c">
+				<th width="10%">序号</th>
+				<th width="15%">操作员</th>	
+				<th width="25%">运维时间</th>	
+				<th width="35%">详情</th>
+				<th width="15%">操作</th>
+			</tr>
+		</thead>
+		<tbody id = 'tbody-log'>
+		</tbody>		
+	</table>
 	</article>
 
 	<!--_footer 作为公共模版分离出去-->
@@ -138,13 +160,13 @@
 	}
 	
 	$(document).ready(function() {	
-		console.log(123)
 		var Request = new Object();
 		Request = GetRequest();
 		var missionId = Request['missionId'];
-	
+		
 		var params = {
 			"missionId" : missionId,
+			
 		}
 		var level =getCookie("level");
 		if(level!=1){
@@ -179,17 +201,93 @@
 		        	$("#end").val(data.enddate);
 		        	$("#username").val(data.username);
 		        	$("#description").val(data.description);
-		        	$("#staus").val(data.statusname);   	
-		        }
+		        	$("#staus").val(data.statusname);   
+						if(data.status==6||data.status==3){
+							$("#over").css("display","none");
+						}
+						
+		        	}	        
 			})
+			$('body').on('click','#delete',function(event){
+			var missionlogId = this.name;
+			layer.confirm('确认要删除吗？',function(){
+				var params={
+				    	"missionlogId":missionlogId,
+				}
+				$.ajax({
+					type: 'POST',
+					url: "/management/delmissionlog.do", 
+					data: JSON.stringify(params),
+					dataType: 'json',
+					contentType: "application/json; charset=utf-8",
+					error:function(data) {
+						layer.msg('删除失败!',{icon:1,time:15000});
+						window.location.reload()
+					},
+					success: function(data){
+						layer.msg('已删除!',{icon:1,time:15000});
+						window.location.reload()
+					},
+				});		
+			})
+			})
+			$('body').on('click','#update',function(event){
+				layer_show('运维任务编辑','missionlog_modifry.jsp?missionlogId='+this.name,'500','450');
+			}); 
+			$('body').on('click','#detail',function(event){
+				layer_show('运维任务详情','missionlog_detail.jsp?missionlogId='+this.name,'500','450');
+			});
+			$.ajax({  
+				 type: "post",    
+			        async: true,    
+			        url: "/management/loadAllmissionlog.do",  
+			        data: JSON.stringify(params),
+			        dataType: "json", 
+			        contentType: "application/json; charset=utf-8",   
+			        error: function(data){  
+			        	alert("出错了！！:"+data.msg);
+			        } , 
+			        success: function(data) { 
+			        	var str = "";  
+			    		for(var i = 0; i < data.length; i++){     	
+			       			str += "<tr class='text-c'>"+
+							"<td>"+(i+1)+"</td>"+
+							"<td>"+data[i].user+"</td>"+
+							"<td>"+data[i].missionlogtime+"</td>"+
+							"<td>"+data[i].missionlogdetail+"</td>"+
+							
+							"<td class='td-manage'>"+
+							"<a style='text-decoration:none' id = 'detail' href='javascript:;'	title=\"详情\" name='"+data[i].missionlogId+"'>"+
+							"<i class='Hui-iconfont'>&#xe720;</i>"+
+							"</a>"+
+							"<a style='text-decoration:none' id = 'update' href='javascript:;' title=\"编辑\" name='"+data[i].missionlogId+"'>"+
+							"<i class='Hui-iconfont'>&#xe6df;</i>"+
+						"</a>"+
+							"<a style='text-decoration:none' id = 'delete' href='javascript:;' title=\"删除 \"name='"+data[i].missionlogId+"'>"+
+								"<i class='Hui-iconfont'>&#xe6e2;</i>"+
+							"</a>"+
+
+							
+							"</td>"
+							"</tr>";
+							str+=""			
+			    		} 	
+			    		$("#tbody-log").html(str); 
+					}//
+			})
+			
+			
+			
 		})
 		function add(){
 			var Request = new Object();
 			Request = GetRequest();
 			var missionId = Request['missionId'];
-		
+			console.log(123)
+			var userId = getCookie("userId");
 			var params = {
 				"missionId" : missionId,
+				"userId":userId,
 			}
 			$.ajax({  
 				 type: "post",    
@@ -202,7 +300,8 @@
 			        	alert("出错了！！:"+data.msg);
 			        } , 
 			        success: function(data) { 
-			        	alert("完成");
+						layer.msg('已更新!',{icon:1,time:15000});
+						window.location.reload()
 			        }
 				})
 			

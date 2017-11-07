@@ -56,9 +56,9 @@ public class Timing {
 		start = new Timestamp(System.currentTimeMillis()); 
 		for(int i=0;i<result.size();i++){
 			BeanMission bm=new BeanMission();
-			String name=new String(result.get(i).getTimername().getBytes("ISO-8859-1"),"UTF-8"); 
+			String name=result.get(i).getTimername(); 
 			bm.setMissionname(name+"（每日）");
-			bm.setDescription(new String(result.get(i).getTimerdescription().getBytes("ISO-8859-1"),"UTF-8"));
+			bm.setDescription(result.get(i).getTimerdescription());
 			bm.setStationid(result.get(i).getStationId());
 			bm.setUserid(isd.SearchStation(result.get(i).getStationId()).getPrincipal());
 			bm.setStartdate(start);
@@ -83,9 +83,9 @@ public class Timing {
 		end.setDate(start.getDate()+7);
 		for(int i=0;i<result.size();i++){
 			BeanMission bm=new BeanMission();
-			String name=new String(result.get(i).getTimername().getBytes("ISO-8859-1"),"UTF-8"); 
-			bm.setMissionname(name+"（每周）");
-			bm.setDescription(new String(result.get(i).getTimerdescription().getBytes("ISO-8859-1"),"UTF-8"));
+	
+			bm.setMissionname(result.get(i).getTimername()+"（每周）");
+			bm.setDescription(result.get(i).getTimerdescription());
 			bm.setStationid(result.get(i).getStationId());
 			bm.setUserid(isd.SearchStation(result.get(i).getStationId()).getPrincipal());
 			bm.setStartdate(start);
@@ -138,7 +138,7 @@ public class Timing {
 
 
 	public  void company(){
-		boolean flag=false;
+		
 		List<BeanStation> local=new ArrayList<BeanStation>();
 		List<BeanStation> other=new ArrayList<BeanStation>();
 		try {
@@ -163,6 +163,8 @@ public class Timing {
 					for(int i=0;i<other.size();i++){
 						if(other.get(i).getMN()==entry.getKey()){
 							System.out.println(entry.getKey()+"新数据"+other.get(i).getStationname());
+							BeanStation bs=other.get(i);
+							bs.setBase(1);				
 							isd.addStation(other.get(i));
 							break;
 						}
@@ -173,11 +175,16 @@ public class Timing {
 					for(int i=0;i<local.size();i++){
 						if(local.get(i).getMN()==entry.getKey()){
 							System.out.println(entry.getKey()+"旧数据"+local.get(i).getStationname());
-							isd.DelStation(local.get(i));
+							BeanStation bs=local.get(i);
+							if(bs.getBase()!=0){
+								bs.setBase(0);
+								isd.modifryStation(bs);
+							}
+						
 							break;
 						}
 					}				
-					flag=true;
+				
 				}
 			}
 		} catch (DbException e) {

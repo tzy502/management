@@ -1,7 +1,11 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.StationDao;
 import model.BeanStation;
+import model.BeanUser;
 import service.CompanyService;
 import serviceI.IStationService;
 import serviceI.IUserService;
@@ -28,6 +33,13 @@ public class StationController {
 	private IUserService ius;
 	@Autowired
 	private CompanyService ics;
+	static Map<Integer,String> type=new HashMap<Integer,String>(5);
+	static {
+		type.put(31, "气");
+		type.put(32, "水");
+
+
+	}
 	@RequestMapping(value = "/loadAllStation.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String loadAllStation() throws JSONException{
@@ -36,37 +48,33 @@ public class StationController {
 		try {
 			result =iss.loadAllStation();
 			//查最后一次运维时间
-			
+
 			for(int i=0;i<result.size();i++){
 				JSONObject jo = new JSONObject();
 				jo.put("stationId",result.get(i).getStationid());
-				jo.put("companyid",result.get(i).getCompanyid() );
-				jo.put("type", result.get(i).getType());
+				jo.put("type", type.get(result.get(i).getType()));
 				jo.put("stationname",result.get(i).getStationname());
 				jo.put("city", result.get(i).getCity());
-				jo.put("area",result.get(i).getArea());
-				jo.put("areaid",result.get(i).getAreaid());
-				jo.put("codeA",result.get(i).getCodeA());
-				jo.put("codeB",result.get(i).getCodeB());
-				jo.put("level",result.get(i).getLevel());
-				jo.put("industry",result.get(i).getIndustry());
-				jo.put("togo",result.get(i).getTogo());
-				jo.put("pollution",result.get(i).getPollution());
-				jo.put("model",result.get(i).getModel());
-				jo.put("unit",result.get(i).getUnit());
+				jo.put("area",result.get(i).getArea());			
 				jo.put("status",result.get(i).getStatus());
-				jo.put("regulatoryauthorities",result.get(i).getRegulatoryauthorities());
-				jo.put("longitude",result.get(i).getLongitude());
-				jo.put("latitude",result.get(i).getLatitude());
-				jo.put("address",result.get(i).getAddress());
-				jo.put("ability",result.get(i).getAbility());
-				jo.put("acceptance",result.get(i).getAcceptance());
-				jo.put("assessment",result.get(i).getAssessment());
 				jo.put("remarks",result.get(i).getRemarks());
 				jo.put("principal",result.get(i).getPrincipal());
-				String name =ius.searchUser(result.get(i).getPrincipal()).getUserName();
-				jo.put("name",name);
-				jo.put("last", "");
+				jo.put("IP", result.get(i).getIP());
+				BeanUser user=null;
+				user=ius.searchUser(result.get(i).getPrincipal());
+				if(user!=null){
+					String name =user.getUserName();
+					jo.put("name",name);
+				}
+				else{
+					jo.put("name", "暂无负责人");
+				}
+				if(result.get(i).getBase()==1){
+					jo.put("data", "有监控数据");
+				}else{
+					jo.put("data", "无监控数据");
+				}
+				
 				json.put(jo);
 			}
 		} catch (BaseException e) {
@@ -84,47 +92,39 @@ public class StationController {
 		JSONObject jo = new JSONObject();
 		try {
 			bs=iss.SearchStation(StationId);
-			
-			jo.put("stationId",bs.getStationid());
-			jo.put("companyid",bs.getCompanyid() );
-			jo.put("companyname",ics.SearchCompany(bs.getCompanyid()).getCompanyname() );
-			jo.put("type", bs.getType());
+			jo.put("type", type.get(bs.getType()));
 			jo.put("stationname",bs.getStationname());
 			jo.put("city", bs.getCity());
-			jo.put("area",bs.getArea());
-			jo.put("areaid",bs.getAreaid());
-			jo.put("codeA",bs.getCodeA());
-			jo.put("codeB",bs.getCodeB());
-			jo.put("level",bs.getLevel());
-			jo.put("industry",bs.getIndustry());
-			jo.put("togo",bs.getTogo());
-			jo.put("pollution",bs.getPollution());
-			jo.put("model",bs.getModel());
-			jo.put("unit",bs.getUnit());
+			jo.put("area",bs.getArea());			
 			jo.put("status",bs.getStatus());
-			jo.put("regulatoryauthorities",bs.getRegulatoryauthorities());
-			jo.put("longitude",bs.getLongitude());
-			jo.put("latitude",bs.getLatitude());
-			jo.put("address",bs.getAddress());
-			jo.put("ability",bs.getAbility());
-			jo.put("acceptance",bs.getAcceptance());
-			jo.put("assessment",bs.getAssessment());
 			jo.put("remarks",bs.getRemarks());
 			jo.put("principal",bs.getPrincipal());
-			String name =ius.searchUser(bs.getPrincipal()).getUserName();
-			jo.put("name",name);
-			jo.put("last", "");
+			jo.put("IP", bs.getIP());
+			BeanUser user=null;
+			user=ius.searchUser(bs.getPrincipal());
+			if(user!=null){
+				String name =user.getUserName();
+				jo.put("name",name);
+			}
+			else{
+				jo.put("name", "暂无负责人");
+			}
+			if(bs.getBase()==1){
+				jo.put("data", "有监控数据");
+			}else{
+				jo.put("data", "无监控数据");
+			}
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(jo.toString());
 		return jo.toString();
 	}
 	@RequestMapping(value = "/addStation.do") 
 	@ResponseBody
-	public String  addStation(BeanStation bs) throws JSONException{
-
-		
+	public String  addStation(BeanStation bs,HttpServletRequest request) throws JSONException{
+		bs.setType(Integer.valueOf(request.getParameter("type")));
 		try {
 			iss.addStation(bs);
 		} catch (BaseException e) {
@@ -132,25 +132,20 @@ public class StationController {
 			e.printStackTrace();
 			JSONObject jo = new JSONObject();
 			jo.put("msg", e.getMessage());
-	
+
 			return jo.toString();
 		}
 		return null;
 	}
 	@RequestMapping(value = "/modifryStation.do") 
 	@ResponseBody
-	public void modifryStation(BeanStation bs,@RequestParam("stationId") int stationId) throws JSONException{
+	public void modifryStation(BeanStation bs,@RequestParam("stationId") int stationId,HttpServletRequest request) throws JSONException{
 
-		
+		bs.setType(Integer.valueOf(request.getParameter("type")));
 		bs.setStationid(stationId);
-		 StationDao sd=new StationDao();
-		 sd.modifryStation(bs);
-//		try {
-//			sd.modifryStation(bs);
-//		} catch (BaseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		StationDao sd=new StationDao();
+		sd.modifryStation(bs);
+
 	}
 	@RequestMapping(value = "/delStation.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
@@ -172,37 +167,32 @@ public class StationController {
 		try {
 			result =iss.loadStation(32);
 			//查最后一次运维时间
-			
+
 			for(int i=0;i<result.size();i++){
 				JSONObject jo = new JSONObject();
 				jo.put("stationId",result.get(i).getStationid());
-				jo.put("companyid",result.get(i).getCompanyid() );
-				jo.put("type", result.get(i).getType());
+				jo.put("type", type.get(result.get(i).getType()));
 				jo.put("stationname",result.get(i).getStationname());
 				jo.put("city", result.get(i).getCity());
-				jo.put("area",result.get(i).getArea());
-				jo.put("areaid",result.get(i).getAreaid());
-				jo.put("codeA",result.get(i).getCodeA());
-				jo.put("codeB",result.get(i).getCodeB());
-				jo.put("level",result.get(i).getLevel());
-				jo.put("industry",result.get(i).getIndustry());
-				jo.put("togo",result.get(i).getTogo());
-				jo.put("pollution",result.get(i).getPollution());
-				jo.put("model",result.get(i).getModel());
-				jo.put("unit",result.get(i).getUnit());
+				jo.put("area",result.get(i).getArea());			
 				jo.put("status",result.get(i).getStatus());
-				jo.put("regulatoryauthorities",result.get(i).getRegulatoryauthorities());
-				jo.put("longitude",result.get(i).getLongitude());
-				jo.put("latitude",result.get(i).getLatitude());
-				jo.put("address",result.get(i).getAddress());
-				jo.put("ability",result.get(i).getAbility());
-				jo.put("acceptance",result.get(i).getAcceptance());
-				jo.put("assessment",result.get(i).getAssessment());
 				jo.put("remarks",result.get(i).getRemarks());
 				jo.put("principal",result.get(i).getPrincipal());
-				String name =ius.searchUser(result.get(i).getPrincipal()).getUserName();
-				jo.put("name",name);
-				jo.put("last", "");
+				jo.put("IP", result.get(i).getIP());
+				BeanUser user=null;
+				user=ius.searchUser(result.get(i).getPrincipal());
+				if(user!=null){
+					String name =user.getUserName();
+					jo.put("name",name);
+				}
+				else{
+					jo.put("name", "暂无负责人");
+				}
+				if(result.get(i).getBase()==1){
+					jo.put("data", "有监控数据");
+				}else{
+					jo.put("data", "无监控数据");
+				}
 				json.put(jo);
 			}
 		} catch (BaseException e) {
@@ -219,37 +209,32 @@ public class StationController {
 		try {
 			result =iss.loadStation(31);
 			//查最后一次运维时间
-			
+
 			for(int i=0;i<result.size();i++){
 				JSONObject jo = new JSONObject();
 				jo.put("stationId",result.get(i).getStationid());
-				jo.put("companyid",result.get(i).getCompanyid() );
-				jo.put("type", result.get(i).getType());
+				jo.put("type", type.get(result.get(i).getType()));
 				jo.put("stationname",result.get(i).getStationname());
 				jo.put("city", result.get(i).getCity());
-				jo.put("area",result.get(i).getArea());
-				jo.put("areaid",result.get(i).getAreaid());
-				jo.put("codeA",result.get(i).getCodeA());
-				jo.put("codeB",result.get(i).getCodeB());
-				jo.put("level",result.get(i).getLevel());
-				jo.put("industry",result.get(i).getIndustry());
-				jo.put("togo",result.get(i).getTogo());
-				jo.put("pollution",result.get(i).getPollution());
-				jo.put("model",result.get(i).getModel());
-				jo.put("unit",result.get(i).getUnit());
+				jo.put("area",result.get(i).getArea());			
 				jo.put("status",result.get(i).getStatus());
-				jo.put("regulatoryauthorities",result.get(i).getRegulatoryauthorities());
-				jo.put("longitude",result.get(i).getLongitude());
-				jo.put("latitude",result.get(i).getLatitude());
-				jo.put("address",result.get(i).getAddress());
-				jo.put("ability",result.get(i).getAbility());
-				jo.put("acceptance",result.get(i).getAcceptance());
-				jo.put("assessment",result.get(i).getAssessment());
 				jo.put("remarks",result.get(i).getRemarks());
 				jo.put("principal",result.get(i).getPrincipal());
-				String name =ius.searchUser(result.get(i).getPrincipal()).getUserName();
-				jo.put("name",name);
-				jo.put("last", "");
+				jo.put("IP", result.get(i).getIP());
+				BeanUser user=null;
+				user=ius.searchUser(result.get(i).getPrincipal());
+				if(user!=null){
+					String name =user.getUserName();
+					jo.put("name",name);
+				}
+				else{
+					jo.put("name", "暂无负责人");
+				}
+				if(result.get(i).getBase()==1){
+					jo.put("data", "有监控数据");
+				}else{
+					jo.put("data", "无监控数据");
+				}
 				json.put(jo);
 			}
 		} catch (BaseException e) {

@@ -35,121 +35,52 @@
 </head>
 <body>
 	<article class="page-container" id='form-item-add'>
-	<form class="form form-horizontal" id="add">
+<form class="form form-horizontal" id="add"
+		enctype="multipart/form-data">
 
 		<table class="table table-border table-bordered">
-			<tr>
-
-				<th width='13%'>所属公司名称</th>
-				<td width='20%'><select class="select" size="1"
-					name="companyid" id="companyid">
-						<option value="-1" selected>请选择</option>
-
-				</select></td>
-				<th width='13%'>负责人</th>
-				<td width='20%'><select class="select" size="1"
-					name="principal" id="principal">
-						<option value="-1" selected>请选择</option>
-				</select></td>
-				<th width='13%'></th>
-				<td width='20%'></td>
-
-			</tr>
 			<tr>
 				<th width='13%'>站点名称</th>
 				<td width='20%'><input type="text"
 					class="input-text formControls" value="" id="stationname"
 					name="stationname"></td>
-				<th width='13%'>站点类型</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="type" name="type"></td>
-
+				<th width='13%'>负责人</th>
+				<td width='20%'>
+				<select class="select" size="1"
+					name="principal" id="principal">
+					<option value="-1" selected>请选择</option>
+				</select></td>
 				<th width='13%'>所在地区</th>
-				<td width='20%'><input type="text"
+				<td width='20%'>
+				<div>
+				<input type="text"
 					class="input-text formControls" value="" id="city" name="city">市
 					<input type="text" class="input-text formControls" value=""
-					id="area" name="area">区</td>
-
+					id="area" name="area">区
+					</div>
+				</td>
+				
 			</tr>
 			<tr>
-				<th width='13%'>行政区代码</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="areaid" name="areaid"></td>
-				<th width='13%'>站位编码A</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="codeA" name="codeA"></td>
 
-				<th width='13%'>站位编码B</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="codeB" name="codeB"></td>
-			</tr>
-
-			<tr>
-				<th width='13%'>控制级别</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="level" name="level"></td>
-				<th width='13%'>行业</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="industry"
-					name="industry"></td>
-				<th width='13%'>排放去向</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="togo" name="togo"></td>
-			</tr>
-			<tr>
-				<th width='13%'>纳污区域</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="pollution"
-					name="pollution"></td>
-				<th width='13%'>排放模式</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="model" name="model"></td>
-
-				<th width='13%'>运维单位</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="unit" name="unit"></td>
-			</tr>
-			<tr>
+				<th width='13%'>站点类型</th>
+				<td width='20%'>
+					<div>
+						<input type="radio" id="type1" name="type" value=31> 
+						<label	for="radio-1">气</label> 
+						<input type="radio" id="type2" name="type" value=32> 
+						<label for="radio-1">水</label>
+					</div>
+			</td>
 				<th width='13%'>站点现状</th>
 				<td width='20%'><input type="text"
 					class="input-text formControls" value="" id="status" name="status"></td>
-				<th width='13%'>监管部门</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="regulatoryauthorities"
-					name="regulatoryauthorities"></td>
-
-				<th width='13%'>经度</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="longitude"
-					name="longitude"></td>
-			</tr>
-			<tr>
-				<th width='13%'>纬度</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="latitude"
-					name="latitude"></td>
 				<th width='13%'>详细地址</th>
 				<td width='20%'><input type="text"
 					class="input-text formControls" value="" id="address"
 					name="address"></td>
+				</tr>
 
-				<th width='13%'>设计处理能力</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="ability"
-					name="ability"></td>
-			</tr>
-			<tr>
-				<th width='13%'>验收验收时间</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="acceptance"
-					name="acceptance"></td>
-				<th width='13%'>是否监督考核</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="assessment"
-					name="assessment"></td>
-
-
-			</tr>
 		</table>
 
 		<center>
@@ -218,111 +149,84 @@
 			}
 			return returnvalue;
 		}
-		$(document)	.ready(function() {
-			$.ajax({
-					type : "post",
-					async : true,
-					url : "/management/loadAllCompany.do",
-					//data: JSON.stringify(params),
-					dataType : "json",
-					contentType : "application/json; charset=utf-8",
-					error : function(data) {
-						alert("出错了！！:" + data.msg);
-					},
-					success : function(data) {
-						var str="";
-						for (var i = 0; i < data.length; i++) {
-							str += "<option value='"+data[i].companyId+"' >"
-									+ data[i].companyname
-									+ "</option>"
-						}
+		$(document).ready(function() {
 
-						$("#companyid").html(str);
-					}
-				})
-
-							$
-									.ajax({
-										type : "post",
-										async : true,
-										url : "/management/loadAllUser.do",
-										//data: JSON.stringify(params),
-										dataType : "json",
-										contentType : "application/json; charset=utf-8",
-										error : function(data) {
-											alert("出错了！！:" + data.msg);
-										},
-										success : function(data) {
-											var str = "";
-											for (var i = 0; i < data.length; i++) {
-												str += "<option value='"+data[i].userId+"' >"
-														+ data[i].userName
-														+ "</option>"
-											}
-
-											$("#principal").html(str);
-										}
-									})
-							$('companyid').select2();
-							$('select').select2();
-							//
-							var Request = new Object();
-							Request = GetRequest();
-							var stationid = Request['stationid'];
-							var params = {
-								"stationId" : stationid,
+					$.ajax({
+						type : "post",
+						async : true,
+						url : "/management/loadAllUser.do",
+						//data: JSON.stringify(params),
+						dataType : "json",
+						contentType : "application/json; charset=utf-8",
+						error : function(data) {
+							alert("出错了！！:" + data.msg);
+						},
+						success : function(data) {
+							var str = "";
+							for (var i = 0; i < data.length; i++) {
+								str += "<option value='"+data[i].userId+"' >"
+										+ data[i].userName + "</option>"
 							}
-							alert(stationid);
-							$
-									.ajax({
-										type : "post",
-										async : true,
-										url : "/management/SearchStation.do",
-										data : JSON.stringify(params),
-										dataType : "json",
-										contentType : "application/json; charset=utf-8",
-										error : function(data) {
-											alert("出错了！！:" + data.msg);
-										},
-										success : function(data) {
 
-											$("#stationname").val(
-													data.stationname);
-											$("#companyid").val(data.companyid);
-											$("#type").val(data.type);
-											$("#city").val(data.city);
-											$("#area").val(data.area);
-											$("#areaid").val(data.areaid);
-											$("#codeA").val(data.codeA);
-											$("#codeB").val(data.codeB);
-											$("#level").val(data.level);
-											$("#industry").val(data.industry);
-											$("#togo").val(data.togo);
-											$("#pollution").val(data.pollution);
-											$("#model").val(data.model);
-											$("#unit").val(data.unit);
-											$("#status").val(data.status);
-											$("#regulatoryauthorities").val(
-													data.regulatoryauthorities);
-											$("#pollution").val(data.pollution);
-											$("#model").val(data.model);
-											$("#unit").val(data.unit);
-											$("#status").val(data.status);
-											$("#regulatoryauthorities").val(
-													data.regulatoryauthorities);
-											$("#longitude").val(data.longitude);
-											$("#latitude").val(data.latitude);
-											$("#address").val(data.address);
-											$("#ability").val(data.ability);
+							$("#principal").html(str);
+						}
+					})
+					$('companyid').select2();
+					$('select').select2();
+					//
+					var Request = new Object();
+					Request = GetRequest();
+					var stationid = Request['stationid'];
+					var params = {
+						"stationId" : stationid,
+					}
+					alert(stationid);
+					$.ajax({
+						type : "post",
+						async : true,
+						url : "/management/SearchStation.do",
+						data : JSON.stringify(params),
+						dataType : "json",
+						contentType : "application/json; charset=utf-8",
+						error : function(data) {
+							alert("出错了！！:" + data.msg);
+						},
+						success : function(data) {
 
-											$("#acceptance").val(
-													data.acceptance);
-											$("#assessment").val(
-													data.assessment);
-											$("#principal").val(data.principal);
-										}
-									})
-						})
+							$("#stationname").val(data.stationname);
+							$("#companyid").val(data.companyid);
+							$("#type").val(data.type);
+							$("#city").val(data.city);
+							$("#area").val(data.area);
+							$("#areaid").val(data.areaid);
+							$("#codeA").val(data.codeA);
+							$("#codeB").val(data.codeB);
+							$("#level").val(data.level);
+							$("#industry").val(data.industry);
+							$("#togo").val(data.togo);
+							$("#pollution").val(data.pollution);
+							$("#model").val(data.model);
+							$("#unit").val(data.unit);
+							$("#status").val(data.status);
+							$("#regulatoryauthorities").val(
+									data.regulatoryauthorities);
+							$("#pollution").val(data.pollution);
+							$("#model").val(data.model);
+							$("#unit").val(data.unit);
+							$("#status").val(data.status);
+							$("#regulatoryauthorities").val(
+									data.regulatoryauthorities);
+							$("#longitude").val(data.longitude);
+							$("#latitude").val(data.latitude);
+							$("#address").val(data.address);
+							$("#ability").val(data.ability);
+
+							$("#acceptance").val(data.acceptance);
+							$("#assessment").val(data.assessment);
+							$("#principal").val(data.principal);
+						}
+					})
+				})
 		function add() {
 			$('.skin-minimal input').iCheck({
 				checkboxClass : 'icheckbox-blue',
@@ -333,7 +237,7 @@
 			var Request = new Object();
 			Request = GetRequest();
 			var stationid = Request['stationid'];
-			form.append("stationId",stationid)
+			form.append("stationId", stationid)
 			$.ajax({
 
 				type : 'POST',

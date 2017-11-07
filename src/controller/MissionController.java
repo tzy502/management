@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.BeanMission;
+import model.BeanMissionLog;
 import model.BeanStation;
+import serviceI.IMissionLogService;
 import serviceI.IMissionService;
 import serviceI.IStationService;
 import serviceI.IUserService;
@@ -36,6 +38,8 @@ import util.BaseException;
 public class MissionController {
 	@Autowired
 	private IMissionService ims;
+	@Autowired
+	private IMissionLogService imls;
 	@Autowired
 	private IStationService iss;
 	@Autowired
@@ -126,12 +130,22 @@ public class MissionController {
 	public String endMission(@RequestBody String params) throws JSONException{
 		JSONObject json = new JSONObject(params);
 		int id=Integer.valueOf(json.getString("missionId"));
+		String user=json.getString("userId");
+		BeanMissionLog bml=new BeanMissionLog();
+
+		
 		try {
+			bml.setMissionId(id);
+			bml.setMissionlogdetail("完成任务");
+			bml.setMissionlogtime(new Timestamp(System.currentTimeMillis()));
+			bml.setUser(ius.searchUser(user).getUserName());
+			imls.addMissionLog(bml);
+			
 			BeanMission bm=ims.SearchMission(id);
-			if(bm.getStatus()!=5){
-				bm.setStatus(3);
-			}else{
+			if(bm.getStatus()==5){
 				bm.setStatus(6);
+			}else{
+				bm.setStatus(3);
 			}
 			
 			ims.modifryMission(bm);
@@ -139,7 +153,7 @@ public class MissionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "ok";
+		return json.toString();
 	}
 	@RequestMapping(value = "/searchMission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
@@ -218,7 +232,7 @@ public class MissionController {
 				}
 					
 				for(int i=0;i<result.size();i++){
-					if(result.get(i).getStatus()!=3&&result.get(i).getStatus()!=6){
+					
 						JSONObject jo = new JSONObject();
 						jo.put("Missionid", result.get(i).getMissionid());
 						jo.put("userid", result.get(i).getUserid());
@@ -231,7 +245,7 @@ public class MissionController {
 						jo.put("missionname", result.get(i).getMissionname());
 						jo.put("status",result.get(i).getStatus() );
 						jsonarraylist.put(jo);
-					}
+					
 
 				}	
 				jsonarray.put(jsonarraylist);
@@ -269,6 +283,7 @@ public class MissionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(jsonarraylist.toString());
 		return jsonarraylist.toString();
 	}
 

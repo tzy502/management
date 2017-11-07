@@ -113,7 +113,7 @@ function getCookie(Name){
 			+"<th width='5%'>编号</th>"
 			+"<th width='15%'>负责人</th>"		
 			+"<th width='30%'>任务名</th>"			
-			+"<th width='20%'>结束时间</th>"	
+			+"<th width='20%'>预计结束时间</th>"	
 			+"<th width='20%'>状态</th>"
 			+"<th width='10%'>操作</th>"
 			+"</tr>"
@@ -179,7 +179,7 @@ function getCookie(Name){
         	
         }
     });
-
+	console.log(station)
 	var mission=[];
 	$.ajax({    
         type: "post",    
@@ -198,7 +198,7 @@ function getCookie(Name){
         	
         }
     });
-
+console.log(mission)
 	for(var i = 0; i < station.length; i++){
 		 str+="<li class='item'>"
 				+"<h4>"+station[i].stationname+"<b>+</b></h4>"
@@ -225,7 +225,7 @@ function getCookie(Name){
 		+"<th width='5%'>编号</th>"
 		+"<th width='15%'>负责人</th>"		
 		+"<th width='30%'>任务名</th>"			
-		+"<th width='20%'>结束时间</th>"	
+		+"<th width='20%'>预计结束时间</th>"	
 		+"<th width='20%'>状态</th>"
 		+"<th width='10%'>操作</th>"
 		+"</tr>"

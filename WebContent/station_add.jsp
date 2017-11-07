@@ -40,116 +40,54 @@
 
 		<table class="table table-border table-bordered">
 			<tr>
-				<th width='13%'>所属公司名称</th>
-				<td width='20%'><select class="select" size="1"
-					name="companyid" id="companyid">
-						<option value="-1" selected>请选择</option>
-				</select></td>
-				<th width='13%'>负责人</th>
-				<td width='20%'>
-				<select class="select" size="1"
-					name="principal" id="principal">
-					<option value="-1" selected>请选择</option>
-				</select></td>
-
-				<th width='13%'></th>
-				<td width='20%'></td>
-
-			</tr>
-			<tr>
 				<th width='13%'>站点名称</th>
 				<td width='20%'><input type="text"
 					class="input-text formControls" value="" id="stationname"
 					name="stationname"></td>
-				<th width='13%'>站点类型</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="type" name="type"></td>
-
+				<th width='13%'>负责人</th>
+				<td width='20%'><select class="select" size="1"
+					name="principal" id="principal">
+						<option value="-1" selected>请选择</option>
+				</select></td>
 				<th width='13%'>所在地区</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="city" name="city">市
-					<input type="text" class="input-text formControls" value=""
-					id="area" name="area">区</td>
+				<td width='20%'>
+					<div>
+						<input type="text" class="input-text formControls" value=""
+							id="city" name="city">市 <input type="text"
+							class="input-text formControls" value="" id="area" name="area">区
+					</div>
+				</td>
 
 			</tr>
 			<tr>
-				<th width='13%'>行政区代码</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="areaid" name="areaid"></td>
-				<th width='13%'>站位编码A</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="codeA" name="codeA"></td>
 
-				<th width='13%'>站位编码B</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="codeB" name="codeB"></td>
-			</tr>
-
-			<tr>
-				<th width='13%'>控制级别</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="level" name="level"></td>
-				<th width='13%'>行业</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="industry"
-					name="industry"></td>
-				<th width='13%'>排放去向</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="togo" name="togo"></td>
-			</tr>
-			<tr>
-				<th width='13%'>纳污区域</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="pollution"
-					name="pollution"></td>
-				<th width='13%'>排放模式</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="model" name="model"></td>
-
-				<th width='13%'>运维单位</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="unit" name="unit"></td>
-			</tr>
-			<tr>
+				<th width='13%'>站点类型</th>
+				<td width='20%'>
+					<div>
+						<input type="radio" id="type1" name="type" value=31> 
+						<label	for="radio-1">气</label> 
+						<input type="radio" id="type2" name="type" value=32> 
+						<label for="radio-1">水</label>
+					</div>
+				</td>
 				<th width='13%'>站点现状</th>
 				<td width='20%'><input type="text"
 					class="input-text formControls" value="" id="status" name="status"></td>
-				<th width='13%'>监管部门</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="regulatoryauthorities"
-					name="regulatoryauthorities"></td>
-
-				<th width='13%'>经度</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="longitude"
-					name="longitude"></td>
-			</tr>
-			<tr>
-				<th width='13%'>纬度</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="latitude"
-					name="latitude"></td>
 				<th width='13%'>详细地址</th>
 				<td width='20%'><input type="text"
 					class="input-text formControls" value="" id="address"
 					name="address"></td>
-
-				<th width='13%'>设计处理能力</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="ability"
-					name="ability"></td>
 			</tr>
 			<tr>
-				<th width='13%'>验收验收时间</th>
+				<th width='13%'>MN</th>
+				<td width='20%'>
+					<input type="text" class="input-text formControls" value="" id="MN" name="MN">
+				</td>
+				<th width='13%'>IP</th>
 				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="acceptance"
-					name="acceptance"></td>
-				<th width='13%'>是否监督考核</th>
-				<td width='20%'><input type="text"
-					class="input-text formControls" value="" id="assessment"
-					name="assessment"></td>
-
-
+					class="input-text formControls" value="" id="IP" name="IP"></td>
+				<th width='13%'></th>
+				<td width='20%'></td>
 			</tr>
 		</table>
 
@@ -190,25 +128,7 @@
 	<script type="text/javascript">
 	
 	$(document).ready(function() {		
-		$.ajax({  
-			 type: "post",    
-		        async: true,    
-		        url: "/management/loadAllCompany.do",  
-		        //data: JSON.stringify(params),
-		        dataType: "json", 
-		        contentType: "application/json; charset=utf-8",   
-		        error: function(data){  
-		        	alert("出错了！！:"+data.msg);
-		        } , 
-		        success: function(data) { 
-		        	var str="<option value='1' selected>请选择</option>";
-		        	for(var i=0;i<data.length;i++){
-		        		str+="<option value='"+data[i].companyId+"' >"+data[i].companyname+"</option>"
-		        	}
-		        	
-		        	$("#companyid").html(str); 
-		        }
-	})
+
 	$.ajax({  
 		 type: "post",    
 	        async: true,    
@@ -228,7 +148,6 @@
 	        	$("#principal").html(str); 
 	        }
 })
-		$('companyid').select2();
 		$('select').select2();
 		//
 	
@@ -266,7 +185,7 @@
 				icon : 1,
 				time : 15000
 			});
-			console.log("123123213");
+			
 			parent.$('.btn-refresh').click();
 			parent.layer.close(index);
 
