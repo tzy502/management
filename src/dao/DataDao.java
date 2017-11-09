@@ -229,6 +229,114 @@ public class DataDao implements IDataDao {
 		}
 	}
 
+	@Override
+	public BeanGas loadnewgasdate(String MN) throws DbException {
+		Connection conn=null;
+		try {
+			conn=DBUtil.getConnection();
+			String sql="select mTime,"+
+					"sum(case InfectCode when '02' then InfectValue end)  as '02',"+
+					"sum(case InfectCode when '01' then InfectValue end)  as '01',"+
+					"sum(case InfectCode when '03' then InfectValue end)  as '03',"+
+					"sum(case InfectCode when '01-Zs' then InfectValue end)  as '01-Zs',"+
+					"sum(case InfectCode when '02-Zs' then InfectValue end)  as '02-Zs',"+
+					"sum(case InfectCode when '03-Zs' then InfectValue end)  as '03-Zs',"+
+					"sum(case InfectCode when 'S01' then InfectValue end)  as 'S01',"+
+					"sum(case InfectCode when 'S02' then InfectValue end)  as 'S02',"+
+					"sum(case InfectCode when 'S03' then InfectValue end)  as 'S03',"+
+					"sum(case InfectCode when 'S08' then InfectValue end)  as 'S08',"+
+					"sum(case InfectCode when 'B02' then InfectValue end)  as 'B02',"+
+					"sum(case InfectCode when 'S05' then InfectValue end)  as 'S05'"
+					+ "from  HJ212_"+MN+"_MIN"
+					+"   where mTime=(select mTime from HJ212_"+MN+"_MIN order BY mTime desc LIMIT 1)    "
+					+"group BY mTime  order by mTime DESC";
+			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+			java.sql.ResultSet rs=pst.executeQuery();
+			BeanGas bd=new BeanGas();
+			while(rs.next()){			
+				bd.setTime(rs.getTimestamp(1));
+				bd.setG02(rs.getFloat(2));
+				bd.setG01(rs.getFloat(3));
+				bd.setG03(rs.getFloat(4));
+				bd.setG01Zs(rs.getFloat(5));
+				bd.setG02Zs(rs.getFloat(6));
+				bd.setG03Zs(rs.getFloat(7));
+				bd.setgS01(rs.getFloat(8));
+				bd.setgS02(rs.getFloat(9));
+				bd.setgS03(rs.getFloat(10));
+				bd.setgS08(rs.getFloat(11));
+				bd.setgB02(rs.getFloat(12));
+				bd.setSg05(rs.getFloat(13));
+			}
+			rs.close();
+			pst.execute();
+			pst.close();
+			return bd;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e);
+		}
+		finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+	}
+
+	@Override
+	public BeanWater loadnewawterdate(String MN) throws DbException {
+		Connection conn=null;
+		try {
+			conn=DBUtil.getConnection();
+			String sql="select mTime,"
+					+ "sum(case InfectCode when '011' then InfectValue end)  as '011',"
+					+ "sum(case InfectCode when '001' then InfectValue end)  as '001',"
+					+ "sum(case InfectCode when '060' then InfectValue end)  as '060',"
+					+ "sum(case InfectCode when '065' then InfectValue end)  as '065',"
+					+ "sum(case InfectCode when '42' then InfectValue end)  as '42',"
+					+ "sum(case InfectCode when 'B01' then InfectValue end)  as 'B01'"
+					+ "from  HJ212_"+MN+"_MIN"
+					+"   where mTime=(select mTime from HJ212_"+MN+"_MIN order BY mTime desc LIMIT 1)    "
+					+"group BY mTime  order by mTime DESC";
+			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+			java.sql.ResultSet rs=pst.executeQuery();
+			BeanWater bd=new BeanWater();
+			while(rs.next()){
+				
+				bd.setTime(rs.getTimestamp(1));
+				bd.setW011(rs.getFloat(2));
+				bd.setW001(rs.getFloat(3));
+				bd.setW060(rs.getFloat(4));
+				bd.setW065(rs.getFloat(5));
+				bd.setW42(rs.getFloat(6));
+				bd.setwB01(rs.getFloat(7));
+			
+			}
+			rs.close();
+			pst.execute();
+			pst.close();
+			return bd;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e);
+		}
+		finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+	}
+
 
 
 }

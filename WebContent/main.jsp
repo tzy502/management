@@ -76,11 +76,11 @@
 			</dd>
 		</dl>
 		<dl id="menu-mission">
-			<dt><i class="Hui-iconfont">&#xe637;</i>任务<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe637;</i>运维任务<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="mission_list.jsp" data-title="任务管理" href="javascript:void(0)">任务管理</a></li>
-					<li><a data-href="timer_list.jsp" data-title="定时任务管理" href="javascript:void(0)">定时任务管理</a></li>
+					<li><a data-href="mission_list.jsp" data-title="运维任务管理" href="javascript:void(0)">运维任务管理</a></li>
+					<li><a data-href="timer_list.jsp" data-title="定时运维任务管理" href="javascript:void(0)">定时运维任务管理</a></li>
 				
 				</ul>
 			</dd>

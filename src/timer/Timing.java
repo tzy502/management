@@ -48,7 +48,7 @@ public class Timing {
 	private  IWarningService iws;
 	@Scheduled(cron = "0 0 6 * * ?") 
 	public void daymission() throws UnsupportedEncodingException { 
-		
+
 		List<BeanTimer> result=its.loadmission(1);
 		Timestamp start = new Timestamp(System.currentTimeMillis()); 
 		Timestamp end =start;
@@ -83,7 +83,7 @@ public class Timing {
 		end.setDate(start.getDate()+7);
 		for(int i=0;i<result.size();i++){
 			BeanMission bm=new BeanMission();
-	
+
 			bm.setMissionname(result.get(i).getTimername()+"（每周）");
 			bm.setDescription(result.get(i).getTimerdescription());
 			bm.setStationid(result.get(i).getStationId());
@@ -127,18 +127,53 @@ public class Timing {
 	}
 	@Scheduled(cron = "0 * * * * ?") 
 	public void job1() { 
+	
+		
 		SimpleDateFormat  formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss"); 
 		long startTime = System.currentTimeMillis(); 
-		company();
-		detection();
-		ims.overtimeMission();
+		companyallsttion();//保证两遍数据库一样
+		companynobase();//确定监测数据
+		detection();//检测
+		ims.overtimeMission();//检测超时
 		long endTime = System.currentTimeMillis();  
 		System.out.println("程序运行时间：" + (endTime - startTime) + "ms" +formatter.format(new Date()));
 	} 
 
+	public void companynobase(){
+		List<BeanStation> local=new ArrayList<BeanStation>();
+		List<BeanStation> other=new ArrayList<BeanStation>();
+		try {
+			other=isd.loadbasestation();
+			local=isd.loadnobaseStation();
+			Map<String,Integer> map=new HashMap<String,Integer>(other.size()+local.size());
+			for(int i=0;i<other.size();i++){
+				map.put(other.get(i).getMN(), 1);
+			}
+			for(int i=0;i<local.size();i++){
+				map.put(local.get(i).getMN(), -1);
 
-	public  void company(){
-		
+			}
+			for(Map.Entry<String, Integer> entry:map.entrySet()){
+				if(entry.getValue()==0){
+					for(int i=0;i<local.size();i++){
+						if(local.get(i).getMN()==entry.getKey()){
+							BeanStation bs=local.get(i);
+							bs.setBase(1);
+							isd.modifryStation(bs);
+
+							break;
+						}
+					}				
+
+				}
+			}
+		} catch (DbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public  void companyallsttion(){
+
 		List<BeanStation> local=new ArrayList<BeanStation>();
 		List<BeanStation> other=new ArrayList<BeanStation>();
 		try {
@@ -180,11 +215,11 @@ public class Timing {
 								bs.setBase(0);
 								isd.modifryStation(bs);
 							}
-						
+
 							break;
 						}
 					}				
-				
+
 				}
 			}
 		} catch (DbException e) {
@@ -195,7 +230,7 @@ public class Timing {
 
 	}
 	public void detection(){
-
+	
 
 		List<BeanWater> water =new ArrayList<BeanWater>();
 		List<BeanGas> gas =new ArrayList<BeanGas>();
@@ -206,8 +241,9 @@ public class Timing {
 			water=ids.loadnewwaterdata();
 			gas=ids.loadnewgasdata();
 			for(int i=0;i<water.size();i++){
+			
 				Map<String, Float> waterdate=new HashMap<String, Float>();
-		
+
 				waterStandard=iss.loadStandard(water.get(i).getStationId());
 				if(waterStandard.size()==0){
 					continue;
@@ -234,13 +270,14 @@ public class Timing {
 						}else{
 							Warning.setType(2);
 						}
-						
+
 						iws.addWarning(Warning);
 					}
 				}
 			}
 			//水质数据判断完成
 			for(int i=0;i<gas.size();i++){
+	
 				gasStandard=iss.loadStandard(gas.get(i).getStationId());
 				Map<String, Float> gasdate=new HashMap<String, Float>();
 				if(gasStandard.size()==0){
@@ -250,7 +287,7 @@ public class Timing {
 					
 					gasdate.put("02", gas.get(i).getG02());
 					gasdate.put("01", gas.get(i).getG01());
-					gasdate.put("03 ", gas.get(i).getG03());
+					gasdate.put("03", gas.get(i).getG03());
 					gasdate.put("01-Zs", gas.get(i).getG01Zs());
 					gasdate.put("02-Zs", gas.get(i).getG02Zs());
 					gasdate.put("03-Zs", gas.get(i).getG03Zs());
@@ -261,10 +298,13 @@ public class Timing {
 					gasdate.put("B02", gas.get(i).getgB02());
 					gasdate.put("S05", gas.get(i).getSg05());
 				}
+				
 				for(int j=0;j<gasStandard.size();j++){
 					//出错未填写
+				
 					if(gasStandard.get(j).getMaxvaule()<gasdate.get(gasStandard.get(j).getInfectid())||
 							gasStandard.get(j).getMinvaule()>gasdate.get(gasStandard.get(j).getInfectid())){
+					
 						BeanWarning Warning =new BeanWarning();
 						Warning.setInfectCode(gasStandard.get(j).getInfectid());
 						Warning.setStationId(gas.get(i).getStationId());
@@ -272,6 +312,7 @@ public class Timing {
 						if(gasStandard.get(j).getMaxalarm()<gasdate.get(gasStandard.get(j).getInfectid())||
 								gasStandard.get(j).getMinalarm()>gasdate.get(gasStandard.get(j).getInfectid())){
 							Warning.setType(1);
+					
 						}else{
 							Warning.setType(2);
 						}

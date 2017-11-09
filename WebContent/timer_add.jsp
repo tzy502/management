@@ -209,15 +209,15 @@
 						icon : 1,
 						time : 15000
 					});
-					var index = parent.layer.getFrameIndex(window.name);
-					parent.$('.btn-refresh').click();
-					parent.layer.close(index);
+
 				},
 				error : function(data) {
 					console.log(data.msg);
 				},
 			});
-
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.$('.btn-refresh').click();
+			parent.layer.close(index);
 		}
 		function role(title,url,w,h){
 			layer_show(title,url,w,h);

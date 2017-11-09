@@ -140,13 +140,22 @@ public class TimerController {
 	}
 	@RequestMapping(value = "/loadtimer.do", produces = "application/json; charset=utf-8") 	
 	@ResponseBody
-	public String loadtimer() throws JSONException{
+	public String loadtimer(@RequestBody String params) throws JSONException{
+		JSONObject js = new JSONObject(params);
+		String city=js.getString("city");
+		String area=js.getString("area");
+		if(city.equals("all")){
+			city=null;
+		}
+		if(area.equals("all")){
+			area=null;
+		}
 		List<BeanTimer> result =new ArrayList<BeanTimer>();
 		List<BeanStation> station =new ArrayList<BeanStation>();
 		JSONArray jsonarray = new JSONArray();
 		try {
 			
-			station=iss.loadAllStation();
+			station=iss.loadStation(area, city);
 			for(int j=0;j<station.size();j++){
 				JSONArray jsonarraylist = new JSONArray();
 				result=its.loadTimer(station.get(j).getStationid());

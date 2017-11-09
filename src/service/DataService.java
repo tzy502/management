@@ -31,57 +31,10 @@ public class DataService implements IDataService {
 		station=isd.loadgasStation();
 		List<BeanGas> result=new ArrayList<BeanGas>();
 		for(int i=0;i<station.size();i++){
-			bd=idd.loadnewdate(station.get(i).getMN());
-
 			BeanGas bg=new BeanGas();
-			bg.setTime(bd.get(0).getmTime());
+			bg=idd.loadnewgasdate(station.get(i).getMN());
 			bg.setStationId(station.get(i).getStationid());
 			bg.setStationname(station.get(i).getStationname());
-			for(int j=0;j<bd.size();j++){
-
-				switch(bd.get(j).getInfectCode()) {  
-
-				case "02":  
-					bg.setG02(bd.get(j).getInfectValue());
-					break;  
-				case "01":  
-					bg.setG01(bd.get(j).getInfectValue()); 
-					break;
-				case "03":  
-					bg.setG03(bd.get(j).getInfectValue()); 
-					break;
-				case "01-Zs":  
-					bg.setG01Zs(bd.get(j).getInfectValue()); 
-					break;
-				case "02-Zs":  
-					bg.setG01Zs(bd.get(j).getInfectValue()); 
-					break;
-				case "03-Zs":  
-					bg.setG01Zs(bd.get(j).getInfectValue());
-					break;
-				case "S01":  
-					bg.setgS01(bd.get(j).getInfectValue());
-					break;
-				case "S02":  
-					bg.setgS02(bd.get(j).getInfectValue()); 
-					break;
-				case "S03":  
-					bg.setgS03(bd.get(j).getInfectValue());
-					break;
-				case "S08":  
-					bg.setgS08(bd.get(j).getInfectValue());
-					break;
-				case "B02":  
-					bg.setgB02(bd.get(j).getInfectValue());
-					break;
-				case "S05":  
-					bg.setSg05(bd.get(j).getInfectValue());
-					break;
-
-				default:  
-			
-				}  
-			}
 			result.add(bg);
 		}
 		return result;
@@ -94,39 +47,11 @@ public class DataService implements IDataService {
 		station=isd.loadwaterStation();
 		List<BeanWater> result=new ArrayList<BeanWater>();
 		for(int i=0;i<station.size();i++){
-			bd=idd.loadnewdate(station.get(i).getMN());
-
 			BeanWater bg=new BeanWater();
-			bg.setTime(bd.get(0).getmTime());
+			bg=idd.loadnewawterdate(station.get(i).getMN());
 			bg.setStationId(station.get(i).getStationid());
 			bg.setStationname(station.get(i).getStationname());
-			for(int j=0;j<bd.size();j++){
-
-				switch(bd.get(j).getInfectCode()) {  
-
-				case "011":  
-					bg.setW011(bd.get(j).getInfectValue());
-					break;  
-				case "001":  
-					bg.setW001(bd.get(j).getInfectValue());
-					break;
-				case "B01":  
-					bg.setwB01(bd.get(j).getInfectValue());
-					break;
-				case "060":  
-					bg.setW060(bd.get(j).getInfectValue());
-					break;
-				case "065":  
-					bg.setW065(bd.get(j).getInfectValue());
-					break;
-				case "42":  
-					bg.setW42(bd.get(j).getInfectValue());
-					break;
-
-				default:  
-					
-				}  
-			}
+	
 			result.add(bg);
 		}
 		return result;

@@ -36,7 +36,7 @@ public class EquipmentController {
 			for(int i=0;i<result.size();i++){
 				JSONObject jo = new JSONObject();
 				jo.put("equipmentid", result.get(i).getEquipmentid());
-				jo.put("stationid",  result.get(i).getStationid());
+				jo.put("stationId",  result.get(i).getStationId());
 				jo.put("model",  result.get(i).getModel());
 				jo.put("grade",  result.get(i).getGrade());
 				jo.put("number",  result.get(i).getNumber());
@@ -74,6 +74,7 @@ public class EquipmentController {
 		try {
 			String effect=new String(be.getEffect().getBytes("ISO-8859-1"),"UTF-8"); 
 			be.setEffect(effect);
+			
 			ies.addEquipment(be);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
@@ -111,7 +112,7 @@ public class EquipmentController {
 			be=ies.SearchEquipment(equipmentid);
 			
 			jo.put("equipmentid", be.getEquipmentid());
-			jo.put("stationid",  be.getStationid());
+			jo.put("stationId",  be.getStationId());
 			jo.put("model",  be.getModel());
 			jo.put("grade",  be.getGrade());
 			jo.put("number",  be.getNumber());

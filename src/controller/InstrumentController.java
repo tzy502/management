@@ -57,6 +57,7 @@ public class InstrumentController {
 		String name=new String(bi.getInstrumentname().getBytes("ISO-8859-1"),"UTF-8"); 
 		bi.setInstrumentname(name);
 		String buy=request.getParameter("buy");
+		System.out.println(buy);
 		buy+=" 00:00:00";
 		String calibration=request.getParameter("calibration");
 		calibration+=" 00:00:00";

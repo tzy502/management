@@ -34,32 +34,42 @@ public class WarningService implements IWarningService {
 	@Override
 	public void addWarning(BeanWarning Warning) throws BaseException {
 		// TODO Auto-generated method stub
+	
 		Infect=iid.loadAllInfect();
 		String type=null;
 		if(Warning.getType()==1){
 			 type="达到报警";
+
 		}
 		else{
+			
 			 type="达到预警";
-		}
-		BeanStation bs=new BeanStation();
-		bs=isd.SearchStation(Warning.getStationId());	
-		Timestamp now = new Timestamp(System.currentTimeMillis()); 
 
-		iwd.addWarning(Warning);
-		BeanMission bm=new BeanMission();
-		String missionname=bs.getStationname()+Infect.get(Warning.getInfectCode())+type+"（系统自动报警）";
-		bm.setMissionname(missionname);
-		bm.setStationid(Warning.getStationId());
-		bm.setStartdate(now);
-		bm.setDescription(bs.getStationname()+Infect.get(Warning.getInfectCode())+type);
-		bm.setUserid(bs.getPrincipal());
-		bm.setStatus(1);
-		Timestamp end =now;
-		end.setDate(now.getDate()+7);
-		bm.setEnddate(end);
-		bm.setType(3);
-		imd.addMission(bm);
+		}
+	
+		boolean item=iwd.checkWarning(Warning.getStationId(), Warning.getInfectCode(), Warning.getType());
+	//	boolean item=true;
+		if(item){
+		
+			BeanStation bs=new BeanStation();
+			bs=isd.SearchStation(Warning.getStationId());	
+			Timestamp now = new Timestamp(System.currentTimeMillis()); 
+			iwd.addWarning(Warning);
+			BeanMission bm=new BeanMission();
+			String missionname=bs.getStationname()+Infect.get(Warning.getInfectCode())+type+"（系统自动报警）";
+			bm.setMissionname(missionname);
+			bm.setStationid(Warning.getStationId());
+			bm.setStartdate(now);
+			bm.setDescription(bs.getStationname()+Infect.get(Warning.getInfectCode())+type);
+			bm.setUserid(bs.getPrincipal());
+			bm.setStatus(1);
+			Timestamp end =now;
+			end.setDate(now.getDate()+1);
+			bm.setEnddate(end);
+			bm.setType(3);
+			imd.addMission(bm);
+		}
+		
 	}
 
 	@Override

@@ -44,7 +44,7 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>结束时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" value="" readonly="readonly" placeholder="结束时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd '})"	
+		<input type="text" style='width:40%' class="input-text" value="" readonly="readonly" placeholder="结束时间" 
 					id="end" name="end">	
 		</div>
 	</div>

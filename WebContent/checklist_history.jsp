@@ -107,6 +107,9 @@ var params={
 		case "8":
 			 url="gas_monitor_comparison_";
 		 break;	 
+		case "9":
+			 url="device_problem_tracking_";
+		 break;	 
 		}	
 		
 		

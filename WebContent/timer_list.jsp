@@ -26,12 +26,15 @@
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 定时任务管理  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 定时运维任务管理  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 
 <article class="page-container" id = 'form-item-add'>
-	<div class="text-c">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入站点名称" id="" name="">
-		<button type="submit" class="btn btn-success" id="searchItem" name="searchItem" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	<div class="text-c" id="serach" name="serach">
+	
+			<select class="select"  style='width:10%' 	name="city" id="city"></select>市
+			<select class="select"  style='width:10%' 	name="area" id="area"></select>区
+		<button type="submit" class="btn btn-success size-S" id="search" name="search" onclick = "search();"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	
 	</div>
 	<br/>
 		<ul id="Huifold1" name="Huifold1" class="Huifold">
@@ -71,7 +74,35 @@ function getCookie(Name){
 		return String;
 	}
 	$(document).ready(function (){
-	
+		$.ajax({    
+	        type: "post",    
+	        async: false,    
+	        url: "/management/loadcityandarea.do",  
+	        dataType: "json", 
+	        contentType: "application/json; charset=utf-8",   
+	        error: function(data){  
+	        	alert("出错了！！:"+data.msg);
+	        } , 
+	        success: function(data) { 
+	        	console.log(data)
+	        	var str = ""; 
+				str += "<option value='all' selected> 请选择</option>"
+	        	for(var i=0;i<data[0].length;i++){
+					str += "<option value='"+data[0][i].area+"' >"
+					+ data[0][i].area
+					+ "</option>"
+	        	}
+	        	$("#area").html(str);  
+	        	 str = ""; 
+					str += "<option value='all' selected> 请选择</option>"
+	        	for(var i=0;i<data[1].length;i++){
+					str += "<option value='"+data[1][i].city+"' >"
+					+ data[1][i].city
+					+ "</option>"
+	        	}
+	        	$("#city").html(str);  
+	        }
+	    });
 		$('body').on('click','#delete',function(event){
 			var timerId = this.name;
 			layer.confirm('确认要删除吗？',function(){
@@ -98,120 +129,131 @@ function getCookie(Name){
 		
 		//split
 	$('body').on('click','#update',function(event){
-		layer_show('定时任务修改','timer_modifry.jsp?timerId='+this.name,'800','500');
+		layer_show('定时运维任务修改','timer_modifry.jsp?timerId='+this.name,'800','500');
 	}); 
 	$('body').on('click','#datail',function(event){
 
-			layer_show('定时任务详情','timer_detail.jsp?timerId='+this.name,'800','500');
+			layer_show('定时运维任务详情','timer_detail.jsp?timerId='+this.name,'800','500');
 
 	}); 
 	//加载页面数据
-	 station=[];
-		var str = "";  
-	$.ajax({    
-        type: "post",    
-        async: false,    
-        url: "/management/loadAllStation.do",  
-        dataType: "json", 
-        contentType: "application/json; charset=utf-8",   
-        error: function(data){  
-        	alert("出错了！！:"+data.msg);
-        } , 
-        success: function(data) { 
-        	for(var i = 0; i < data.length; i++){
-					station.push(data[i]);	
-					
-        	}
-        	
-        }
-    });
-	
-	var timer=[];
-	$.ajax({    
-        type: "post",    
-        async: false,    
-        url: "/management/loadtimer.do",   
-	//	data : JSON.stringify(params),
-		dataType : "json",
-		contentType : "application/json; charset=utf-8",
-        error: function(data){  
-        	alert("出错了！！:"+data.msg);
-        } , 
-        success: function(data) {         
-        	for(var i = 0; i < data.length; i++){     		
-        		timer.push(data[i]);
-        	 	}
-        	
-        }
-    });
-
-	for(var i = 0; i < station.length; i++){
-		 str+="<li class='item'>"
-				+"<h4>"+station[i].stationname+"<b>+</b></h4>"
-			    +"<div class='info'>"
-				+"<div class=\"cl pd-5 bg-1 bk-gray mt-20\">"
-				+" <span class=\"l\">"
-				+"	 <a href=\"javascript:;\" onclick=\"add('"+station[i].stationId+"')\" class=\"btn btn-primary radius\"><i class=\"Hui-iconfont\">&#xe600;</i> 添加任务</a>"
-				+" </span>"  
-				+"  </div>"
-			    
-			    
-		var item = -1;
-		for(var j = 0; j < timer.length; j++){	
-			if(station[i].stationId==timer[j][0].stationId){
-				item=1;
-				break;
-			}	
-		}
-
-		if(timer[j][0].timeId!=0){
-		str+="<table class='table table-border table-bordered table-bg'>"
-		+"<thead>"
-		+"<tr class='text-c'>"
-		+"<th width='10%'>编号</th>"	
-		+"<th width='30%'>任务名</th>"			
-		+"<th width='25%'>类型</th>"	
-		+"<th width='15%'>操作</th>"
-		+"</tr>"
-		+"</thead>"
-		for(var k=0;k<timer[j].length;k++){
-			str+="<tr class='text-c'>"+
-			"<td>"+(k+1)+"</td>"+
-			"<td>"+timer[j][k].timename+"</td>"+
-			"<td>"+timer[j][k].timername+"</td>"+
-			"<td class='td-manage'>"+
-			"<a style='text-decoration:none' id = 'datail' href='javascript:;' name='"+timer[j][k].timeId+"'>"+
-				"<i class='Hui-iconfont'>&#xe720;</i>"+
-			"</a>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+timer[j][k].timeId+"'>"+
-				"<i class='Hui-iconfont'>&#xe6df;</i>"+
-			"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' name='"+timer[j][k].timeId+"'>"+
-					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
-				"</a>"+
-				"</td>"
-
-			+"</tr>"
-		}
-  		str+="</table>"
-		}
-		else{
-			
-			str+="暂无任务"
-			
-		}
-		
-  		str+="</div>"
-    		+" </li>" ;	
-	}
-
-	$("#Huifold1").html(str);  
-	$(function(){
-		$.Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",1,"click"); /*5个参数顺序不可打乱，分别是：相应区,隐藏显示的内容,速度,类型,事件*/
-	});
-
+	 generate()
 })
+	function search(){
 
+		generate()
+	}
+function generate(){
+		var params = {
+				"city":$("#city").val(),
+				"area":$("#area").val(),
+		}	
+
+		 station=[];
+			var str = "";  
+			$.ajax({    
+		        type: "post",    
+		        async: false,    
+		        url: "/management/loadStation.do",  
+				data : JSON.stringify(params),
+				dataType : "json",
+				contentType : "application/json; charset=utf-8", 
+		        error: function(data){  
+		        	alert("出错了！！:"+data.msg);
+		        } , 
+		        success: function(data) { 
+		        	for(var i = 0; i < data.length; i++){
+							station.push(data[i]);	
+							
+		        	}	        	
+		        }
+		    });	
+		
+		var timer=[];
+		$.ajax({    
+	        type: "post",    
+	        async: false,    
+	        url: "/management/loadtimer.do",   
+			data : JSON.stringify(params),
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+	        error: function(data){  
+	        	alert("出错了！！:"+data.msg);
+	        } , 
+	        success: function(data) {         
+	        	for(var i = 0; i < data.length; i++){     		
+	        		timer.push(data[i]);
+	        	 	}
+	        	
+	        }
+	    });
+
+		for(var i = 0; i < station.length; i++){
+			 str+="<li class='item'>"
+					+"<h4>"+station[i].stationname+"<b>+</b></h4>"
+				    +"<div class='info'>"
+					+"<div class=\"cl pd-5 bg-1 bk-gray mt-20\">"
+					+" <span class=\"l\">"
+					+"	 <a href=\"javascript:;\" onclick=\"add('"+station[i].stationId+"')\" class=\"btn btn-primary radius\"><i class=\"Hui-iconfont\">&#xe600;</i> 添加运维任务</a>"
+					+" </span>"  
+					+"  </div>"
+				    
+				    
+			var item = -1;
+			for(var j = 0; j < timer.length; j++){	
+				if(station[i].stationId==timer[j][0].stationId){
+					item=1;
+					break;
+				}	
+			}
+
+			if(timer[j][0].timeId!=0){
+			str+="<table class='table table-border table-bordered table-bg'>"
+			+"<thead>"
+			+"<tr class='text-c'>"
+			+"<th width='10%'>编号</th>"	
+			+"<th width='30%'>运维任务名</th>"			
+			+"<th width='25%'>类型</th>"	
+			+"<th width='15%'>操作</th>"
+			+"</tr>"
+			+"</thead>"
+			for(var k=0;k<timer[j].length;k++){
+				str+="<tr class='text-c'>"+
+				"<td>"+(k+1)+"</td>"+
+				"<td>"+timer[j][k].timename+"</td>"+
+				"<td>"+timer[j][k].timername+"</td>"+
+				"<td class='td-manage'>"+
+				"<a style='text-decoration:none' id = 'datail' href='javascript:;' name='"+timer[j][k].timeId+"'>"+
+					"<i class='Hui-iconfont'>&#xe720;</i>"+
+				"</a>"+
+					"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+timer[j][k].timeId+"'>"+
+					"<i class='Hui-iconfont'>&#xe6df;</i>"+
+				"</a>"+
+					"<a style='text-decoration:none' id = 'delete' href='javascript:;' name='"+timer[j][k].timeId+"'>"+
+						"<i class='Hui-iconfont'>&#xe6e2;</i>"+
+					"</a>"+
+					"</td>"
+
+				+"</tr>"
+			}
+	  		str+="</table>"
+			}
+			else{
+				
+				str+="暂无运维任务"
+				
+			}
+			
+	  		str+="</div>"
+	    		+" </li>" ;	
+		}
+
+		$("#Huifold1").html(str);  
+		$(function(){
+			$.Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",1,"click"); /*5个参数顺序不可打乱，分别是：相应区,隐藏显示的内容,速度,类型,事件*/
+		});
+
+	}
 function add(stationId){
 	var url="timer_add.jsp?StationId="+stationId;	
 	layer_show("添加文档",url,800,500);

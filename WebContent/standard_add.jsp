@@ -31,35 +31,35 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>监测数据</label>
 				<select style='width:45%' class="select" size="1"name="infectid" id="infectid">
-						<option value="-1" selected>请选择</option>
+				
 
 				</select>
 	</div>
 		<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>预警下限</label>
 		<div class="formControls col-xs-6 col-sm-5">
-			<input type="text" class="input-text" value="" placeholder="预警下限" id="minvaule" name="minvaule">
+			<input type="number" class="input-text" value="" placeholder="预警下限" id="minvaule" name="minvaule">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>预警上限</label>
 		<div class="formControls col-xs-6 col-sm-5">
-			<input type="text" class="input-text" value="" placeholder="预警上限" id="maxvaule" name="maxvaule">
+			<input type="number" class="input-text" value="" placeholder="预警上限" id="maxvaule" name="maxvaule">
 		</div>
 	</div>
 			<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>报警下限</label>
 		<div class="formControls col-xs-6 col-sm-5">
-			<input type="text" class="input-text" value="" placeholder="报警下限" id="minalarm" name="minalarm">
+			<input type="number" class="input-text" value="" placeholder="报警下限" id="minalarm" name="minalarm">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>报警上限</label>
 		<div class="formControls col-xs-6 col-sm-5">
-			<input type="text" class="input-text" value="" placeholder="报警上限" id="maxalarm" name="maxalarm">
+			<input type="number" class="input-text" value="" placeholder="报警上限" id="maxalarm" name="maxalarm">
 		</div>
 	</div>
-		<input type="hidden"  id="stationid" name="stationid">
+		<input type="hidden"  id="stationId" name="stationId">
 
 
 <center>
@@ -114,10 +114,11 @@ function GetRequest() {
 $(document).ready(function() {		
 	var Request = new Object();
 	Request = GetRequest();
-	var stationid = Request['stationid'];
-	$("#stationid").val(stationid);
+	var stationId = Request['stationId'];
+	$("#stationId").val(stationId);
+
 	var params = {
-			"stationId" : stationid,
+			"stationId" : stationId,
 		}
 	$.ajax({  
 		 type: "post",    
@@ -150,37 +151,48 @@ function add(){
 	});
 	var form = new FormData(document.getElementById("add"));
 	
-	
-$.ajax({
+	minvaule=$("#minvaule").val();
+	maxvaule=$("#maxvaule").val();
+	maxalarm=$("#maxalarm").val();
+	minalarm=$("#minalarm").val();
+	if(minvaule>maxvaule||maxalarm<minalarm){
+		alert("下线不能超过上线");
+	}
+	else{
+		$.ajax({
+			
+			type: 'POST',
+			url: "/management/addStandard.do", 
+			data:form, 
+	        async: false,
+	        processData:false,
+	        contentType:false,
+			success: function(data){	
+				if(data.msg!=null){
+					alert(data.msg);					
+				}
+				else{layer.msg('已添加!',{icon:1,time:15000});}
 		
-		type: 'POST',
-		url: "/management/addStandard.do", 
-		data:form, 
-        async: false,
-        processData:false,
-        contentType:false,
-		success: function(data){	
-			if(data.msg!=null){
-				alert(data.msg);					
-			}
-			else{layer.msg('已添加!',{icon:1,time:15000});}
-	
-		},
-		error:function(data) {
-			alert(data.msg);
-			console.log(data.msg);
-		},
-	});	
-	
-	
-	
-	
-	
+			},
+			error:function(data) {
+				alert(data.msg);
+				console.log(data.msg);
+			},
+		});	
 		var index = parent.layer.getFrameIndex(window.name);
 		layer.msg('已添加!',{icon:1,time:15000});
 		console.log("123123213");
 		parent.$('.btn-refresh').click();
 		parent.layer.close(index);
+	}
+	
+	
+	
+	
+	
+	
+	
+
 
 }
 </script> 

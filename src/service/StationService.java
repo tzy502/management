@@ -70,4 +70,22 @@ public class StationService implements IStationService {
 	
 	}
 
+	@Override
+	public List<String> loadcity() {
+		// TODO Auto-generated method stub
+		return isd.loadcity();
+	}
+
+	@Override
+	public List<BeanStation> loadStation(String area, String city) {
+		// TODO Auto-generated method stub
+		return isd.loadStation(area, city);
+	}
+
+	@Override
+	public List<String> loadarea() {
+		// TODO Auto-generated method stub
+		return isd.loadarea();
+	}
+
 }

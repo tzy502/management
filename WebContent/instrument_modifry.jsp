@@ -31,13 +31,13 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">仪器名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value=""readonly="readonly" placeholder="仪器名称" id="instrumentname" name="instrumentname">
+			<input type="text" class="input-text" value="" placeholder="仪器名称" id="instrumentname" name="instrumentname">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">购买时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" readonly="readonly"value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd'})"
 					id="buy" name="buy">	
 		</div>
 	</div>
@@ -57,29 +57,34 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">第一次使用时间时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" readonly="readonly"value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
 					id="first" name="first">	
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">最后使用时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" readonly="readonly"value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
 					id="last" name="last">	
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">最后校准时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" readonly="readonly"value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
 					id="calibration" name="calibration">	
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">校准周期：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="number" min="0" class="input-text" value="" readonly="readonly"placeholder="校准周期" id="calibrationcycle" name="calibrationcycle">
+			<input type="number" min="0" class="input-text" value="" placeholder="校准周期" id="calibrationcycle" name="calibrationcycle">
 		<label >天</label>
+		</div>
+	</div>
+<div class="row cl">
+		<div class="form-label col-xs-4 col-sm-3">
+			<input class="btn btn-primary radius" type="button" onclick = "add()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 		</div>
 	</div>
 	<input type="hidden" id="instrumentId" name="instrumentId">
@@ -170,19 +175,19 @@
 			processData : false,
 			contentType : false,
 			success : function(data) {
-				layer.msg('已添加!', {
-					icon : 1,
-					time : 15000
-				});
-				var index = parent.layer.getFrameIndex(window.name);
-				parent.$('.btn-refresh').click();
-				parent.layer.close(index);
+
 			},
 			error : function(data) {
 				console.log(data.msg);
 			},
 		});
-
+		layer.msg('已添加!', {
+			icon : 1,
+			time : 15000
+		});
+		var index = parent.layer.getFrameIndex(window.name);
+		parent.$('.btn-refresh').click();
+		parent.layer.close(index);
 	}
 </script> 
 

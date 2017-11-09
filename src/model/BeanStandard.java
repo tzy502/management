@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "standard")
 public class BeanStandard {
 	private int standardid;
-	private int stationid;
+	private int stationId;
 	private String infectid;
 	private float minvaule;
 	private float maxvaule;
@@ -23,12 +23,12 @@ public class BeanStandard {
 	public void setStandardid(int standardid) {
 		this.standardid = standardid;
 	}
-	@Column(name = "stationid")
-	public int getStationid() {
-		return stationid;
+	@Column(name = "stationId")
+	public int getStationId() {
+		return stationId;
 	}
-	public void setStationid(int stationid) {
-		this.stationid = stationid;
+	public void setStationId(int stationId) {
+		this.stationId = stationId;
 	}
 	@Column(name = "infectid")
 	public String getInfectid() {

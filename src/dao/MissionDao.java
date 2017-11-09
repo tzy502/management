@@ -103,7 +103,7 @@ public class MissionDao implements IMissionDao {
 		String hql = "from BeanMission where userid=? and type=? and status=1";
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, userId);
-		qry.setParameter(1, type);
+		qry.setParameter(1, type);//1自动0手动
 		@SuppressWarnings("unchecked")
 		List<BeanMission> result = qry.list();
 		tx.commit();
@@ -157,7 +157,7 @@ public class MissionDao implements IMissionDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		String sql = "UPDATE mission"
-				+ "set `status`=3"
+				+ "set `status`=4"
 				+ "WHERE enddate < now()";
 		
 		Query qry = session.createSQLQuery(sql);

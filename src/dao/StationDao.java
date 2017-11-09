@@ -180,4 +180,85 @@ public class StationDao implements IStationDao {
 				}
 		}
 	}
+
+	@Override
+	public List<BeanStation> loadnobaseStation() {
+		List<BeanStation> result =new ArrayList<BeanStation>();
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+			org.hibernate.Query qry = session.createQuery("from BeanStation where base=0");
+			java.util.List list = qry.list();
+			session.getTransaction().commit();	
+			result =list;
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return result;
+	}
+
+	@Override
+	public List<BeanStation> loadStation(String area, String city) {
+		List<BeanStation> result =new ArrayList<BeanStation>();
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+			String hql="from BeanStation where 1=1";
+			if(city!=null){
+				hql+=" and city='"+city+"'";
+			}
+			if(area!=null){
+				hql+=" and area='"+area+"'";
+			}
+			org.hibernate.Query qry = session.createQuery(hql);
+			java.util.List list = qry.list();
+			session.getTransaction().commit();	
+			result =list;
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return result;
+	}
+
+	@Override
+	public List<String> loadcity() {
+		List<String> result =new ArrayList<String>();
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+			String hql="select DISTINCT city from BeanStation";
+			org.hibernate.Query qry = session.createQuery(hql);
+			java.util.List list = qry.list();
+			session.getTransaction().commit();	
+			result =list;
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return result;
+	}
+
+	@Override
+	public List<String> loadarea() {
+		List<String> result =new ArrayList<String>();
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+			String hql="select DISTINCT area from BeanStation";
+			org.hibernate.Query qry = session.createQuery(hql);
+			java.util.List list = qry.list();
+			session.getTransaction().commit();	
+			result =list;
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return result;
+	}
 }

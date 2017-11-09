@@ -39,10 +39,10 @@
 			</tr>
 			<tr class="text-c">
 				<th width="40">序号</th>
-				<th width="200">站点名</th>
-				<th width="400">地址</th>		
+				<th width="250">站点名</th>
+				<th width="350">地区</th>		
 				<th width="120">负责人</th>	
-				<th width="120">最后一次运维时间</th>		
+				<th width="120">监控数据</th>		
 				<th width="40">操作</th>
 			</tr>
 		</thead>
@@ -115,10 +115,10 @@ function getCookie(Name){
 		
 		
 	$('body').on('click','#update',function(event){
-		layer_show('检测站编辑','station_modifry.jsp?stationid='+this.title,'800','500');
+		layer_show('检测站编辑','station_modifry.jsp?stationId='+this.title,'800','500');
 	}); 
 	$('body').on('click','#datail',function(event){
-		layer_show('检测站详情','station_detail.jsp?stationid='+this.title,'800','500');
+		layer_show('检测站详情','station_detail.jsp?stationId='+this.title,'800','500');
 	}); 
 	//加载页面数据
 
@@ -139,7 +139,7 @@ function getCookie(Name){
 				"<td>"+data[i].stationname+"</td>"+
 				"<td>"+data[i].city+"市"+data[i].area+"区</td>"+
 				"<td>"+data[i].name+"</td>"+
-				"<td>"+data[i].last+"</td>"+
+				"<td>"+data[i].data+"</td>"+
 				"<td class='td-manage'>"+
 				"<a style='text-decoration:none' id = 'datail' href='javascript:;' title='"+data[i].stationId+"'>"+
 				"<i class='Hui-iconfont'>&#xe720;</i>"+

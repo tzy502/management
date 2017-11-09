@@ -39,28 +39,28 @@
 		<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>预警下限</label>
 		<div class="formControls col-xs-6 col-sm-5">
-			<input type="text" class="input-text" value="" placeholder="预警下限" id="minvaule" name="minvaule">
+			<input type="number" class="input-text" value="" placeholder="预警下限" id="minvaule" name="minvaule">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>预警上限</label>
 		<div class="formControls col-xs-6 col-sm-5">
-			<input type="text" class="input-text" value="" placeholder="预警上限" id="maxvaule" name="maxvaule">
+			<input type="number" class="input-text" value="" placeholder="预警上限" id="maxvaule" name="maxvaule">
 		</div>
 	</div>
 			<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>报警下限</label>
 		<div class="formControls col-xs-6 col-sm-5">
-			<input type="text" class="input-text" value="" placeholder="报警下限" id="minalarm" name="minalarm">
+			<input type="number" class="input-text" value="" placeholder="报警下限" id="minalarm" name="minalarm">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>报警上限</label>
 		<div class="formControls col-xs-6 col-sm-5">
-			<input type="text" class="input-text" value="" placeholder="报警上限" id="maxalarm" name="maxalarm">
+			<input type="number" class="input-text" value="" placeholder="报警上限" id="maxalarm" name="maxalarm">
 		</div>
 	</div>
-		<input type="hidden" id="stationid" name="stationid">
+		<input type="hidden" id="stationId" name="stationId">
 		 <input	type="hidden" id="standardid" name="standardid">
 <input	type="hidden" id="infectid" name="infectid">
 		<center>
@@ -133,7 +133,7 @@
 					$("#maxvaule").val(data.maxvaule);
 					$("#maxalarm").val(data.maxalarm);
 					$("#minalarm").val(data.minalarm);
-					$("#stationid").val(data.stationid);
+					$("#stationId").val(data.stationId);
 					$("#standardid").val(data.standardid);
 					$("#infectid").val(data.infectid);
 					
@@ -151,7 +151,14 @@
 				increaseArea : '20%'
 			});
 			var form = new FormData(document.getElementById("add"));
-			
+			minvaule=$("#minvaule").val();
+			maxvaule=$("#maxvaule").val();
+			maxalarm=$("#maxalarm").val();
+			minalarm=$("#minalarm").val();
+			if(minvaule>maxvaule||maxalarm>minalarm){
+				alert("下线不能超过上线");
+			}
+			else{
 			$.ajax({
 
 				type : 'POST',
@@ -180,7 +187,7 @@
 			console.log("123123213");
 			parent.$('.btn-refresh').click();
 			parent.layer.close(index);
-
+			}
 		}
 	</script>
 

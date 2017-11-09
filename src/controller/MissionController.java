@@ -214,13 +214,21 @@ public class MissionController {
 	}
 	@RequestMapping(value = "/loadALLMission.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String loadALLMission() throws JSONException{
-		
+	public String loadALLMission(@RequestBody String params) throws JSONException{
+		JSONObject js = new JSONObject(params);
+		String city=js.getString("city");
+		String area=js.getString("area");
+		if(city.equals("all")){
+			city=null;
+		}
+		if(area.equals("all")){
+			area=null;
+		}
 		List<BeanMission> result =new ArrayList<BeanMission>();
 		List<BeanStation> station =new ArrayList<BeanStation>();
 		JSONArray jsonarray = new JSONArray();
 		try {
-			station=iss.loadAllStation();
+			station=iss.loadStation(area, city);
 			for(int j=0;j<station.size();j++){
 				JSONArray jsonarraylist = new JSONArray();
 				result=ims.loadMission(station.get(j).getStationid());
@@ -254,6 +262,7 @@ public class MissionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(jsonarray.toString());
 		return jsonarray.toString();
 	}
 	@RequestMapping(value = "/loadStationMission.do", produces = "application/json; charset=utf-8") 

@@ -176,11 +176,11 @@
 					//
 					var Request = new Object();
 					Request = GetRequest();
-					var stationid = Request['stationid'];
+					var stationId = Request['stationId'];
 					var params = {
-						"stationId" : stationid,
+						"stationId" : stationId,
 					}
-					alert(stationid);
+				
 					$.ajax({
 						type : "post",
 						async : true,
@@ -236,8 +236,8 @@
 			var form = new FormData(document.getElementById("add"));
 			var Request = new Object();
 			Request = GetRequest();
-			var stationid = Request['stationid'];
-			form.append("stationId", stationid)
+			var stationId = Request['stationId'];
+			form.append("stationId", stationId)
 			$.ajax({
 
 				type : 'POST',

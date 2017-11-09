@@ -122,10 +122,10 @@
 			});
 			var Request = new Object();
 			Request = GetRequest();
-			var stationid = Request['stationid'];
-			
+			var stationId = Request['stationId'];
+			console.log(stationId)
 			var form = new FormData(document.getElementById("add"));		
-			form.append("stationid",stationid)
+			form.append("stationId",stationId)
 			$.ajax({
 
 				type : 'POST',

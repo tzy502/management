@@ -74,7 +74,7 @@ public class StationController {
 				}else{
 					jo.put("data", "无监控数据");
 				}
-				
+
 				json.put(jo);
 			}
 		} catch (BaseException e) {
@@ -241,6 +241,58 @@ public class StationController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return json.toString();
+	}
+	@RequestMapping(value = "/loadcityandarea.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String loadcityandarea() throws JSONException{
+		List<String> area =new ArrayList<String>();
+		List<String> city =new ArrayList<String>();
+		area=iss.loadarea();
+		city=iss.loadcity();
+		JSONArray jsonarea = new JSONArray();
+		JSONArray jsoncity = new JSONArray();
+		JSONArray result = new JSONArray();
+		for(int i=0;i<area.size();i++){
+			JSONObject jo = new JSONObject();
+			jo.put("area", area.get(i));
+			jsonarea.put(jo);
+		}
+		for(int i=0;i<city.size();i++){
+			JSONObject jo = new JSONObject();
+			jo.put("city", city.get(i));
+			jsoncity.put(jo);
+		}
+		result.put(jsonarea);
+		result.put(jsoncity);
+		System.out.println(result.toString());
+		return result.toString();
+	}
+	@RequestMapping(value = "/loadStation.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String loadStation(@RequestBody String params) throws JSONException{
+		JSONObject js = new JSONObject(params);
+		String city=js.getString("city");
+		String area=js.getString("area");
+		if(city.equals("all")){
+			city=null;
+		}
+		if(area.equals("all")){
+			area=null;
+		}
+		
+		List<BeanStation> result =new ArrayList<BeanStation>();
+		JSONArray json = new JSONArray();
+
+		result =iss.loadStation(area, city);
+		//查最后一次运维时间
+		for(int i=0;i<result.size();i++){
+			JSONObject jo = new JSONObject();
+			jo.put("stationId",result.get(i).getStationid());
+			jo.put("stationname",result.get(i).getStationname());	
+			json.put(jo);
+		}
+
 		return json.toString();
 	}
 }

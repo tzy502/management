@@ -31,13 +31,9 @@ public class InfectController {
 		int stationId =Integer.valueOf(json.getString("stationId"));
 		List<BeanInfect> result =new ArrayList<BeanInfect>();
 		try {
-			if(iss.SearchStation(stationId).getType()==31){
-				result=ifs.load(32);
-			}
-			else{
-				result=ifs.load(31);
-			}
-			
+			System.out.println(iss.SearchStation(stationId).getType());
+			result=ifs.load(iss.SearchStation(stationId).getType());
+
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

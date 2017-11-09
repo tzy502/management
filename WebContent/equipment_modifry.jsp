@@ -62,7 +62,7 @@
 			</div>
 			<center>
 			<input type="hidden"input-text" value=""
-					id="stationid" name="stationid">
+					id="stationId" name="stationId">
 				<div class="row cl">
 					<div class="form-label col-xs-4 col-sm-3">
 						<input class="btn btn-primary radius" type="button"
@@ -137,7 +137,7 @@
 					$("#model").val(data.model);
 					$("#number").val(data.number);
 					$("#effect").val(data.effect);
-					$("#stationid").val(data.stationid);
+					$("#stationId").val(data.stationId);
 					
 				},
 				error : function(data) {

@@ -122,7 +122,9 @@ function getCookie(Name){
 		case "8":
 			layer_show('文档编辑','gas_monitor_comparison_modifry.jsp?checklistId='+str[1],'800','500');
 		 break;
-		 
+		case "9":
+			layer_show('文档编辑','device_problem_tracking_modifry.jsp?checklistId='+str[1],'800','500');
+		 break; 
 		}
 	}); 
 	$('body').on('click','#datail',function(event){
@@ -156,7 +158,9 @@ function getCookie(Name){
 		case "8":
 			layer_show('文档详情','gas_monitor_comparison_detail.jsp?checklistId='+str[1],'800','500');
 		 break;
-		 
+		case "9":
+			layer_show('文档详情','device_problem_tracking_detail.jsp?checklistId='+str[1],'800','500');
+		 break;
 		}
 	}); 
 	$('body').on('click','#history',function(event){

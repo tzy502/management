@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -83,6 +84,45 @@ public class WarningDao implements IWarningDao {
 			e.printStackTrace();
 			tx.rollback();
 		}
+	}
+
+	@Override
+	public boolean checkWarning(int stationId, String InfectCode, int type) {
+		// TODO Auto-generated method stub
+
+		long now=System.currentTimeMillis();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "from BeanWarning "
+				+ "where stationId=? and InfectCode=? and type=?    "
+				+ "order BY warningtime desc";
+
+		Query qry = session.createQuery(hql);
+
+		qry.setParameter(0, stationId);
+		qry.setParameter(1, InfectCode);
+		qry.setParameter(2, type);
+
+		List<BeanWarning> result=null;
+		result = qry.list();
+		tx.commit();
+
+		
+		if(result.size()!=0){
+			long item= now-result.get(0).getWarningtime().getTime();
+	System.out.println(item);
+			if(item>86400001){
+				return true;
+			}
+			else{
+				return false;			
+			}
+		}
+		else{
+			return true;
+		}
+
+
 	}
 
 }

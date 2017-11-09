@@ -45,6 +45,7 @@
 				<option value="6">烟气污染源在线监测设备校准校验记录表</option>
 				<option value="7">在线监测系统实样比对校核记录表（废水）</option>
 				<option value="8">在线监测系统实样比对校核记录表（废气）</option>
+				<option value="9">设备问题追踪单</option>
 			</select>
 			</span> </div>
 		<center>
@@ -139,6 +140,9 @@ function add(){
 		case "8":
 			 str="gas_monitor_comparison_add.jsp";
 		 break;	 
+		case "9":
+			 str="device_problem_tracking_add.jsp";
+		 break;	
 		}
 		stationname=encodeURIComponent(stationname);
 		url=str+"?StationId="+StationId+"&stationname="	+stationname

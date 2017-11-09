@@ -15,4 +15,5 @@ public interface IWarningDao {
 
 	public void DelWarning(int WarningId);
 
+	public boolean checkWarning(int stationId,String InfectCode,int type);
 }

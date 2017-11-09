@@ -35,7 +35,7 @@ public class StandardDao implements IStandardDao {
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-		org.hibernate.Query qry = session.createQuery("from BeanStandard where stationid=?");
+		org.hibernate.Query qry = session.createQuery("from BeanStandard where stationId=?");
 		qry.setParameter(0, StandardId);
 		java.util.List list = qry.list();
 		session.getTransaction().commit();	
@@ -105,8 +105,8 @@ public class StandardDao implements IStandardDao {
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-		org.hibernate.Query qry = session.createQuery("from BeanStandard where stationid=? and infectid=?");
-		qry.setParameter(0, Standard.getStationid());
+		org.hibernate.Query qry = session.createQuery("from BeanStandard where stationId=? and infectid=?");
+		qry.setParameter(0, Standard.getStationId());
 		qry.setParameter(1, Standard.getInfectid());
 		java.util.List list = qry.list();
 		session.getTransaction().commit();	

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "equipment")
 public class BeanEquipment {
 	private int equipmentid;
-	private int stationid;
+	private int stationId;
 	private String model;//型号
 	private String	grade;//编号
 	private String	number;//标号
@@ -24,12 +24,12 @@ public class BeanEquipment {
 		this.equipmentid = equipment;
 	}
 	
-	@Column(name = "stationid")	
-	public int getStationid() {
-		return stationid;
+	@Column(name = "stationId")	
+	public int getStationId() {
+		return stationId;
 	}
-	public void setStationid(int stationid) {
-		this.stationid = stationid;
+	public void setStationId(int stationId) {
+		this.stationId = stationId;
 	}
 	@Column(name = "model")	
 	public String getModel() {

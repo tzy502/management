@@ -26,12 +26,15 @@
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 任务  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 运维任务  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 
 <article class="page-container" id = 'form-item-add'>
-	<div class="text-c">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入站点名称" id="" name="">
-		<button type="submit" class="btn btn-success" id="searchItem" name="searchItem" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	<div class="text-c" id="serach" name="serach">
+	
+			<select class="select"  style='width:10%' 	name="city" id="city"></select>市
+			<select class="select"  style='width:10%' 	name="area" id="area"></select>区
+		<button type="submit" class="btn btn-success size-S" id="search" name="search" onclick = "search();"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	
 	</div>
 	<br/>
 		<ul id="Huifold1" name="Huifold1" class="Huifold">
@@ -66,10 +69,10 @@ function getCookie(Name){
 	   return returnvalue;
 }
 	$('body').on('click','#update',function(event){
-		layer_show('任务修改','mission_modifry.jsp?missionId='+this.name,'800','500');
+		layer_show('运维任务修改','mission_modifry.jsp?missionId='+this.name,'800','500');
 	}); 
 	$('body').on('click','#detail',function(event){	
-		layer_show('任务详情','mission_detail.jsp?missionId='+this.name,'800','500');
+		layer_show('运维任务详情','mission_detail.jsp?missionId='+this.name,'800','500');
 	}); 
 	$('body').on('click','#delete',function(event){
 		var missionId = this.name;
@@ -94,17 +97,54 @@ function getCookie(Name){
 		});
 	});
 
-	$(document).ready(function (){
+	$(document).ready(function (){		
 		var level =getCookie("level");
 		if(level==1){
+			
+			$.ajax({    
+		        type: "post",    
+		        async: false,    
+		        url: "/management/loadcityandarea.do",  
+		        dataType: "json", 
+		        contentType: "application/json; charset=utf-8",   
+		        error: function(data){  
+		        	alert("出错了！！:"+data.msg);
+		        } , 
+		        success: function(data) { 
+		        	console.log(data)
+		        	var str = ""; 
+					str += "<option value='all' selected> 请选择</option>"
+		        	for(var i=0;i<data[0].length;i++){
+						str += "<option value='"+data[0][i].area+"' >"
+						+ data[0][i].area
+						+ "</option>"
+		        	}
+		        	$("#area").html(str);  
+		        	 str = ""; 
+						str += "<option value='all' selected> 请选择</option>"
+		        	for(var i=0;i<data[1].length;i++){
+						str += "<option value='"+data[1][i].city+"' >"
+						+ data[1][i].city
+						+ "</option>"
+		        	}
+		        	$("#city").html(str);  
+		        }
+		    });
 			adminlist()
 		}else{
+
 			userlist()
+		
 		}
 		
 		
 
 	})
+	function search(){
+
+		adminlist()
+	}
+	
 	function userlist(){
 		var str="";
 		str+="<table class='table table-border table-bordered table-bg'>"
@@ -112,7 +152,7 @@ function getCookie(Name){
 			+"<tr class='text-c'>"
 			+"<th width='5%'>编号</th>"
 			+"<th width='15%'>负责人</th>"		
-			+"<th width='30%'>任务名</th>"			
+			+"<th width='30%'>运维任务名</th>"			
 			+"<th width='20%'>预计结束时间</th>"	
 			+"<th width='20%'>状态</th>"
 			+"<th width='10%'>操作</th>"
@@ -155,9 +195,11 @@ function getCookie(Name){
 	}
 	function adminlist(){
 		
-		
-		
-		//split
+		var params = {
+				"city":$("#city").val(),
+				"area":$("#area").val(),
+		}	
+
 
 	//加载页面数据
 	 station=[];
@@ -165,9 +207,10 @@ function getCookie(Name){
 	$.ajax({    
         type: "post",    
         async: false,    
-        url: "/management/loadAllStation.do",  
-        dataType: "json", 
-        contentType: "application/json; charset=utf-8",   
+        url: "/management/loadStation.do",  
+		data : JSON.stringify(params),
+		dataType : "json",
+		contentType : "application/json; charset=utf-8", 
         error: function(data){  
         	alert("出错了！！:"+data.msg);
         } , 
@@ -178,14 +221,14 @@ function getCookie(Name){
         	}
         	
         }
-    });
+    });	
 	console.log(station)
 	var mission=[];
 	$.ajax({    
         type: "post",    
         async: false,    
         url: "/management/loadALLMission.do",  
-	//	data : JSON.stringify(params),
+		data : JSON.stringify(params),
 		dataType : "json",
 		contentType : "application/json; charset=utf-8",
         error: function(data){  
@@ -193,19 +236,19 @@ function getCookie(Name){
         } , 
         success: function(data) {         
         	for(var i = 0; i < data.length; i++){     		
-        		mission.push(data[i]);
+        			mission.push(data[i]);
         	 	}
         	
         }
     });
-console.log(mission)
+	console.log(mission)
 	for(var i = 0; i < station.length; i++){
 		 str+="<li class='item'>"
 				+"<h4>"+station[i].stationname+"<b>+</b></h4>"
 			    +"<div class='info'>"
 				+"<div class=\"cl pd-5 bg-1 bk-gray mt-20\">"
 				+" <span class=\"l\">"
-				+"	 <a href=\"javascript:;\" onclick=\"add('"+station[i].stationId+"')\" class=\"btn btn-primary radius\"><i class=\"Hui-iconfont\">&#xe600;</i> 添加任务</a>"
+				+"	 <a href=\"javascript:;\" onclick=\"add('"+station[i].stationId+"')\" class=\"btn btn-primary radius\"><i class=\"Hui-iconfont\">&#xe600;</i> 添加运维任务</a>"
 				+" </span>"  
 				+"  </div>"
 			    
@@ -224,7 +267,7 @@ console.log(mission)
 		+"<tr class='text-c'>"
 		+"<th width='5%'>编号</th>"
 		+"<th width='15%'>负责人</th>"		
-		+"<th width='30%'>任务名</th>"			
+		+"<th width='30%'>运维任务名</th>"			
 		+"<th width='20%'>预计结束时间</th>"	
 		+"<th width='20%'>状态</th>"
 		+"<th width='10%'>操作</th>"
@@ -255,7 +298,7 @@ console.log(mission)
 		}
 		else{
 			
-			str+="暂无任务"
+			str+="暂无运维任务"
 			
 		}
 		

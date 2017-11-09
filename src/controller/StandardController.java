@@ -46,12 +46,13 @@ public class StandardController {
 	@RequestMapping(value = "/modifryStandard.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String modifryStandard(BeanStandard bs) throws JSONException{
+		JSONObject jo = new JSONObject();
 		try {
-		
+			System.out.println("123");
 			iss.modifryStandard(bs);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
-			JSONObject jo = new JSONObject();
+			
 			jo.put("msg", e.getMessage());
 	
 			return jo.toString();
@@ -103,7 +104,7 @@ public class StandardController {
 		jo.put("minvaule", String.valueOf(result.getMinvaule()));
 		jo.put("maxalarm", String.valueOf(result.getMaxalarm()));	
 		jo.put("minalarm", String.valueOf(result.getMinalarm()));
-		jo.put("stationid", result.getStationid());	
+		jo.put("stationId", result.getStationId());	
 		
 		return jo.toString();
 	}

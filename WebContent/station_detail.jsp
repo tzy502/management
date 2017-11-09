@@ -189,30 +189,7 @@
 		$(document)	.ready(function() {
 		
 		
-				$.ajax({
-							type : "post",
-							async : true,
-							url : "/management/loadAllUser.do",
-							//data: JSON.stringify(params),
-							dataType : "json",
-							contentType : "application/json; charset=utf-8",
-							error : function(data) {
-								alert("出错了！！:" + data.msg);
-							},
-							success : function(data) {
-								var str = "<option value='1' selected>请选择</option>";
-								for (var i = 0; i < data.length; i++) {
-									str += "<option value='"+data[i].userId+"' >"
-											+ data[i].userName
-											+ "</option>"
-								}
 			
-								$("#principal").html(str);
-							}
-						})
-				$('companyid').select2();
-				$('select').select2();
-				//
 				var Request = new Object();
 				Request = GetRequest();
 				var stationId = Request['stationId'];
@@ -382,9 +359,9 @@
 			
 			var Request = new Object();
 			Request = GetRequest();
-			var stationid = Request['stationid'];
+			var stationId = Request['stationId'];
 	
-			layer_show('添加设备',"equipment_add.jsp?stationid="+stationid ,400,300);
+			layer_show('添加设备',"equipment_add.jsp?stationId="+stationId ,400,300);
 
 		}
 		
@@ -392,9 +369,9 @@
 			
 			var Request = new Object();
 			Request = GetRequest();
-			var stationid = Request['stationid'];
+			var stationId = Request['stationId'];
 	
-			layer_show('添加上限',"standard_add.jsp?stationid="+stationid ,400,300);
+			layer_show('添加上限',"standard_add.jsp?stationId="+stationId ,400,300);
 
 		}
 	</script>

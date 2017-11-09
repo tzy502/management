@@ -12,8 +12,13 @@ public interface IStationDao {
 	public BeanStation SearchStation(int StationId);
 	//搜索角色
 	public List<BeanStation> loadAllStation();
+	
 	public List<BeanStation> loadwaterStation();
 	public List<BeanStation> loadgasStation();
+	public List<BeanStation> loadnobaseStation();
+	public List<String> loadcity();
+	public List<BeanStation> loadStation(String area,String city);
+	public List<String> loadarea();
 	//搜索角色
 	public void modifryStation(BeanStation Station);
 	//修改角色

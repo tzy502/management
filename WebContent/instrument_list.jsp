@@ -157,7 +157,7 @@ function getCookie(Name){
 		});
 		
 	$('body').on('click','#update',function(event){
-		layer_show('仪器编辑','company_modifey.jsp?companyid='+this.title,'800','500');
+		layer_show('仪器编辑','instrument_modifry.jsp?instrumentId='+this.name,'800','500');
 	}); 
 
 	//加载页面数据

@@ -29,44 +29,62 @@
 <article class="page-container" id = 'form-item-add'>
 	<form class="form form-horizontal" id="add" >
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>培训名称：</label>
+		<label class="form-label col-xs-4 col-sm-3">仪器名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="培训名称" id="trainname" name="trainname">
+			<input type="text" class="input-text" value=""readonly="readonly" placeholder="仪器名称" id="instrumentname" name="instrumentname">
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间：</label>
+		<label class="form-label col-xs-4 col-sm-3">购买时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" value="" placeholder="开始时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd '})"
-					id="begin" name="begin">	
+		<input type="text" style='width:40%' class="input-text" readonly="readonly"value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+					id="buy" name="buy">	
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>结束时间：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" value="" placeholder="结束时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd '})"
-					id="end" name="end">	
+		<label class="form-label col-xs-4 col-sm-3">目前状态</label>
+				<div class="formControls col-xs-8 col-sm-9"> 
+				<span class="select-box">
+					<select class="select"  name="status" id="status">
+						<option value="1" >正常</option>
+						<option value="2">出错</option>
+						<option value="3">维修</option>
+					</select>
+				</span> 
+				</div>
 		</div>
 	</div>
-		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>详情：</label>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">第一次使用时间时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="detail" id='detail'  cols="" rows="" class="textarea" ></textarea>					
-		</div>
-		</div>
-		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>结果：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="result" id='result'  cols="" rows="" class="textarea" ></textarea>					
+		<input type="text" style='width:40%' class="input-text" readonly="readonly"value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+					id="first" name="first">	
 		</div>
 	</div>
-	<input type="hidden" id="trainId" name="trainId">
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">最后使用时间：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+		<input type="text" style='width:40%' class="input-text" readonly="readonly"value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+					id="last" name="last">	
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">最后校准时间：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+		<input type="text" style='width:40%' class="input-text" readonly="readonly"value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+					id="calibration" name="calibration">	
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">校准周期：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="number" min="0" class="input-text" value="" readonly="readonly"placeholder="校准周期" id="calibrationcycle" name="calibrationcycle">
+		<label >天</label>
+		</div>
+	</div>
+
+	<input type="hidden" id="instrumentId" name="instrumentId">
 <center>
-<div class="row cl">
-		<div class="form-label col-xs-4 col-sm-3">
-			<input class="btn btn-primary radius" type="button" onclick = "add()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-		</div>
-	</div>
 </center>
 	</form>
 </article>
@@ -82,6 +100,7 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
+
 	function GetRequest() {
 		var url = location.search;
 		var theRequest = new Object();
@@ -95,35 +114,46 @@
 		}
 		return theRequest;
 	}
-	$(document)	.ready(function() {
-		var Request = new Object();
-		Request = GetRequest();
-		var trainId = Request['trainId'];
-
-		var params = {
-			"trainId" : trainId,
-		}
-		$.ajax({
-			type : "post",
-			async : true,
-			url : "/management/searchTrain.do",
-			data : JSON.stringify(params),
-			dataType : "json",
-			contentType : "application/json; charset=utf-8",
-			success : function(data) {
-				$("#trainId").val(data.trainId);
-				$("#trainname").val(data.trainname);
-				$("#begin").val(data.begintime);
-				$("#end").val(data.endtime);
-				$("#detail").val(data.detail);
-				$("#result").val(data.result);
-				
-			},
-			error : function(data) {
-				console.log(data.msg);
-			},
-		});
+	var Request = new Object();
+	Request = GetRequest();
+	var instrumentId = Request["instrumentId"];
+	instrumentId=1
+	var params={
+			"instrumentId":instrumentId,
+	}
+		
+	$(document).ready(function() {
+		$.ajax({    
+	        type: "post",    
+	        async: true,    
+	        url: "/management/searchinstrument.do",  
+	        data: JSON.stringify(params),
+	        dataType: "json", 
+	        contentType: "application/json; charset=utf-8", 
+	        success: function(data) { 	        	
+    			var buytime=data.buytime;
+    			var lastusetime=data.lastusetime;
+    			var calibrationtime=data.calibrationtime;
+    			var firstusetime=data.firstusetime;
+				buytime=buytime.replace(/00:00:00.0/,"");
+				lastusetime=lastusetime.replace(/00:00:00.0/,"");
+				calibrationtime=calibrationtime.replace(/00:00:00.0/,"");
+				firstusetime=firstusetime.replace(/00:00:00.0/,"");
+	        	$("#instrumentname").val(data.instrumentname);
+	        	$("#buy").val(buytime);
+	        	$("#first").val(firstusetime);
+	        	$("#last").val(lastusetime);
+	        	$("#calibration").val(calibrationtime);
+	        	$("#status").val(data.status);
+	        	$("#calibrationcycle").val(data.calibrationcycle);
+	         	$("#instrumentId").val(data.instrumentId);
+	        	
+	        }
 	})
+	})
+
+
+
 	function add(){
 	
 		$('.skin-minimal input').iCheck({
@@ -135,7 +165,7 @@
 		$.ajax({
 
 			type : 'POST',
-			url : "/management/modifryTrain.do",
+			url : "/management/modifryinstrument.do",
 			data : form,
 			async : false,
 			processData : false,
