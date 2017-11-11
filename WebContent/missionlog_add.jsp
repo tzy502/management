@@ -102,6 +102,7 @@ function add(){
 	});
 	var form = new FormData(document.getElementById("add"));
 	form.append("missionId",missionId)
+
 $.ajax({
 		
 		type: 'POST',
@@ -118,16 +119,11 @@ $.ajax({
 			console.log(data.msg);
 		},
 	});	
-	
-	
-	
-	
-	
-		var index = parent.layer.getFrameIndex(window.name);
-		layer.msg('已添加!',{icon:1,time:15000});
-		console.log("123123213");
-		parent.$('.btn-refresh').click();
-		parent.layer.close(index);
+	var index = parent.layer.getFrameIndex(window.name);
+	layer.msg('已添加!',{icon:1,time:15000});
+	console.log("123123213");
+	parent.$('.btn-refresh').click();
+	parent.layer.close(index);
 
 }
 </script> 

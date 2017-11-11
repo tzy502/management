@@ -24,12 +24,26 @@
 <title>文档</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 企业列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 超标数据列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+
 <div class="page-container">	
+		<div class="text-c">
+			选择时间: <input type="text" style='width: 30%' class="input-text"
+				value="" placeholder="开始时间"
+				onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+				id="start" name="start"> 到 <input type="text"
+				style='width: 30%' class="input-text" value="" placeholder="结束时间"
+				onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+				id="end" name="end"> <input class="btn btn-primary radius"
+				type="button" onclick="generate()" value="&nbsp;&nbsp;查看&nbsp;&nbsp;">
+		</div>
+		<div class="mt-5 mb-5">
+			<br />
+		</div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
-				<th scope="col" colspan="9">错误列表</th>
+				<th scope="col" colspan="9">超标数据列表</th>
 			</tr>
 			<tr class="text-c">
 				<th width="40">序号</th>
@@ -58,6 +72,24 @@
 <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
+Date.prototype.Format = function (fmt) {
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt))
+fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o){
+    if (new RegExp("(" + k + ")").test(fmt)) {
+fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+}
+    }
+    return fmt;
+}
 function getCookie(Name){
 	var search = Name + "="//查询检索的值
 	   var returnvalue = "";//返回值
@@ -74,37 +106,47 @@ function getCookie(Name){
 	   } 
 	   return returnvalue;
 }
-
+var end=new Date().Format("yyyy-MM-dd hh:mm:ss");
+var start =new Date(new Date()-24*60*60*1000).Format("yyyy-MM-dd hh:mm:ss");//取前一天的时间
 	$(document).ready(function (){
-
-	//加载页面数据
-	var str = "";  
-	$.ajax({    
-        type: "post",    
-        async: true,    
-        url: "/management/loadwarning.do",  
-        dataType: "json", 
-        contentType: "application/json; charset=utf-8",   
-        error: function(data){  
-        	alert("出错了！！:"+data.msg);
-        } , 
-        success: function(data) { 
-        	for(var i = 0; i < data.length; i++){  
-        	str += "<tr class='text-c'>"+
-			"<td>"+(i+1)+"</td>"+
-			"<td>"+data[i].stationname+"</td>"+
-			"<td>"+data[i].InfectCode+"</td>"+
-			"<td>"+data[i].type+"</td>"+
-			"<td>"+data[i].warningtime+"</td>"+
-			"</tr>";
-			str+="";
-        	
-        	$("#tbody-alldoc").html(str);  
-        	}
-        }     
-    });
+		$("#start").val(start);
+		$("#end").val(end);
+		generate()
 
 })
+function generate(){
+		//加载页面数据
+				var params = {
+				"end":$("#end").val(),
+				"start":$("#start").val(),
+			}
+		var str = "";  
+		$.ajax({    
+	        type: "post",    
+	        async: true,    
+	        url: "/management/loadwarning.do",  
+			data: JSON.stringify(params),
+			dataType : "json",
+	        contentType: "application/json; charset=utf-8",   
+	        error: function(data){  
+	        	alert("出错了！！:"+data.msg);
+	        } , 
+	        success: function(data) { 
+	        	for(var i = 0; i < data.length; i++){  
+	        	str += "<tr class='text-c'>"+
+				"<td>"+(i+1)+"</td>"+
+				"<td>"+data[i].stationname+"</td>"+
+				"<td>"+data[i].InfectCode+"</td>"+
+				"<td>"+data[i].type+"</td>"+
+				"<td>"+data[i].warningtime+"</td>"+
+				"</tr>";
+				str+="";
+	        	
+	        	$("#tbody-alldoc").html(str);  
+	        	}
+	        }     
+	    });
+	}
 function add(title,url,w,h){
 	layer_show(title,url,w,h);
 	

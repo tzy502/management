@@ -86,6 +86,7 @@ function add(){
 	}	
 	$.ajax({
 		type: 'POST',
+		async: false,   
 		url: "/management/addRole.do", 
 		data: JSON.stringify(params),
 		dataType: 'json',

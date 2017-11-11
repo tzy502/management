@@ -144,6 +144,19 @@
 	        	$("#first").val(firstusetime);
 	        	$("#last").val(lastusetime);
 	        	$("#calibration").val(calibrationtime);
+	        	var status=""
+	        	if(data.status==1){
+	        		status="正常"
+	        	}
+	        	else{
+		        	if(data.status==1){
+		        		status="错误"
+		        	}
+	        	}else{
+	        		status="维修"
+	        	}
+	        	
+	        	
 	        	$("#status").val(data.status);
 	        	$("#calibrationcycle").val(data.calibrationcycle);
 	         	$("#instrumentId").val(data.instrumentId);

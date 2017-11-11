@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,9 +124,21 @@ public class StationController {
 	}
 	@RequestMapping(value = "/addStation.do") 
 	@ResponseBody
-	public String  addStation(BeanStation bs,HttpServletRequest request) throws JSONException{
+	public String  addStation(BeanStation bs,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
 		bs.setType(Integer.valueOf(request.getParameter("type")));
 		try {
+			String area=new String(bs.getArea().getBytes("ISO-8859-1"),"UTF-8");
+			String city=new String(bs.getCity().getBytes("ISO-8859-1"),"UTF-8");
+			String stationname=new String(bs.getStationname().getBytes("ISO-8859-1"),"UTF-8");
+			String address=new String(bs.getAddress().getBytes("ISO-8859-1"),"UTF-8");
+			String remarks=new String(bs.getRemarks().getBytes("ISO-8859-1"),"UTF-8");
+			String status=new String(bs.getStatus().getBytes("ISO-8859-1"),"UTF-8");
+			bs.setArea(area);
+			bs.setCity(city);
+			bs.setStationname(stationname);
+			bs.setAddress(address);
+			bs.setRemarks(remarks);
+			bs.setStatus(status);		
 			iss.addStation(bs);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
@@ -139,8 +152,19 @@ public class StationController {
 	}
 	@RequestMapping(value = "/modifryStation.do") 
 	@ResponseBody
-	public void modifryStation(BeanStation bs,@RequestParam("stationId") int stationId,HttpServletRequest request) throws JSONException{
-
+	public void modifryStation(BeanStation bs,@RequestParam("stationId") int stationId,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
+		String area=new String(bs.getArea().getBytes("ISO-8859-1"),"UTF-8");
+		String city=new String(bs.getCity().getBytes("ISO-8859-1"),"UTF-8");
+		String stationname=new String(bs.getStationname().getBytes("ISO-8859-1"),"UTF-8");
+		String address=new String(bs.getAddress().getBytes("ISO-8859-1"),"UTF-8");
+		String remarks=new String(bs.getRemarks().getBytes("ISO-8859-1"),"UTF-8");
+		String status=new String(bs.getStatus().getBytes("ISO-8859-1"),"UTF-8");
+		bs.setArea(area);
+		bs.setCity(city);
+		bs.setStationname(stationname);
+		bs.setAddress(address);
+		bs.setRemarks(remarks);
+		bs.setStatus(status);	
 		bs.setType(Integer.valueOf(request.getParameter("type")));
 		bs.setStationid(stationId);
 		StationDao sd=new StationDao();

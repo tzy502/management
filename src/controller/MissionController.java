@@ -80,6 +80,13 @@ public class MissionController {
 	@RequestMapping(value = "/modifryMission.do", produces = "application/json; charset=utf-8") 
 	public String modifryMission(BeanMission bm,HttpServletRequest request) throws JSONException, UnsupportedEncodingException{
 		try {
+			String user=request.getParameter("user");
+			BeanMissionLog bml=new BeanMissionLog();
+			bml.setMissionId(bm.getMissionid());
+			bml.setMissionlogdetail("任务修改");
+			bml.setMissionlogtime(new Timestamp(System.currentTimeMillis()));
+			bml.setUser(ius.searchUser(user).getUserName());
+			imls.addMissionLog(bml);
 			String missionname=new String(bm.getMissionname().getBytes("ISO-8859-1"),"UTF-8"); 
 			String description=new String(bm.getDescription().getBytes("ISO-8859-1"),"UTF-8"); 
 			bm.setMissionname(missionname);
@@ -231,15 +238,20 @@ public class MissionController {
 			station=iss.loadStation(area, city);
 			for(int j=0;j<station.size();j++){
 				JSONArray jsonarraylist = new JSONArray();
-				result=ims.loadMission(station.get(j).getStationid());
+				result=ims.loadstationMission(station.get(j).getStationid());
 				if(result.size()==0){
 					JSONObject jo = new JSONObject();
 					jo.put("Missionid",0);
 					jo.put("stationId", station.get(j).getStationid());
 					jsonarraylist.put(jo);
 				}
-					
-				for(int i=0;i<result.size();i++){
+				int end;
+				if(result.size()>10){
+					end=10;
+				}else{
+					end=result.size();
+				}
+				for(int i=0;i<end;i++){
 					
 						JSONObject jo = new JSONObject();
 						jo.put("Missionid", result.get(i).getMissionid());
@@ -270,10 +282,28 @@ public class MissionController {
 	public String loadStationMission(@RequestBody String params) throws JSONException{
 		JSONObject json = new JSONObject(params);
 		int id=Integer.valueOf(json.getString("StationId"));
+		String strstart=json.getString("start");
+		Timestamp start;
+		if(strstart.equals("")==true){
+			start=Timestamp.valueOf("2000-1-1 00:00:00");
+			System.out.println(start);
+		}else{
+			start=Timestamp.valueOf(strstart);
+			System.out.println(start);
+		}
+		String strend=json.getString("end");
+		Timestamp end;
+		if(strend.equals("")==true){
+			end=Timestamp.valueOf("2050-1-1 00:00:00");
+			System.out.println(end);
+		}else{
+			 end=Timestamp.valueOf(strend);
+			 System.out.println(end);
+		}
 		JSONArray jsonarraylist = new JSONArray();
 		try {
 			List<BeanMission> result =new ArrayList<BeanMission>();
-			result=ims.loadMission(id);	
+			result=ims.loadMission(id,start,end);	
 			for(int i=0;i<result.size();i++){
 				JSONObject jo = new JSONObject();
 				jo.put("Missionid", result.get(i).getMissionid());

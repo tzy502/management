@@ -21,7 +21,7 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>添加项目</title>
+<title>添加职称</title>
 <meta name="keywords" content="H-ui.admin 3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
@@ -95,7 +95,7 @@
 		</div>
 		</div>
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>职称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<input type="text" class="input-text" value="" placeholder="" id="job" name="job">
 		</div>

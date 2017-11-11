@@ -1,5 +1,6 @@
 package daoI;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import model.BeanWarning;
@@ -9,7 +10,7 @@ public interface IWarningDao {
 
 	public BeanWarning SearchWarning(int WarningId);
 
-	public List<BeanWarning> loadAllWarning();
+	public List<BeanWarning> loadAllWarning(Timestamp start,Timestamp end);
 
 	public void modifryWarning(BeanWarning Warning);
 

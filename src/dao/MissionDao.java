@@ -85,17 +85,30 @@ public class MissionDao implements IMissionDao {
 	}
 
 	@Override
-	public List<BeanMission> loadMission(int stationId) {
+	public List<BeanMission> loadMission(int stationId,Timestamp start,Timestamp end) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		String hql = "from BeanMission where stationid="+stationId;
+		String hql = "from BeanMission where stationid=? and startdate>? and startdate<?";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, stationId);
+		qry.setParameter(1, start);
+		qry.setParameter(2, end);
+		@SuppressWarnings("unchecked")
+		List<BeanMission> result = qry.list();
+		tx.commit();
+		return result;
+	}
+	@Override
+	public List<BeanMission> loadstationMission(int stationId) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "from BeanMission where stationid="+stationId+" and status<>3 and status<>6";
 		Query qry = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
 		List<BeanMission> result = qry.list();
 		tx.commit();
 		return result;
 	}
-
 	@Override
 	public List<BeanMission> loadUserMission(String userId,int type) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -103,7 +116,7 @@ public class MissionDao implements IMissionDao {
 		String hql = "from BeanMission where userid=? and type=? and status=1";
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, userId);
-		qry.setParameter(1, type);//1自动0手动
+		qry.setParameter(1, type);//1手动2自动3报警
 		@SuppressWarnings("unchecked")
 		List<BeanMission> result = qry.list();
 		tx.commit();
@@ -156,11 +169,12 @@ public class MissionDao implements IMissionDao {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		String sql = "UPDATE mission"
-				+ "set `status`=4"
-				+ "WHERE enddate < now()";
+		String sql = "UPDATE mission   "
+				+ "set `status`=5  "
+				+ "WHERE `status`<>3 and `status`<>5 and `status`<>6 and enddate < now()";
 		
-		Query qry = session.createSQLQuery(sql);
+		SQLQuery qry = session.createSQLQuery(sql);
+		qry.executeUpdate();  
 		tx.commit();
 	}
 

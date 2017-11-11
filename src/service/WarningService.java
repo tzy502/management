@@ -79,9 +79,9 @@ public class WarningService implements IWarningService {
 	}
 
 	@Override
-	public List<BeanWarning> loadAllWarning() throws BaseException {
+	public List<BeanWarning> loadAllWarning(Timestamp start,Timestamp end) throws BaseException {
 		// TODO Auto-generated method stub
-		return iwd.loadAllWarning();
+		return iwd.loadAllWarning(start,end);
 	}
 
 	@Override

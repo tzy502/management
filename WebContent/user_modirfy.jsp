@@ -31,7 +31,7 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>账号：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" disable='disable' value="" placeholder="" id="userId" name="userId">
+			<input type="text" class="input-text" readonly="readonly" value="" placeholder="" id="userId" name="userId">
 		</div>
 	</div>
 	<div class="row cl">
@@ -40,7 +40,7 @@
 			<input type="text" class="input-text" value="" placeholder="" id="userName" name="userName">
 		</div>
 	</div>
-	<div class="row cl">
+	<div class="row cl" id="role">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>职位：</label>
 		<div class="formControls col-xs-8 col-sm-9">	
 			<select class="select"  style='width:45%' 	name="roleId" id="roleId">
@@ -82,109 +82,128 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
-
-function GetRequest() {   
-	   var url = location.search; 
-	   var theRequest = new Object();   
-	   if (url.indexOf("?") != -1) {   
-	      var str = url.substr(1);   
-	      strs = str.split("&");   
-	      for(var i = 0; i < strs.length; i ++) {   
-	         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
-	      }   
-	   }   
-	   return theRequest;   
-}   
-var Request = new Object(); 
-Request = GetRequest(); 
-var userId;
-userId = Request['userId'];
-
-$(document).ready(function (){
-	$.ajax({  
-		 type: "post",    
-	        async: true,    
-	        url: "/management/loadAllRole.do",  
-	        //data: JSON.stringify(params),
-	        dataType: "json", 
-	        contentType: "application/json; charset=utf-8",   
-	        error: function(data){  
-	        	alert("出错了！！:"+data.msg);
-	        } , 
-	        success: function(data) { 	
-	        	var str = ""; 
-	        	for(var i=0;i<data.length;i++){
-					str += "<option value='"+data[i].roleId+"' >"
-					+ data[i].roleName
-					+ "</option>"
-	        	}
-	        	$("#roleId").html(str);  
-	        	 
-	        }
+	function getCookie(Name){
+		var search = Name + "="//查询检索的值
+		   var returnvalue = "";//返回值
+		   if (document.cookie.length > 0) {
+		     sd = document.cookie.indexOf(search);
+		     if (sd!= -1) {
+		        sd += search.length;
+		        end = document.cookie.indexOf(";", sd);
+		        if (end == -1)
+		         end = document.cookie.length;
+		         //unescape() 函数可对通过 escape() 编码的字符串进行解码。
+		        returnvalue=unescape(document.cookie.substring(sd, end))
+		      }
+		   } 
+		   return returnvalue;
+	}	
+	function GetRequest() {   
+		   var url = location.search; 
+		   var theRequest = new Object();   
+		   if (url.indexOf("?") != -1) {   
+		      var str = url.substr(1);   
+		      strs = str.split("&");   
+		      for(var i = 0; i < strs.length; i ++) {   
+		         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
+		      }   
+		   }   
+		   return theRequest;   
+	}   
+	var Request = new Object(); 
+	Request = GetRequest(); 
+	var userId;
+	userId = Request['userId'];
+	
+	$(document).ready(function (){
+		var level =getCookie("level");
+		if(level!=1){
+			$("#role").css("display","none");
+		}
+		$.ajax({  
+			 type: "post",    
+		        async: true,    
+		        url: "/management/loadAllRole.do",  
+		        //data: JSON.stringify(params),
+		        dataType: "json", 
+		        contentType: "application/json; charset=utf-8",   
+		        error: function(data){  
+		        	alert("出错了！！:"+data.msg);
+		        } , 
+		        success: function(data) { 	
+		        	var str = ""; 
+		        	for(var i=0;i<data.length;i++){
+						str += "<option value='"+data[i].roleId+"' >"
+						+ data[i].roleName
+						+ "</option>"
+		        	}
+		        	$("#roleId").html(str);  
+		        	 
+		        }
+			
+		})
+		var params = {
+				"userId":userId,
+		}
+		//加载数据
+			$.ajax({    
+		        type: "post",    
+		        async: true,    
+		        url: "/management/searchUser.do",  
+		        dataType: "json", 
+		        data:JSON.stringify(params),
+		        contentType: "application/json; charset=utf-8",   
+		        error: function(data){  
+		        	alert("出错了！！:"+data.msg);
+		        } , 
+		        success: function(data) { 
+		        	 $("#userId").val(data.userId);
+		        	 $("#userName").val(data.userName);
+		        	 $("#roleId").val(data.roleId);
+		        	 $("#userPhone").val(data.userPhone);
+		        	 
+		        }     
+		    });
 		
 	})
-	var params = {
-			"userId":userId,
-	}
-	//加载数据
-		$.ajax({    
-	        type: "post",    
-	        async: true,    
-	        url: "/management/searchUser.do",  
-	        dataType: "json", 
-	        data:JSON.stringify(params),
-	        contentType: "application/json; charset=utf-8",   
-	        error: function(data){  
-	        	alert("出错了！！:"+data.msg);
-	        } , 
-	        success: function(data) { 
-	        	 $("#userId").val(data.userId);
-	        	 $("#userName").val(data.userName);
-	        	 $("#roleId").val(data.roleId);
-	        	 $("#userPhone").val(data.userPhone);
-	        	 
-	        }     
-	    });
 	
-})
-
-
-
-
-	function updateUser() {
-		var params = {
-			"userId" : document.getElementById("userId").value,
-			"userName" : document.getElementById("userName").value,
-			"roleId" : document.getElementById("roleId").value,
-			"userPhone" : document.getElementById("userPhone").value,
-		}
-		console.log(document.getElementById("roleId").value)
-		$.ajax({
-			type : "post",
-			async : true,
-			url : "/management/updateUser.do",
-			data : JSON.stringify(params),
-			dataType : "json",
-			contentType : "application/json; charset=utf-8",
-			success : function(data) {
-				layer.msg('修改成功!', {
-					icon : 1,
-					time : 1000
-				});
-				var index = parent.layer.getFrameIndex(window.name);
-				parent.$('.btn-refresh').click();
-				parent.layer.close(index);
-			},
-			error : function(XmlHttpRequest, textStatus, errorThrown) {
-				layer.msg('error!', {
-					icon : 1,
-					time : 1000
-				});
+	
+	
+	
+		function updateUser() {
+			var params = {
+				"userId" : document.getElementById("userId").value,
+				"userName" : document.getElementById("userName").value,
+				"roleId" : document.getElementById("roleId").value,
+				"userPhone" : document.getElementById("userPhone").value,
 			}
-		});
-
-
-	}
+			console.log(document.getElementById("roleId").value)
+			$.ajax({
+				type : "post",
+				async : true,
+				url : "/management/updateUser.do",
+				data : JSON.stringify(params),
+				dataType : "json",
+				contentType : "application/json; charset=utf-8",
+				success : function(data) {
+					layer.msg('修改成功!', {
+						icon : 1,
+						time : 1000
+					});
+					var index = parent.layer.getFrameIndex(window.name);
+					parent.$('.btn-refresh').click();
+					parent.layer.close(index);
+				},
+				error : function(XmlHttpRequest, textStatus, errorThrown) {
+					layer.msg('error!', {
+						icon : 1,
+						time : 1000
+					});
+				}
+			});
+	
+	
+		}
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

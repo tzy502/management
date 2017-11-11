@@ -65,7 +65,7 @@
 		<hr/>
 	</div>	
 	 <span class="l">
-		 <a href="javascript:;" onclick="add('运维日志添加','supplieritem_add.jsp','400','350')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 运维日志添加</a>
+		 <a href="javascript:;" onclick="role('运维日志添加','missionlog_add.jsp','400','350')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 运维日志添加</a>
 	 </span>  
 	<table class="table table-border table-bordered table-bg">
 		<thead>
@@ -283,7 +283,7 @@
 			var Request = new Object();
 			Request = GetRequest();
 			var missionId = Request['missionId'];
-			console.log(123)
+		
 			var userId = getCookie("userId");
 			var params = {
 				"missionId" : missionId,
@@ -307,6 +307,11 @@
 			
 		}
 		function role(title,url,w,h){
+			var Request = new Object();
+			Request = GetRequest();
+			var missionId = Request['missionId'];
+			url+="?missionId="+missionId
+		
 			layer_show(title,url,w,h);
 			
 		}

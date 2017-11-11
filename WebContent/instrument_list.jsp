@@ -40,6 +40,7 @@
 			<tr class="text-c">
 				<th width="40">序号</th>
 				<th width="200">仪器名</th>
+				<th width="100">状态</th>
 				<th width="250">购买时间</th>		
 				<th width="250">最后使用时间</th>	
 				<th width="250">最后校准时间</th>		
@@ -183,6 +184,7 @@ function getCookie(Name){
       			str += "<tr class='text-c'>"+
 				"<td>"+(i+1)+"</td>"+
 				"<td>"+data[i].instrumentname+"</td>"+
+				"<td>"+data[i].status+"</td>"+
 				"<td>"+buytime+"</td>"+
 				"<td>"+lastusetime+"</td>"+
 				"<td>"+calibrationtime+"</td>"+

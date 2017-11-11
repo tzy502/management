@@ -28,7 +28,7 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-<p class="f-20 text-success">欢迎使用杭州利晟运行服务信息化管理系统！</p>
+<p class="f-20 text-success">欢迎使用利晟(杭州)科技运行服务信息化管理系统！</p>
 	<p id="time" name="time">现在时间是</p>
 	<table class="table table-border table-bordered table-bg mt-20 ">
 		<thead>

@@ -46,7 +46,7 @@
 				<div class="formControls col-xs-8 col-sm-9"> 
 				<span class="select-box">
 					<select class="select"  name="status" id="status">
-						<option value="1" >正常</option>
+						<option value="1">正常</option>
 						<option value="2">出错</option>
 						<option value="3">维修</option>
 					</select>
@@ -57,21 +57,21 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">第一次使用时间时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd'})"
 					id="first" name="first">	
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">最后使用时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd'})"
 					id="last" name="last">	
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">最后校准时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d'})",dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+		<input type="text" style='width:40%' class="input-text" value="" placeholder="" onclick="WdatePicker({maxDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd'})"
 					id="calibration" name="calibration">	
 		</div>
 	</div>
@@ -148,10 +148,11 @@
 	        	$("#first").val(firstusetime);
 	        	$("#last").val(lastusetime);
 	        	$("#calibration").val(calibrationtime);
-	        	$("#status").val(data.status);
+	        	$("#status option[value="+data.status+"]").attr("selected", "selected"); 
+	        	
 	        	$("#calibrationcycle").val(data.calibrationcycle);
 	         	$("#instrumentId").val(data.instrumentId);
-	        	
+	        
 	        }
 	})
 	})

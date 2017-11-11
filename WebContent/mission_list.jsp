@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
++<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -29,7 +29,7 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 运维任务  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 
 <article class="page-container" id = 'form-item-add'>
-	<div class="text-c" id="serach" name="serach">
+	<div class="text-c" id="serachdiv" name="serachdiv">
 	
 			<select class="select"  style='width:10%' 	name="city" id="city"></select>市
 			<select class="select"  style='width:10%' 	name="area" id="area"></select>区
@@ -132,7 +132,7 @@ function getCookie(Name){
 		    });
 			adminlist()
 		}else{
-
+			$("#serachdiv").css("display","none");
 			userlist()
 		
 		}
@@ -249,6 +249,8 @@ function getCookie(Name){
 				+"<div class=\"cl pd-5 bg-1 bk-gray mt-20\">"
 				+" <span class=\"l\">"
 				+"	 <a href=\"javascript:;\" onclick=\"add('"+station[i].stationId+"')\" class=\"btn btn-primary radius\"><i class=\"Hui-iconfont\">&#xe600;</i> 添加运维任务</a>"
+				+"	 <a href=\"javascript:;\" onclick=\"history('"+station[i].stationId+"')\" class=\"btn btn-primary radius\"> 历史记录</a>"
+
 				+" </span>"  
 				+"  </div>"
 			    
@@ -314,6 +316,11 @@ function getCookie(Name){
 	
 function add(stationId){
 	var url="mission_add.jsp?StationId="+stationId;	
+	layer_show("添加文档",url,800,500);
+	
+}
+function history(stationId){
+	var url="mission_history.jsp?StationId="+stationId;	
 	layer_show("添加文档",url,800,500);
 	
 }

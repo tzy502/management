@@ -1,5 +1,6 @@
 package service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -39,9 +40,9 @@ public class MissionService implements IMissionService {
 		md.modifryMission(Mission);
 	}
 	@Override
-	public List<BeanMission> loadMission(int StationId) throws BaseException {
+	public List<BeanMission> loadMission(int StationId,Timestamp start,Timestamp end) throws BaseException {
 		// TODO Auto-generated method stub
-		return md.loadMission(StationId);
+		return md.loadMission(StationId,start,end);
 	}
 	@Override
 	public void DelMission(int MissionId) throws BaseException {
@@ -83,6 +84,12 @@ public class MissionService implements IMissionService {
 	public void overtimeMission() {
 		// TODO Auto-generated method stub
 		md.overtimeMission();
+	}
+
+	@Override
+	public List<BeanMission> loadstationMission(int StationId) throws BaseException {
+		// TODO Auto-generated method stub
+		return md.loadstationMission(StationId);
 	}
 
 

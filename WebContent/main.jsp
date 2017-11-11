@@ -23,14 +23,14 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>杭州利晟运行服务信息化管理系统</title>
+<title>利晟(杭州)科技运行服务信息化管理系统</title>
 <meta name="keywords" content="H-ui.admin 3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
 <header class="navbar-wrapper">
 		<div class="navbar navbar-fixed-top">
-		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" >杭州利晟运行服务信息化管理系统</a> 
+		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" >利晟(杭州)科技运行服务信息化管理系统</a> 
 			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 				<ul class="cl">
 					<li id="username" name="username">管理员</li>
@@ -80,7 +80,7 @@
 			<dd>
 				<ul>
 					<li><a data-href="mission_list.jsp" data-title="运维任务管理" href="javascript:void(0)">运维任务管理</a></li>
-					<li><a data-href="timer_list.jsp" data-title="定时运维任务管理" href="javascript:void(0)">定时运维任务管理</a></li>
+					<li><a data-href="timer_list.jsp" id="timer" data-title="定时运维任务管理" href="javascript:void(0)">定时运维任务管理</a></li>
 				
 				</ul>
 			</dd>
@@ -209,16 +209,17 @@ $(document).ready(function (){
 	$("#menu-company").css("display","none");
 	if(level>=2){
 		$("#menu-permission").css("display","none");
+		$("#menu-user").css("display","none");
 		
-		$("#menu-material").css("display","none");
-		$("#menu-timer").css("display","none");
-		$("#menu-data").css("display","none");
+		$("#timer").css("display","none");
+		
 		if(level>=3){
-			$("#menu-user").css("display","none");
+			$("#menu-data").css("display","none");
 			$("#menu-mission").css("display","none");
 			$("#menu-checklist").css("display","none");
 			
 			if(level>=4){
+				$("#menu-material").css("display","none");
 				$("#menu-standard").css("display","none");
 			}
 		}

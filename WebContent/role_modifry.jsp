@@ -132,6 +132,7 @@ function add(){
 		data: JSON.stringify(params),
 		dataType: 'json',
 		contentType: "application/json; charset=utf-8",
+		async: false, 
 		success: function(data){
 			layer.msg('已修改!',{icon:1,time:15000});
 	
@@ -140,11 +141,10 @@ function add(){
 			console.log(data.msg);
 		},
 	});	
-		var index = parent.layer.getFrameIndex(window.name);
-
-		parent.$('.btn-refresh').click();
-		parent.layer.close(index);
-
+	var index = parent.layer.getFrameIndex(window.name);
+	console.log("123123213");
+	parent.$('.btn-refresh').click();
+	parent.layer.close(index);
 }
 </script> 
 

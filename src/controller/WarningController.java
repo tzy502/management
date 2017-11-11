@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -32,12 +34,31 @@ public class WarningController {
 	Map<String, String>  Infect =new HashMap<String, String>();
 	@RequestMapping(value = "/loadwarning.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String loadwarning()throws JSONException{
+	public String loadwarning(@RequestBody String params)throws JSONException{
+		JSONObject json = new JSONObject(params);
+		String strstart=json.getString("start");
+		Timestamp start;
+		if(strstart.equals("")==true){
+			start=Timestamp.valueOf("2000-1-1 00:00:00");
+			System.out.println(start);
+		}else{
+			start=Timestamp.valueOf(strstart);
+			System.out.println(start);
+		}
+		String strend=json.getString("end");
+		Timestamp end;
+		if(strend.equals("")==true){
+			end=Timestamp.valueOf("2050-1-1 00:00:00");
+			System.out.println(end);
+		}else{
+			 end=Timestamp.valueOf(strend);
+			 System.out.println(end);
+		}
 		Infect=iid.loadAllInfect();
 		List<BeanWarning>  result =new ArrayList<BeanWarning>();
 		JSONArray jsonarraylist = new JSONArray();
 		try {
-			result=iws.loadAllWarning();
+			result=iws.loadAllWarning(start,end);
 			for(int i=0;i<result.size();i++){
 				JSONObject jo = new JSONObject();
 				jo.put("warningId", result.get(i).getWarningId());

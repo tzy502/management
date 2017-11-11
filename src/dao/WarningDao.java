@@ -43,12 +43,15 @@ public class WarningDao implements IWarningDao {
 	}
 
 	@Override
-	public List<BeanWarning> loadAllWarning() {
+	public List<BeanWarning> loadAllWarning(Timestamp start,Timestamp end) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		String hql = "from BeanWarning "
+		String hql = "from BeanWarning   "
+				+ "where warningtime>? and warningtime<? "
 				+ "ORDER BY warningId DESC";
 		Query qry = session.createQuery(hql);
+		qry.setParameter(0, start);
+		qry.setParameter(1, end);
 		@SuppressWarnings("unchecked")
 		List<BeanWarning> result = qry.list();
 		tx.commit();

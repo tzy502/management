@@ -31,11 +31,14 @@ public class DataService implements IDataService {
 		station=isd.loadgasStation();
 		List<BeanGas> result=new ArrayList<BeanGas>();
 		for(int i=0;i<station.size();i++){
-			BeanGas bg=new BeanGas();
-			bg=idd.loadnewgasdate(station.get(i).getMN());
-			bg.setStationId(station.get(i).getStationid());
-			bg.setStationname(station.get(i).getStationname());
-			result.add(bg);
+			if(station.get(i).getBase()==1){
+				BeanGas bg=new BeanGas();
+				bg=idd.loadnewgasdate(station.get(i).getMN());
+				bg.setStationId(station.get(i).getStationid());
+				bg.setStationname(station.get(i).getStationname());
+				result.add(bg);
+			}
+
 		}
 		return result;
 	}
@@ -47,12 +50,13 @@ public class DataService implements IDataService {
 		station=isd.loadwaterStation();
 		List<BeanWater> result=new ArrayList<BeanWater>();
 		for(int i=0;i<station.size();i++){
+			if(station.get(i).getBase()==1){
 			BeanWater bg=new BeanWater();
 			bg=idd.loadnewawterdate(station.get(i).getMN());
 			bg.setStationId(station.get(i).getStationid());
 			bg.setStationname(station.get(i).getStationname());
-	
 			result.add(bg);
+			}
 		}
 		return result;
 	}

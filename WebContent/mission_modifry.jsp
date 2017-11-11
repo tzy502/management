@@ -52,7 +52,7 @@
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>任务描述</label>	
 		<textarea name="description" id='description' style='width:60%' cols="" rows="" class="textarea" ></textarea>	
 			<input type="hidden" value=""	 id="stationid" name="stationid">
-	
+			<input type="hidden" id="user" name="user">
 			<center>
 			<div class="row cl">
 				<div class="form-label col-xs-4 col-sm-3">
@@ -141,7 +141,9 @@
 		return fmt;
 	}
 	$(document).ready(function() {	
-
+		var user = getCookie("userId");
+		$("#user").val(user);
+		console.log(user)
 	$.ajax({  
 		 type: "post",    
 	        async: true,    

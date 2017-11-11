@@ -57,14 +57,16 @@ public class InstrumentController {
 		String name=new String(bi.getInstrumentname().getBytes("ISO-8859-1"),"UTF-8"); 
 		bi.setInstrumentname(name);
 		String buy=request.getParameter("buy");
-		System.out.println(buy);
-		buy+=" 00:00:00";
+		System.out.println(buy+"123");
+		buy+="00:00:00";
 		String calibration=request.getParameter("calibration");
-		calibration+=" 00:00:00";
+		calibration+="00:00:00";
 		String first=request.getParameter("first");
-		first+=" 00:00:00";
+		System.out.println(first);
+		first+="00:00:00";
+		System.out.println(first);
 		String last=request.getParameter("last");
-		last+=" 00:00:00";
+		last+="00:00:00";
 		bi.setBuytime(Timestamp.valueOf(buy));
 		bi.setFirstusetime(Timestamp.valueOf(first));
 		bi.setLastusetime(Timestamp.valueOf(last));
@@ -106,7 +108,7 @@ public class InstrumentController {
 			jo.put("firstusetime", result.getFirstusetime());
 			jo.put("lastusetime", result.getLastusetime());
 			jo.put("calibrationtime", result.getCalibrationtime());
-			jo.put("status", staus.get(result.getStatus()));
+			jo.put("status", result.getStatus());
 			jo.put("calibrationcycle", result.getCalibrationcycle());	
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
