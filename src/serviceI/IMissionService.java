@@ -17,7 +17,7 @@ public interface IMissionService {
 	public void modifryMission(BeanMission Mission)throws BaseException	;
 	public void DelMission(int MissionId)throws BaseException;
 	public boolean checkMission(BeanMission Mission)throws BaseException;
-	public List<BeanMission> loadALLUserMission(String userId);
+	public List<BeanMission> loadALLUserMission(String userId,Timestamp start,Timestamp end);
 	public List<BeanMission> loadunfinishMission(String userId);
 	public List<BeanMission> loadnewMission(String userId);
 	public void overtimeMission();

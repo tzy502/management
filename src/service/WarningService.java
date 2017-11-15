@@ -39,12 +39,11 @@ public class WarningService implements IWarningService {
 		String type=null;
 		if(Warning.getType()==1){
 			 type="达到报警";
-
 		}
-		else{
-			
+		else if(Warning.getType()==2){		
 			 type="达到预警";
-
+		}else if(Warning.getType()==3){		
+			 type="长时间数据未波动";
 		}
 	
 		boolean item=iwd.checkWarning(Warning.getStationId(), Warning.getInfectCode(), Warning.getType());

@@ -15,4 +15,5 @@ public interface IDataDao {
 	public List<BeanWater> loadwater(BeanStation bs,Timestamp Start,Timestamp end)throws DbException;
 	public BeanGas loadnewgasdate(String MN)throws DbException;
 	public BeanWater loadnewawterdate(String MN)throws DbException;
+	public boolean checkdata(String MN,String InfectCode,float value)throws DbException;
 }

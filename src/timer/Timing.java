@@ -9,13 +9,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import daoI.IInfectDao;
 import daoI.IStationDao;
 
 import model.BeanGas;
+import model.BeanInfect;
 import model.BeanMission;
 import model.BeanStandard;
 import model.BeanStation;
@@ -34,6 +38,8 @@ import util.DbException;
 
 @Component("MonitorData") 
 public class Timing { 
+	@Resource
+	private IInfectDao iid;
 	@Autowired
 	private IDataService ids;
 	@Autowired
@@ -79,11 +85,10 @@ public class Timing {
 		List<BeanTimer> result=its.loadmission(2);
 		Timestamp start = new Timestamp(System.currentTimeMillis()); 
 		Timestamp end =start;
-		end=start;
 		end.setDate(start.getDate()+7);
+		start = new Timestamp(System.currentTimeMillis()); 
 		for(int i=0;i<result.size();i++){
 			BeanMission bm=new BeanMission();
-
 			bm.setMissionname(result.get(i).getTimername()+"（每周）");
 			bm.setDescription(result.get(i).getTimerdescription());
 			bm.setStationid(result.get(i).getStationId());
@@ -105,8 +110,9 @@ public class Timing {
 		List<BeanTimer> result=its.loadmission(3);
 		Timestamp start = new Timestamp(System.currentTimeMillis()); 
 		Timestamp end =start;
-		end=start;
+	
 		end.setMonth(start.getMonth()+2);
+		start = new Timestamp(System.currentTimeMillis()); 
 		for(int i=0;i<result.size();i++){
 			BeanMission bm=new BeanMission();
 			bm.setMissionname(result.get(i).getTimername()+"（每月）");
@@ -126,9 +132,7 @@ public class Timing {
 		}
 	}
 	@Scheduled(cron = "0 * * * * ?") 
-	public void job1() { 
-	
-		
+	public void job1() { 	
 		SimpleDateFormat  formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss"); 
 		long startTime = System.currentTimeMillis(); 
 		companyallsttion();//保证两遍数据库一样
@@ -136,9 +140,44 @@ public class Timing {
 		detection();//检测
 		ims.overtimeMission();//检测超时
 		long endTime = System.currentTimeMillis();  
-		System.out.println("程序运行时间：" + (endTime - startTime) + "ms" +formatter.format(new Date()));
+		System.out.println("检测超过数据程序运行时间：" + (endTime - startTime) + "ms" +formatter.format(new Date()));
 	} 
+	@Scheduled(cron = "30 15 * * * ?") 
+	public void job2() { 	
+		List<BeanWater> water =new ArrayList<BeanWater>();
+		try {
+			water=ids.loadnewwaterdata();
+			List<BeanInfect> bi =new ArrayList<BeanInfect>();
+			bi=iid.loadAllWaterInfect();
+			Map<String, Float> waterdate=new HashMap<String, Float>();
+			for(int i=0;i<water.size();i++){
+				waterdate.put("011", water.get(i).getW011());
+				waterdate.put("001", water.get(i).getW001());
+				waterdate.put("B01", water.get(i).getwB01());
+				waterdate.put("060", water.get(i).getW060());
+				waterdate.put("065", water.get(i).getW065());
+				waterdate.put("42", water.get(i).getW42());
+				for(int j=0;j<bi.size();j++){
+					if(waterdate.get(bi.get(j).getInfectCode())!=0){
+						boolean item= ids.checkdata(water.get(i).getMN(), bi.get(j).getInfectCode(), waterdate.get(bi.get(j).getInfectCode()));
+						if(item){
+							BeanWarning Warning =new BeanWarning();
+							Warning.setInfectCode(bi.get(j).getInfectCode());
+							Warning.setStationId(water.get(i).getStationId());
+							Warning.setWarningtime(water.get(i).getTime());
+							Warning.setType(3);
+							iws.addWarning(Warning);
 
+						}
+					}
+				}
+			}
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	} 
 	public void companynobase(){
 		List<BeanStation> local=new ArrayList<BeanStation>();
 		List<BeanStation> other=new ArrayList<BeanStation>();
@@ -230,18 +269,19 @@ public class Timing {
 
 	}
 	public void detection(){
-	
+
 
 		List<BeanWater> water =new ArrayList<BeanWater>();
-		List<BeanGas> gas =new ArrayList<BeanGas>();
 		List<BeanStandard>  waterStandard=new ArrayList<BeanStandard>();
+		List<BeanGas> gas =new ArrayList<BeanGas>();
+
 		List<BeanStandard>  gasStandard=new ArrayList<BeanStandard>();
 
 		try {
 			water=ids.loadnewwaterdata();
 			gas=ids.loadnewgasdata();
 			for(int i=0;i<water.size();i++){
-			
+
 				Map<String, Float> waterdate=new HashMap<String, Float>();
 
 				waterStandard=iss.loadStandard(water.get(i).getStationId());
@@ -277,14 +317,13 @@ public class Timing {
 			}
 			//水质数据判断完成
 			for(int i=0;i<gas.size();i++){
-	
+
 				gasStandard=iss.loadStandard(gas.get(i).getStationId());
 				Map<String, Float> gasdate=new HashMap<String, Float>();
 				if(gasStandard.size()==0){
 					continue;
 				}
-				else{
-					
+				else{					
 					gasdate.put("02", gas.get(i).getG02());
 					gasdate.put("01", gas.get(i).getG01());
 					gasdate.put("03", gas.get(i).getG03());
@@ -298,13 +337,13 @@ public class Timing {
 					gasdate.put("B02", gas.get(i).getgB02());
 					gasdate.put("S05", gas.get(i).getSg05());
 				}
-				
+
 				for(int j=0;j<gasStandard.size();j++){
 					//出错未填写
-				
+
 					if(gasStandard.get(j).getMaxvaule()<gasdate.get(gasStandard.get(j).getInfectid())||
 							gasStandard.get(j).getMinvaule()>gasdate.get(gasStandard.get(j).getInfectid())){
-					
+
 						BeanWarning Warning =new BeanWarning();
 						Warning.setInfectCode(gasStandard.get(j).getInfectid());
 						Warning.setStationId(gas.get(i).getStationId());
@@ -312,7 +351,7 @@ public class Timing {
 						if(gasStandard.get(j).getMaxalarm()<gasdate.get(gasStandard.get(j).getInfectid())||
 								gasStandard.get(j).getMinalarm()>gasdate.get(gasStandard.get(j).getInfectid())){
 							Warning.setType(1);
-					
+
 						}else{
 							Warning.setType(2);
 						}

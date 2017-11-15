@@ -16,9 +16,9 @@
         xmlns:task="http://www.springframework.org/schema/task"    
         >
 
-   <context:component-scan base-package="timer" /> 
+  
        
-
+ <context:component-scan base-package="timer" /> 
     <task:annotation-driven scheduler="qbScheduler" mode="proxy"/> 
     <task:scheduler id="qbScheduler" pool-size="10"/> 
         

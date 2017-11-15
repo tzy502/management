@@ -18,6 +18,7 @@ public class BeanGas {
 	private float gS08;//烟气压力
 	private float gB02;//标匡流量
 	private float Sg05;//烟气湿度
+	private String MN;//烟气湿度
 	public BeanGas(){
 		float g02=-0;//实测SO2
 		float g01=-0;//实测烟尘
@@ -124,6 +125,14 @@ public class BeanGas {
 	}
 	public void setSg05(float sg05) {
 		Sg05 = sg05;
+	}
+
+	public String getMN() {
+		return MN;
+	}
+
+	public void setMN(String mN) {
+		MN = mN;
 	}
 
 }

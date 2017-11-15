@@ -80,7 +80,7 @@ public class DataDao implements IDataDao {
 					"sum(case InfectCode when 'S08' then InfectValue end)  as 'S08',"+
 					"sum(case InfectCode when 'B02' then InfectValue end)  as 'B02',"+
 					"sum(case InfectCode when 'S05' then InfectValue end)  as 'S05'"+
-					 "from  HJ212_"+bs.getMN()+"_MIN"
+					"from  HJ212_"+bs.getMN()+"_MIN"
 					+"	 where  mTime>'"+start+"' and mTime<'"+end+"'"			
 					+"group BY mTime order by mTime DESC";
 
@@ -184,7 +184,7 @@ public class DataDao implements IDataDao {
 		try {
 			conn=DBUtil.getConnection();
 			String sql="SELECT mTime, InfectCode,InfectAvgValue "+
-					
+
 					"FROM "+
 					"HJ212_HOUR "+
 					"WHERE    "+
@@ -195,9 +195,9 @@ public class DataDao implements IDataDao {
 					+ "' and  mTime> '"+start+"' and mTime< '"+end+"'";
 
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-	
 
-		
+
+
 			java.sql.ResultSet rs=pst.executeQuery();	
 			List<BeanData> result =new ArrayList<BeanData>();
 			while(rs.next()){
@@ -307,7 +307,7 @@ public class DataDao implements IDataDao {
 			java.sql.ResultSet rs=pst.executeQuery();
 			BeanWater bd=new BeanWater();
 			while(rs.next()){
-				
+
 				bd.setTime(rs.getTimestamp(1));
 				bd.setW011(rs.getFloat(2));
 				bd.setW001(rs.getFloat(3));
@@ -315,7 +315,7 @@ public class DataDao implements IDataDao {
 				bd.setW065(rs.getFloat(5));
 				bd.setW42(rs.getFloat(6));
 				bd.setwB01(rs.getFloat(7));
-			
+
 			}
 			rs.close();
 			pst.execute();
@@ -335,6 +335,48 @@ public class DataDao implements IDataDao {
 					e.printStackTrace();
 				}
 		}
+	}
+
+	@Override
+	public boolean checkdata(String MN, String InfectCode, float value) throws DbException {
+		Connection conn=null;
+		try {
+			conn=DBUtil.getConnection();
+			String sql="SELECT COUNT(*)   "
+					+ "FROM  (select * FROM HJ212_"+MN+"_MIN "
+					+ "where InfectCode='"+InfectCode+"' ORDER BY mTime DESC limit 120) t  "
+					+ "where t.InfectValue="+value;
+			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+			java.sql.ResultSet rs=pst.executeQuery();
+			int count=0;
+			while(rs.next()){			
+				count=rs.getInt(1);
+			}
+			rs.close();
+			pst.execute();
+			pst.close();
+			if(count>120){
+				return true;
+			}
+			else{
+				return false;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e);
+		}
+		finally{
+			if(conn!=null)
+				try {
+					conn.close();
+					return false;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+		}
+		
 	}
 
 

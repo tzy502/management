@@ -34,6 +34,7 @@ public class DataService implements IDataService {
 			if(station.get(i).getBase()==1){
 				BeanGas bg=new BeanGas();
 				bg=idd.loadnewgasdate(station.get(i).getMN());
+				bg.setMN(station.get(i).getMN());
 				bg.setStationId(station.get(i).getStationid());
 				bg.setStationname(station.get(i).getStationname());
 				result.add(bg);
@@ -45,7 +46,6 @@ public class DataService implements IDataService {
 
 	@Override
 	public List<BeanWater> loadnewwaterdata() throws BaseException {
-		List<BeanData> bd =new ArrayList<BeanData>();
 		List<BeanStation> station =new ArrayList<BeanStation>();
 		station=isd.loadwaterStation();
 		List<BeanWater> result=new ArrayList<BeanWater>();
@@ -53,6 +53,7 @@ public class DataService implements IDataService {
 			if(station.get(i).getBase()==1){
 			BeanWater bg=new BeanWater();
 			bg=idd.loadnewawterdate(station.get(i).getMN());
+			bg.setMN(station.get(i).getMN());
 			bg.setStationId(station.get(i).getStationid());
 			bg.setStationname(station.get(i).getStationname());
 			result.add(bg);
@@ -75,5 +76,11 @@ public class DataService implements IDataService {
 	public List<BeanData> loaddate(int StationId, String InfectCode, Timestamp start, Timestamp end) throws DbException {
 		// TODO Auto-generated method stub
 		return idd.loaddate(isd.SearchStation(StationId).getMN(), InfectCode,start,end);
+	}
+
+	@Override
+	public boolean checkdata(String MN, String InfectCode, float value) throws DbException {
+		// TODO Auto-generated method stub
+		return idd.checkdata(MN, InfectCode, value);
 	}
 }

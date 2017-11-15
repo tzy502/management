@@ -14,7 +14,8 @@ public interface IMissionDao {
 	public List<BeanMission> loadstationMission(int stationId);
 	public List<BeanMission> loadMission(int stationId,Timestamp start,Timestamp end);
 	public List<BeanMission> loadUserMission(String userId,int type);
-	public List<BeanMission> loadALLUserMission(String userId);
+	public List<BeanMission> loadALLNoFinishUserMission(String userId,Timestamp start,Timestamp end);
+	public List<BeanMission> loadALLFinishUserMission(String userId,Timestamp start,Timestamp end);
 	public List<BeanMission> loadunfinishMission(String userId);
 	public void modifryMission(BeanMission Mission);
 	public List<BeanMission> loadnewMission(String userId);

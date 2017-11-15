@@ -194,10 +194,32 @@ public class MissionController {
 		JSONObject json = new JSONObject(params);
 		String id=json.getString("userId");
 		JSONArray jsonarraylist = new JSONArray();
+		String strstart=json.getString("start");
+		Timestamp start;
+		if(strstart.equals("")==true){
+			start=Timestamp.valueOf("2000-1-1 00:00:00");
+			System.out.println(start);
+		}else{
+			start=Timestamp.valueOf(strstart);
+			System.out.println(start);
+		}
+		String strend=json.getString("end");
+		Timestamp end;
+		if(strend.equals("")==true){
+			end=Timestamp.valueOf("2050-1-1 00:00:00");
+			System.out.println(end);
+		}else{
+			 end=Timestamp.valueOf(strend);
+			 System.out.println(end);
+		}
+		
+		
+		
+		
 		try {
 			List<BeanMission> result =new ArrayList<BeanMission>();
 			
-			result=ims.loadALLUserMission(id);
+			result=ims.loadALLUserMission(id,start,end);
 			
 			for(int i=0;i<result.size();i++){
 				JSONObject jo = new JSONObject();

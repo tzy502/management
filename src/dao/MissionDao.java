@@ -151,18 +151,7 @@ public class MissionDao implements IMissionDao {
 		tx.commit();
 		return result;
 	}
-	@Override
-	public List<BeanMission> loadALLUserMission(String userId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		String hql = "from BeanMission where userid=?";
-		Query qry = session.createQuery(hql);
-		qry.setParameter(0, userId);
-		@SuppressWarnings("unchecked")
-		List<BeanMission> result = qry.list();
-		tx.commit();
-		return result;
-	}
+
 
 	@Override
 	public void overtimeMission() {
@@ -248,6 +237,40 @@ public class MissionDao implements IMissionDao {
 		count= ((Number)qry.uniqueResult()).intValue();  
 		tx.commit();
 		return count;
+	}
+
+	@Override
+	public List<BeanMission> loadALLNoFinishUserMission(String userId, Timestamp start, Timestamp end) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "from BeanMission"
+				+ " where userId=? and startdate>? and startdate<? and status<>3 and status<>6"
+				+ "order by status";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, userId);
+		qry.setParameter(1, start);
+		qry.setParameter(2, end);
+		@SuppressWarnings("unchecked")
+		List<BeanMission> result = qry.list();
+		tx.commit();
+		return result;
+	}
+
+	@Override
+	public List<BeanMission> loadALLFinishUserMission(String userId, Timestamp start, Timestamp end) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "from BeanMission "
+				+ "where userId=? and startdate>? and startdate<? and (status=3 or status=6)"
+				+ "order by status";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, userId);
+		qry.setParameter(1, start);
+		qry.setParameter(2, end);
+		@SuppressWarnings("unchecked")
+		List<BeanMission> result = qry.list();
+		tx.commit();
+		return result;
 	}
 	
 }

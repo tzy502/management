@@ -29,13 +29,25 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 运维任务  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 
 <article class="page-container" id = 'form-item-add'>
-	<div class="text-c" id="serachdiv" name="serachdiv">
-	
+	<div class="text-c" id="areaserach" name="serachdiv">
 			<select class="select"  style='width:10%' 	name="city" id="city"></select>市
 			<select class="select"  style='width:10%' 	name="area" id="area"></select>区
-		<button type="submit" class="btn btn-success size-S" id="search" name="search" onclick = "search();"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
-	
+		<button type="submit" class="btn btn-success size-S" id="search" name="search" onclick = "areasearch();"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
 	</div>
+			<div class="text-c" id="timesearch" name="timesearch">
+			选择时间: <input type="text" style='width: 30%' class="input-text"
+				value="" placeholder="开始时间"
+				onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+				id="start" name="start"> 
+				到
+				 <input type="text"	style='width: 30%' class="input-text"
+				  value="" placeholder="结束时间"
+				onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+				id="end" name="end"> 
+				<input class="btn btn-primary radius"type="button" onclick="timesearch()" value="&nbsp;&nbsp;查看&nbsp;&nbsp;">
+		</div>
+	
+	
 	<br/>
 		<ul id="Huifold1" name="Huifold1" class="Huifold">
 
@@ -49,6 +61,7 @@
 <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
 <!--/_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
@@ -130,9 +143,10 @@ function getCookie(Name){
 		        	$("#city").html(str);  
 		        }
 		    });
+			$("#timesearch").css("display","none");
 			adminlist()
 		}else{
-			$("#serachdiv").css("display","none");
+			$("#areaserach").css("display","none");
 			userlist()
 		
 		}
@@ -140,11 +154,14 @@ function getCookie(Name){
 		
 
 	})
-	function search(){
+	function areasearch(){
 
 		adminlist()
 	}
-	
+	function timesearch(){
+
+		userlist()
+	}
 	function userlist(){
 		var str="";
 		str+="<table class='table table-border table-bordered table-bg'>"
@@ -161,6 +178,8 @@ function getCookie(Name){
 			var userId = getCookie("userId");
 			var params={
 			    	"userId":userId,
+					"end":$("#end").val(),
+					"start":$("#start").val(),
 			}
 		$.ajax({    
 	        type: "post",    

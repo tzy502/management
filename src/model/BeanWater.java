@@ -6,6 +6,7 @@ public class BeanWater {
 	private int stationId;
 	private String stationname;
 	private Timestamp time;//时间
+	private String MN;
 	private float w011;
 	private float w001;
 	private float wB01;
@@ -67,4 +68,11 @@ public class BeanWater {
 	public void setTime(Timestamp time) {
 		this.time = time;
 	}
+	public String getMN() {
+		return MN;
+	}
+	public void setMN(String mN) {
+		MN = mN;
+	}
+	
 }

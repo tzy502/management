@@ -63,9 +63,14 @@ public class MissionService implements IMissionService {
 	}
 
 	@Override
-	public List<BeanMission> loadALLUserMission(String userId) {
+	public List<BeanMission> loadALLUserMission(String userId,Timestamp start,Timestamp end) {
 		// TODO Auto-generated method stub
-		return md.loadALLUserMission(userId);
+		List<BeanMission> nofinish=md.loadALLNoFinishUserMission(userId, start, end);
+		List<BeanMission> finish=md.loadALLFinishUserMission(userId, start, end);
+		for(int i=0;i<finish.size();i++){
+			nofinish.add(finish.get(i));
+		}
+		return nofinish;
 	}
 
 	@Override
