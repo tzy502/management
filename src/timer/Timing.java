@@ -144,6 +144,8 @@ public class Timing {
 	} 
 	@Scheduled(cron = "30 15 * * * ?") 
 	public void job2() { 	
+		SimpleDateFormat  formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss"); 
+		long startTime = System.currentTimeMillis(); 
 		List<BeanWater> water =new ArrayList<BeanWater>();
 		try {
 			water=ids.loadnewwaterdata();
@@ -176,6 +178,8 @@ public class Timing {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		long endTime = System.currentTimeMillis();  
+		System.out.println("检测波动数据程序运行时间：" + (endTime - startTime) + "ms" +formatter.format(new Date()));
 
 	} 
 	public void companynobase(){
