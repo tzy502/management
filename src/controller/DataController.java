@@ -6,9 +6,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -246,6 +250,49 @@ public class DataController {
 		}
 		return jsonarray.toString();
 	}
+	@RequestMapping(value = "/recive.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public void recive(@RequestBody String params) throws JSONException{
+		JSONArray jsonarray = new JSONArray(params);
+		System.out.print(jsonarray);
+		for(int i=0;i<jsonarray.length();i++) {
+			JSONObject json = jsonarray.getJSONObject(i);
+			int type=(int) json.get("type");
+			if(type==31) {
+				BeanWater water=new BeanWater();
+				water.setMN(json.getString("MN"));
+				water.setTime(Timestamp.valueOf(json.getString("time")));
+				water.setW001(Float.valueOf(json.getString("001")));
+				water.setW011(Float.valueOf(json.getString("011")));
+				water.setW060(Float.valueOf(json.getString("060")));
+				water.setW065(Float.valueOf(json.getString("065")));
+				water.setW42(Float.valueOf(json.getString("042")));
+				water.setwB01(Float.valueOf(json.getString("B01")));
+				//塞入
+				ids.addwaterdata(water);
+			}
+			else {
+				BeanGas gas=new BeanGas();
+				gas.setMN(json.getString("MN"));
+				gas.setTime(Timestamp.valueOf(json.getString("time")));
+				gas.setG01(Float.valueOf(json.getString("01")));
+				gas.setG01Zs(Float.valueOf(json.getString("01-Zs")));
+				gas.setG02(Float.valueOf(json.getString("02")));
+				gas.setG02Zs(Float.valueOf(json.getString("02-Zs")));
+				gas.setG03(Float.valueOf(json.getString("03")));
+				gas.setG03Zs(Float.valueOf(json.getString("03-Zs")));
+				gas.setgB02(Float.valueOf(json.getString("B02")));
+				gas.setgS01(Float.valueOf(json.getString("S01")));
+				gas.setgS02(Float.valueOf(json.getString("S02")));
+				gas.setgS03(Float.valueOf(json.getString("S03")));
+				gas.setgS08(Float.valueOf(json.getString("S08")));
+				gas.setSg05(Float.valueOf(json.getString("S05")));
+				ids.addgasdata(gas);
+			}
+		}
 		
+		
+	}
+	
 		
 }

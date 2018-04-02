@@ -379,6 +379,18 @@ public class DataDao implements IDataDao {
 		
 	}
 
+	@Override
+	public void addwaterdata(BeanWater BeanWater) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addgasdata(BeanGas BeanGas) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

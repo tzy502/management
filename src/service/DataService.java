@@ -61,7 +61,13 @@ public class DataService implements IDataService {
 		}
 		return result;
 	}
-
+	public void addwaterdata(BeanWater BeanWater) {
+		idd.addwaterdata(BeanWater);
+	}
+	public void addgasdata(BeanGas BeanGas) {
+		idd.addgasdata(BeanGas);
+	}
+	
 	@Override
 	public List<BeanGas> loadgasdata(int StationId,Timestamp start,Timestamp end) throws BaseException {
 		return idd.loadgas(isd.SearchStation(StationId), start, end);

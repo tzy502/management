@@ -17,4 +17,6 @@ public interface IDataService {
 	public List<BeanWater> loadwaterdata(int StationId,Timestamp start,Timestamp end)throws BaseException ;
 	public List<BeanData> loaddate(int StationId,String InfectCode, Timestamp start, Timestamp end)throws DbException;
 	public boolean checkdata(String MN, String InfectCode, float value) throws DbException;
+	public void addwaterdata(BeanWater BeanWater);
+	public void addgasdata(BeanGas Beangas);
 }

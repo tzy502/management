@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import dao.MailDao;
 import daoI.IInfectDao;
 import daoI.IMissionDao;
 import daoI.IStationDao;
@@ -30,6 +31,7 @@ public class WarningService implements IWarningService {
 	private IInfectDao iid;
 	@Resource
 	private IStationDao isd;
+	MailDao md=new MailDao();
 	Map<String, String>  Infect =new HashMap<String, String>();
 	@Override
 	public void addWarning(BeanWarning Warning) throws BaseException {
@@ -67,6 +69,12 @@ public class WarningService implements IWarningService {
 			bm.setEnddate(end);
 			bm.setType(3);
 			imd.addMission(bm);
+			try {
+				md.createMimeMessage(Warning);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}

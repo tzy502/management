@@ -133,14 +133,15 @@ public class Timing {
 	}
 	@Scheduled(cron = "0 * * * * ?") 
 	public void job1() { 	
-		SimpleDateFormat  formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss"); 
-		long startTime = System.currentTimeMillis(); 
-		companyallsttion();//保证两遍数据库一样
-		companynobase();//确定监测数据
-		detection();//检测
-		ims.overtimeMission();//检测超时
-		long endTime = System.currentTimeMillis();  
-		System.out.println("检测超过数据程序运行时间：" + (endTime - startTime) + "ms" +formatter.format(new Date()));
+		System.out.print("1");
+//		SimpleDateFormat  formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss"); 
+//		long startTime = System.currentTimeMillis(); 
+//		companyallsttion();//保证两遍数据库一样
+//		companynobase();//确定监测数据
+//		detection();//检测
+//		ims.overtimeMission();//检测超时
+//		long endTime = System.currentTimeMillis();  
+//		System.out.println("检测超过数据程序运行时间：" + (endTime - startTime) + "ms" +formatter.format(new Date()));
 	} 
 	@Scheduled(cron = "30 15 * * * ?") 
 	public void job2() { 	

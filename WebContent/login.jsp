@@ -46,9 +46,7 @@
           <input id="password" name="password" type="password" placeholder="密码" class="input-text size-L">
         </div>
       </div>
-
-
-      <div class="row cl">
+	  <div class="row cl">
         <div class="formControls col-xs-4 col-xs-offset-4">
           <input name="" type="button"  onclick = 'login()' class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
           <input name="" type="button" onclick = 'register()' class="btn btn-success radius size-L" value="&nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;">

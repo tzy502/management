@@ -20,18 +20,18 @@ public class BeanGas {
 	private float Sg05;//烟气湿度
 	private String MN;//烟气湿度
 	public BeanGas(){
-		float g02=-0;//实测SO2
-		float g01=-0;//实测烟尘
-		float g03=-0;//实测NOx
-		float g01Zs=-0;//折算烟尘
-		float g02Zs=-0;//折算SO2
-		float g03Zs=-0;//折算NOx
-		float gS01=-0;//氧气含量
-		float gS02=-0;//烟气流速
-		float gS03=-0;//烟气温度
-		float gS08=-0;//烟气压力
-		float gB02=-0;//标匡流量
-		float Sg05=-0;
+		float g02=-1;//实测SO2
+		float g01=-2;//实测烟尘
+		float g03=-1;//实测NOx
+		float g01Zs=-1;//折算烟尘
+		float g02Zs=-1;//折算SO2
+		float g03Zs=-1;//折算NOx
+		float gS01=-1;//氧气含量
+		float gS02=-1;//烟气流速
+		float gS03=-1;//烟气温度
+		float gS08=-1;//烟气压力
+		float gB02=-1;//标匡流量
+		float Sg05=-1;
 	}
 	
 	public String getStationname() {

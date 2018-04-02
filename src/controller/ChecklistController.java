@@ -161,7 +161,8 @@ public class ChecklistController {
 				jo.put("Checklisttypename", bcl.getMap().get(result.get(i).getChecklisttype()));
 				jo.put("Checklisttime", result.get(i).getChecklisttime().toString());
 				jo.put("userId",ius.searchUser(result.get(i).getUserId()).getUserName() );
-				jsonarraylist.put(jo);			
+				jsonarraylist.put(jo);		
+			
 			}
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
