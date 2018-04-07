@@ -64,7 +64,12 @@
           <input id="userPhone" name="userPhone" type="userPhone" placeholder="电话号码" class="input-text size-L">
         </div>
       </div>
-
+            <div class="row cl">
+        <label class="form-label col-xs-4"><i class="Hui-iconfont">&#xe6c7;</i></label>
+        <div class="formControls col-xs-4">
+          <input id="userMail" name="userMail" type="userMail" placeholder="邮箱" class="input-text size-L">
+        </div>
+      </div>
 
       <div class="row cl">
         <div class="formControls col-xs-4 col-xs-offset-4">
@@ -101,6 +106,7 @@ function register(){
 	    	"password":document.getElementById("password1").value,
 	    	"userName":document.getElementById("userName").value,
 	    	"userPhone":document.getElementById("userPhone").value,
+	    	"userMail" : document.getElementById("userMail").value,
 	}
 	
 	     $.ajax({    

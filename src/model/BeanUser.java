@@ -13,7 +13,7 @@ public class BeanUser {
 	private String userName;
 	private String password;
 	private String userPhone;
-	
+	private String userMail;
 	@Id
 	@Column(name = "userId")
 	public String getUserId() {
@@ -55,4 +55,13 @@ public class BeanUser {
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
 	}
+	
+	@Column(name = "userMail")
+	public String getUserMail() {
+		return userMail;
+	}
+	public void setUserMail(String userMail) {
+		this.userMail = userMail;
+	}
+	
 }

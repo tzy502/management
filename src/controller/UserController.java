@@ -71,6 +71,7 @@ public class UserController {
 			jo.put("level",irs.SearchRole(user.getRoleId()).getLevel());
 			jo.put("userName", user.getUserName());
 			jo.put("userPhone", user.getUserPhone());
+			jo.put("userMail", user.getUserMail());
 			jo.put("rolename", irs.SearchRole(user.getRoleId()).getRoleName());
 		} catch (BaseException e) {
 			// TODO �Զ����ɵ� catch ��
@@ -93,9 +94,10 @@ public class UserController {
 		String userName = (String) json.get("userName");
 		int roleId = Integer.valueOf((String) json.get("roleId"));
 		String userPhone = (String) json.get("userPhone");
+		String userMail = (String) json.get("userMail");
 		JSONObject jo = new JSONObject();
 		try {
-			IUserService.updateUser(userId,userName, roleId , userPhone);
+			IUserService.updateUser(userId,userName, roleId , userPhone,userMail);
 		} catch (BaseException e) {
 			// TODO 自动生成的 catch 块
 			jo.put("msg", e.getMessage());
@@ -125,6 +127,7 @@ public class UserController {
 		jo.put("userName", user.getUserName());
 		jo.put("userPhone", user.getUserPhone());
 		jo.put("roleId", user.getRoleId());
+		jo.put("userMail", user.getUserMail());
 		jo.put("msg", "succ");
 		return jo.toString();  
 	}
@@ -148,6 +151,7 @@ public class UserController {
 				jo.put("userRole", users.get(i).getRoleId());
 				jo.put("userRoleName", irs.SearchRole(users.get(i).getRoleId()).getRoleName());
 				jo.put("userPhone", users.get(i).getUserPhone());
+				jo.put("userMail", users.get(i).getUserMail());
 				json.put(jo);
 			}
 		} catch (BaseException e) {
@@ -192,9 +196,10 @@ public class UserController {
 		
 		String userPhone = (String) json.get("userPhone");
 		String password = (String) json.get("password");
+		String userMail = (String) json.get("userMail");
 		JSONObject jo = new JSONObject();
 		try {
-			IUserService.register(userId, password, userName, 2, userPhone);
+			IUserService.register(userId, password, userName, 2, userPhone,userMail);
 		} catch (BaseException e) {
 			// TODO 自动生成的 catch 块
 			jo.put("msg", e.getMessage());

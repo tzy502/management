@@ -34,7 +34,7 @@ public class UserService implements IUserService{
 		System.out.println("UserService Constructor...\n\n\n\n\n\n");
 	}
 	@Override
-	public void register(String userId, String password, String userName, int roleId, String userPhone)
+	public void register(String userId, String password, String userName, int roleId, String userPhone,String userMail)
 			throws BaseException {
 		// TODO Auto-generated method stub
 		BeanUser user = new BeanUser();
@@ -43,6 +43,7 @@ public class UserService implements IUserService{
 		user.setRoleId(roleId);
 		user.setUserName(userName);
 		user.setUserPhone(userPhone);
+		user.setUserMail(userMail);
 		IUserDao.addUser(user);
 	}
 
@@ -106,13 +107,14 @@ public class UserService implements IUserService{
 
 	//修改用户
 	@Override
-	public void updateUser(String userId, String userName, int roleId, String userPhone) throws BaseException {
+	public void updateUser(String userId, String userName, int roleId, String userPhone,String userMail) throws BaseException {
 		// TODO 自动生成的方法存根
 		BeanUser user = IUserDao.SearchUser(userId);
 		user.setUserId(userId);
 		user.setRoleId(roleId);
 		user.setUserName(userName);
 		user.setUserPhone(userPhone);
+		user.setUserMail(userMail);
 		IUserDao.modifryUser(user);
 
 	}

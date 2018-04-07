@@ -40,7 +40,8 @@
 				<th width="40">序号</th>
 				<th width="80">姓名</th>
 				<th width="40">职位</th>
-				<th width="300">电话</th>
+				<th width="200">电话</th>
+				<th width="300">邮箱</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -93,6 +94,7 @@ $(function(){
 					"<td>"+data[i].userName+"</td>"+
 					"<td>"+data[i].userRoleName+"</td>"+
 					"<td>"+data[i].userPhone+"</td>"+
+					"<td>"+data[i].userMail+"</td>"+
 					"<td class='td-manage'>"+
 					"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+data[i].userId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6df;</i>"+

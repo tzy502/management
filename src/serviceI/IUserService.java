@@ -11,7 +11,7 @@ import util.BaseException;
 @Component
 public interface IUserService {
 	//注册
-	public void register(String userId, String password, String userName, int roleId, String userPhone)throws BaseException;
+	public void register(String userId, String password, String userName, int roleId, String userPhone,String userMail)throws BaseException;
 	
 	//登陆
 	public BeanUser login(String userId, String password)throws BaseException;
@@ -24,7 +24,7 @@ public interface IUserService {
 	
 	
 	//修改用户信息
-	public void updateUser(String userId, String userName, int roleId, String userPhone)throws BaseException;
+	public void updateUser(String userId, String userName, int roleId, String userPhone,String userMail)throws BaseException;
 	
 	//删除用户
 	public void delUser(String userId)throws BaseException;

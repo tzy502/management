@@ -70,7 +70,7 @@ public class WarningService implements IWarningService {
 			bm.setType(3);
 			imd.addMission(bm);
 			try {
-				md.createMimeMessage(Warning);
+				md.createdateerrorMessage(Warning);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

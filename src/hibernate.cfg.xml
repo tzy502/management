@@ -10,8 +10,8 @@
 		<property name="connection.url">jdbc:mysql://localhost:3306/management?useUnicode=true&amp;characterEncoding=UTF</property>
 		<property name="connection.useUnicode">true</property>
 		<property name="connection.characterEncoding">utf-8</property>
-		<property name="connection.username">root</property>
-		<property name="connection.password">zucc</property>
+		<property name="connection.username">502</property>
+		<property name="connection.password">502</property>
 
 
 		<!-- JDBC connection pool (use the built-in) -->

@@ -53,7 +53,12 @@
 			<input type="text" class="input-text" value="" placeholder="" id="userPhone" name="userPhone">
 		</div>
 	</div>
-	
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="userMail" name="userMail">
+		</div>
+	</div>	
 	
 	
 	<div class="row cl">
@@ -161,7 +166,7 @@
 		        	 $("#userName").val(data.userName);
 		        	 $("#roleId").val(data.roleId);
 		        	 $("#userPhone").val(data.userPhone);
-		        	 
+		        	 $("#userMail").val(data.userMail);
 		        }     
 		    });
 		
@@ -176,6 +181,7 @@
 				"userName" : document.getElementById("userName").value,
 				"roleId" : document.getElementById("roleId").value,
 				"userPhone" : document.getElementById("userPhone").value,
+				"userMail" : document.getElementById("userMail").value,
 			}
 			console.log(document.getElementById("roleId").value)
 			$.ajax({
