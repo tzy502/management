@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -43,6 +44,7 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript">
 function getCookie(Name){
 	var search = Name + "="//查询检索的值
@@ -229,7 +231,7 @@ function getCookie(Name){
 			}	
 		}
 		if(allchecklist[j][0].checklistId!=0){
-		str+="<table class='table table-border table-bordered table-bg'>"
+		str+="<table class='table table-border table-bordered table-bg' id='table"+i+"'>"
 		+"<thead>"
 		+"<tr class='text-c'>"
 		+"<th width='40%'>文档名(最新创建)</th>"
@@ -273,6 +275,10 @@ function getCookie(Name){
 	}
 
 	$("#Huifold1").html(str);  
+	for(var i = 0; i < station.length; i++){
+		var name='#table'+i
+		$(name).DataTable();
+	}
 	$(function(){
 		$.Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",1,"click"); /*5个参数顺序不可打乱，分别是：相应区,隐藏显示的内容,速度,类型,事件*/
 	});

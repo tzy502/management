@@ -25,8 +25,8 @@ public class DataDao implements IDataDao {
 		Connection conn=null;
 		try {
 			conn=DBUtil.getConnection();
-			String sql="select * from HJ212_"+MN+"_MIN where "
-					+ "mTime=(select mTime from HJ212_"+MN+"_MIN order BY mTime desc LIMIT 1)";
+			String sql="select * from db"+MN+" where "
+					+ "mTime=(select mTime from db"+MN+" order BY mTime desc LIMIT 1)";
 
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			java.sql.ResultSet rs=pst.executeQuery();	
@@ -80,7 +80,7 @@ public class DataDao implements IDataDao {
 					"sum(case InfectCode when 'S08' then InfectValue end)  as 'S08',"+
 					"sum(case InfectCode when 'B02' then InfectValue end)  as 'B02',"+
 					"sum(case InfectCode when 'S05' then InfectValue end)  as 'S05'"+
-					"from  HJ212_"+bs.getMN()+"_MIN"
+					"from  db"+bs.getMN()+""
 					+"	 where  mTime>'"+start+"' and mTime<'"+end+"'"			
 					+"group BY mTime order by mTime DESC";
 
@@ -139,7 +139,7 @@ public class DataDao implements IDataDao {
 					+ "sum(case InfectCode when '065' then InfectValue end)  as '065',"
 					+ "sum(case InfectCode when '42' then InfectValue end)  as '42',"
 					+ "sum(case InfectCode when 'B01' then InfectValue end)  as 'B01'"
-					+ "from  HJ212_"+bs.getMN()+"_MIN"
+					+ "from  db"+bs.getMN()+""
 					+"	 where  mTime>'"+start+"' and mTime<'"+end+"'"
 					+"group BY mTime  order by mTime DESC";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
@@ -183,19 +183,17 @@ public class DataDao implements IDataDao {
 		Connection conn=null;
 		try {
 			conn=DBUtil.getConnection();
-			String sql="SELECT mTime, InfectCode,InfectAvgValue "+
+			String sql="SELECT mTime, InfectCode,InfectValue "+
 
 					"FROM "+
-					"HJ212_HOUR "+
-					"WHERE    "+
-					"HJ212_HOUR.MN="
-					+ MN
-					+ "   AND  HJ212_HOUR.InfectCode='"
-					+ InfectCode
-					+ "' and  mTime> '"+start+"' and mTime< '"+end+"'";
-
+					"db"+MN+
+					" WHERE    "+
+					" InfectCode='"
+					+ InfectCode+
+					"'";
+			System.out.print(sql);
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-
+		
 
 
 			java.sql.ResultSet rs=pst.executeQuery();	
@@ -247,8 +245,8 @@ public class DataDao implements IDataDao {
 					"sum(case InfectCode when 'S08' then InfectValue end)  as 'S08',"+
 					"sum(case InfectCode when 'B02' then InfectValue end)  as 'B02',"+
 					"sum(case InfectCode when 'S05' then InfectValue end)  as 'S05'"
-					+ "from  HJ212_"+MN+"_MIN"
-					+"   where mTime=(select mTime from HJ212_"+MN+"_MIN order BY mTime desc LIMIT 1)    "
+					+ "from  db"+MN+""
+					+"   where mTime=(select mTime from db"+MN+" order BY mTime desc LIMIT 1)    "
 					+"group BY mTime  order by mTime DESC";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			java.sql.ResultSet rs=pst.executeQuery();
@@ -300,8 +298,8 @@ public class DataDao implements IDataDao {
 					+ "sum(case InfectCode when '065' then InfectValue end)  as '065',"
 					+ "sum(case InfectCode when '42' then InfectValue end)  as '42',"
 					+ "sum(case InfectCode when 'B01' then InfectValue end)  as 'B01'"
-					+ "from  HJ212_"+MN+"_MIN"
-					+"   where mTime=(select mTime from HJ212_"+MN+"_MIN order BY mTime desc LIMIT 1)    "
+					+ "from  db"+MN+""
+					+"   where mTime=(select mTime from db"+MN+" order BY mTime desc LIMIT 1)    "
 					+"group BY mTime  order by mTime DESC";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			java.sql.ResultSet rs=pst.executeQuery();
@@ -343,7 +341,7 @@ public class DataDao implements IDataDao {
 		try {
 			conn=DBUtil.getConnection();
 			String sql="SELECT COUNT(*)   "
-					+ "FROM  (select * FROM HJ212_"+MN+"_MIN "
+					+ "FROM  (select * FROM db"+MN+" "
 					+ "where InfectCode='"+InfectCode+"' ORDER BY mTime DESC limit 120) t  "
 					+ "where t.InfectValue="+value;
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
@@ -376,20 +374,35 @@ public class DataDao implements IDataDao {
 					e.printStackTrace();
 				}			
 		}
-		
+
 	}
 
 	@Override
-	public void addwaterdata(BeanWater BeanWater) {
+	public void adddata(String MN, String InfectCode, float value) throws DbException {
 		// TODO Auto-generated method stub
-		
+		Connection conn=null;
+		try {
+			conn=DBUtil.getConnection();
+			int id=0;
+			String sql="INSERT INTO db"+MN+" VALUES (now(), "+InfectCode+","+value+")";
+			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+			pst.execute();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e);
+		}
+		finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 	}
 
-	@Override
-	public void addgasdata(BeanGas BeanGas) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 

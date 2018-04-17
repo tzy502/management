@@ -3,9 +3,9 @@ package util;
 import java.sql.Connection;
 
 public class DBUtil {
-	private static final String jdbcUrl = "jdbc:mysql://192.168.1.220:3306/HJ212_DB";
-	private static final String dbUser = "root";
-	private static final String dbPwd = "whllp771006";
+	private static final String jdbcUrl = "jdbc:mysql://127.0.0.1:3306/data?useSSL=false";
+	private static final String dbUser = "502";
+	private static final String dbPwd = "502";
 
 	static {
 		try {

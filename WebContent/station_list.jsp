@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -32,7 +33,7 @@
 	 </span>  
 	  </div>
 	
-	<table class="table table-border table-bordered table-bg">
+	<table class="table table-border table-bordered table-bg" id="table">
 		<thead>
 			<tr>
 				<th scope="col" colspan="9">站点列表</th>
@@ -69,6 +70,7 @@
 <script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript">
 function getCookie(Name){
 	var search = Name + "="//查询检索的值
@@ -165,7 +167,7 @@ function getCookie(Name){
     		
     		
         	$("#tbody-alldoc").html(str);  
-        	 
+        	$("#table").DataTable();
         }     
     });
 

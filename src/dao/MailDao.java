@@ -30,7 +30,6 @@ public class MailDao {
 	private IUserDao iud;
 	public MimeMessage createdateerrorMessage(BeanWarning Warning) throws Exception {
 		// 1. 创建一封邮件
-		System.out.print("123123");
 		Properties props = new Properties();              
 		props = sd.load();
 		Session session = Session.getInstance(props);
@@ -39,9 +38,7 @@ public class MailDao {
 		MimeMessage message = new MimeMessage(session);
 		myEmailAccount=(String) props.get("myEmailAccount");
 		myEmailPassword=(String) props.get("myEmailPassword");
-		// 2. From: 发件人（昵称有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改昵称）
 		message.setFrom(new InternetAddress(myEmailAccount, "数据监测系统", "UTF-8"));
-		// 3. To: 收件人（可以增加多个收件人、抄送、密送）
 		BeanStation bs=new BeanStation();
 		bs=isd.SearchStation(Warning.getStationId());	
 		BeanUser bu=	iud.SearchUser(bs.getPrincipal());

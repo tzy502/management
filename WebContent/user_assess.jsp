@@ -108,6 +108,12 @@
 	userId = Request['userId'];
 	
 	$(document).ready(function (){
+		var year=new Date().getFullYear(); //获取当前年份
+		var str="";
+		for ( var i = year; i >= 2010; i--){
+			str+="<option value='"+i+"' >"+i+"</option>";	
+		}
+		$("#year").html(str); 
 		assess()	
 	})
 
@@ -115,12 +121,7 @@
 
 
 	function assess() {
-	var year=new Date().getFullYear(); //获取当前年份
-	var str="";
-	for ( var i = year; i >= 2010; i--){
-		str+="<option value='"+i+"' >"+i+"</option>";	
-	}
-	$("#year").html(str); 
+
 	str="";
 	var params = {
 			"userId":userId,

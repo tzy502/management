@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -26,7 +27,7 @@
 <body>
 <div class="page-container">	
 	
-	<table class="table table-border table-bordered table-bg">
+	<table class="table table-border table-bordered table-bg" id="table">
 		<thead>
 			<tr>
 				<th scope="col" colspan="9" id="name">档案列表</th>
@@ -156,7 +157,7 @@ var params={
         		}
     		
         	$("#tbody-alldoc").html(str);  
-        	 
+        	$("#table").DataTable();
         }     
     });
 

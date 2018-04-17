@@ -32,7 +32,7 @@
 	 </span>  
 	  </div>
 	
-	<table class="table table-border table-bordered table-bg">
+	<table class="table table-border table-bordered table-bg" id="table">
 		<thead>
 			<tr>
 				<th scope="col" colspan="9">仪器列表</th>
@@ -216,7 +216,7 @@ function getCookie(Name){
     		
     		
         	$("#tbody-alldoc").html(str);  
-        	 
+        	$("#table").DataTable();
         }     
     });
 

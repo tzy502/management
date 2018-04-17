@@ -287,7 +287,7 @@ public class UserController {
 		JSONObject jo = new JSONObject();
 		try {
 			user = IUserService.searchUser(userId);
-			String str=ba.getStr()+user.getUserName()+"一共运维"+ba.getChecklist()+"次，同时给用户布置了"+ba.getTotal()+"次任务，其中"+ba.getFinish()+"件任务已经完成；"
+			String str=ba.getStr()+user.getUserName()+"用户一共运维"+ba.getChecklist()+"次，同时给此用户布置了"+ba.getTotal()+"次运维任务，其中"+ba.getFinish()+"件任务已经完成；"
 					+ba.getOverfinish()+"件任务超时完成完成；目前仍有"+ba.getUnfinish()+"件任务未完成；同时"+ba.getOverunfiish()+"件任务已超过预先规定结束时间但并未完成";
 			jo.put("userName", user.getUserName());
 			jo.put("total", ba.getTotal());

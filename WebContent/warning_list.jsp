@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -40,7 +41,7 @@
 		<div class="mt-5 mb-5">
 			<br />
 		</div>
-	<table class="table table-border table-bordered table-bg">
+	<table class="table table-border table-bordered table-bg" id="table">
 		<thead>
 			<tr>
 				<th scope="col" colspan="9">超标数据列表</th>
@@ -71,6 +72,7 @@
 <script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+
 <script type="text/javascript">
 Date.prototype.Format = function (fmt) {
     var o = {
@@ -111,19 +113,22 @@ var start =new Date(new Date()-24*60*60*1000).Format("yyyy-MM-dd hh:mm:ss");//�
 	$(document).ready(function (){
 		$("#start").val(start);
 		$("#end").val(end);
+		$('#table').DataTable();
 		generate()
+		
 
 })
 function generate(){
 		//加载页面数据
-				var params = {
-				"end":$("#end").val(),
-				"start":$("#start").val(),
+		var table=$('#table').DataTable();
+		var params = {
+		"end":$("#end").val(),
+		"start":$("#start").val(),
 			}
 		var str = "";  
 		$.ajax({    
 	        type: "post",    
-	        async: true,    
+	        async: false,    
 	        url: "/management/loadwarning.do",  
 			data: JSON.stringify(params),
 			dataType : "json",
@@ -133,17 +138,29 @@ function generate(){
 	        } , 
 	        success: function(data) { 
 	        	for(var i = 0; i < data.length; i++){  
-	        	str += "<tr class='text-c'>"+
-				"<td>"+(i+1)+"</td>"+
-				"<td>"+data[i].stationname+"</td>"+
-				"<td>"+data[i].InfectCode+"</td>"+
-				"<td>"+data[i].type+"</td>"+
-				"<td>"+data[i].warningtime+"</td>"+
-				"</tr>";
-				str+="";
-	        	
-	        	$("#tbody-alldoc").html(str);  
+	        		
+	        		table.row.add( [
+	        			(i+1),
+	        			data[i].stationname,
+	        			data[i].InfectCode,
+	        			data[i].type,
+	        			data[i].warningtime,
+	                ] ).draw();
+
+		        	
+//		        	str += "<tr class='text-c'>"+
+	//				"<td>"+(i+1)+"</td>"+
+		//			"<td>"+data[i].stationname+"</td>"+
+			//		"<td>"+data[i].InfectCode+"</td>"+
+				//	"<td>"+data[i].type+"</td>"+
+				//	"<td>"+data[i].warningtime+"</td>"+
+				//	"</tr>";
+				//	str+="";
+		
 	        	}
+	//        	$("#tbody-alldoc").html(str);  
+
+	        	
 	        }     
 	    });
 	}

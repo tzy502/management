@@ -13,7 +13,7 @@ public class BeanWater {
 	private float w060;
 	private float w065;
 	private float w42;
-	
+
 	public float getW011() {
 		return w011;
 	}

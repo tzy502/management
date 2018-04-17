@@ -12,8 +12,10 @@ public class SettingDao {
 	
 	public Properties load() throws IOException {
 		String path=this.getClass().getClassLoader().getResource("").getPath();	
-		path=path.replace("/build/classes/", "");	
-    	path+="/src/setting.properties";
+		path=path.replace("/build", "");	
+		path=path.replace("/classes/", "");	
+		
+    	path+="setting.properties";
 		
 		Properties prop = new Properties();
 		FileInputStream fis= new FileInputStream(path);
@@ -24,8 +26,9 @@ public class SettingDao {
 	public boolean changsetting(String key,String value) {
 		
 		String path=this.getClass().getClassLoader().getResource("").getPath();
-		path=path.replace("/build/classes/", "");	
-    	path+="/src/setting.properties";
+		path=path.replace("/build", "");	
+		path=path.replace("/classes/", "");	
+    	path+="setting.properties";
 		
 		
 		 Properties prop = new Properties();

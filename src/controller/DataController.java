@@ -261,7 +261,6 @@ public class DataController {
 			if(type==31) {
 				BeanWater water=new BeanWater();
 				water.setMN(json.getString("MN"));
-				water.setTime(Timestamp.valueOf(json.getString("time")));
 				water.setW001(Float.valueOf(json.getString("001")));
 				water.setW011(Float.valueOf(json.getString("011")));
 				water.setW060(Float.valueOf(json.getString("060")));
@@ -274,7 +273,6 @@ public class DataController {
 			else {
 				BeanGas gas=new BeanGas();
 				gas.setMN(json.getString("MN"));
-				gas.setTime(Timestamp.valueOf(json.getString("time")));
 				gas.setG01(Float.valueOf(json.getString("01")));
 				gas.setG01Zs(Float.valueOf(json.getString("01-Zs")));
 				gas.setG02(Float.valueOf(json.getString("02")));
@@ -290,8 +288,7 @@ public class DataController {
 				ids.addgasdata(gas);
 			}
 		}
-		
-		
+			
 	}
 	
 		

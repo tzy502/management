@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -47,7 +48,7 @@
 		 <span class="l">
 		 <a href="javascript:;" onclick="add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加成本</a>
 	 </span>  
-		<table class="table table-border table-bordered table-bg">
+			<table class="table table-border table-bordered table-bg" id="table">
 		<thead>
 			<tr>
 				<th scope="col" colspan="9">成本</th>
@@ -75,6 +76,7 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript">
 
 function GetRequest() {   
@@ -163,7 +165,7 @@ $(function(){
 					var total="<label>"+data[length-1].total+"元</label>"
 	       			$("#tbody-cost").html(str);  
 					$("#total").html(total);  
-					
+					$('#table').DataTable();
 	    		}
 	        }
 	})

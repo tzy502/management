@@ -62,10 +62,38 @@ public class DataService implements IDataService {
 		return result;
 	}
 	public void addwaterdata(BeanWater BeanWater) {
-		idd.addwaterdata(BeanWater);
+		
+		try {
+			idd.adddata(BeanWater.getMN(),"001",BeanWater.getW001());
+			idd.adddata(BeanWater.getMN(),"011",BeanWater.getW011());
+			idd.adddata(BeanWater.getMN(),"060",BeanWater.getW060());
+			idd.adddata(BeanWater.getMN(),"065",BeanWater.getW065());
+			idd.adddata(BeanWater.getMN(),"042",BeanWater.getW42());
+			idd.adddata(BeanWater.getMN(),"B01",BeanWater.getwB01());
+		} catch (DbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void addgasdata(BeanGas BeanGas) {
-		idd.addgasdata(BeanGas);
+		try {
+			idd.adddata(BeanGas.getMN(),"01",BeanGas.getG01());
+			idd.adddata(BeanGas.getMN(),"01-Zs",BeanGas.getG01Zs());
+			idd.adddata(BeanGas.getMN(),"02",BeanGas.getG02());
+			idd.adddata(BeanGas.getMN(),"02-Zs",BeanGas.getG02Zs());
+			idd.adddata(BeanGas.getMN(),"03",BeanGas.getG03());
+			idd.adddata(BeanGas.getMN(),"03-Zs",BeanGas.getG03Zs());
+			idd.adddata(BeanGas.getMN(),"B02",BeanGas.getgB02());
+			idd.adddata(BeanGas.getMN(),"S01",BeanGas.getgS01());
+			idd.adddata(BeanGas.getMN(),"S02",BeanGas.getgS02());
+			idd.adddata(BeanGas.getMN(),"S03",BeanGas.getgS03());
+			idd.adddata(BeanGas.getMN(),"S08",BeanGas.getgS08());
+			idd.adddata(BeanGas.getMN(),"S05",BeanGas.getSg05());
+			
+		} catch (DbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

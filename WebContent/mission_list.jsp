@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -64,6 +65,7 @@
 <script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript">
 function getCookie(Name){
 	var search = Name + "="//查询检索的值
@@ -164,7 +166,7 @@ function getCookie(Name){
 	}
 	function userlist(){
 		var str="";
-		str+="<table class='table table-border table-bordered table-bg'>"
+		str+="<table class='table table-border table-bordered table-bg' id='table'>"
 			+"<thead>"
 			+"<tr class='text-c'>"
 			+"<th width='5%'>编号</th>"
@@ -207,10 +209,13 @@ function getCookie(Name){
 	    			+"</tr>"
 	    		}
 	      		str+="</table>"
+	      		
+	      		
 	    		} 	
 	       
 	    });
 		 $("#Huifold1").html(str);
+		 $('#table').DataTable();
 	}
 	function adminlist(){
 		
@@ -283,7 +288,7 @@ function getCookie(Name){
 		}
 
 		if(mission[j][0].Missionid!=0){
-		str+="<table class='table table-border table-bordered table-bg'>"
+		str+="<table class='table table-border table-bordered table-bg' id='table"+i+"'>"
 		+"<thead>"
 		+"<tr class='text-c'>"
 		+"<th width='5%'>编号</th>"
@@ -327,7 +332,12 @@ function getCookie(Name){
     		+" </li>" ;	
 	}
 
-	$("#Huifold1").html(str);  
+	$("#Huifold1").html(str);
+	for(var i = 0; i < station.length; i++){
+		var name='#table'+i
+		$(name).DataTable();
+	}
+	
 	$(function(){
 		$.Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",1,"click"); /*5个参数顺序不可打乱，分别是：相应区,隐藏显示的内容,速度,类型,事件*/
 	});
@@ -335,12 +345,12 @@ function getCookie(Name){
 	
 function add(stationId){
 	var url="mission_add.jsp?StationId="+stationId;	
-	layer_show("添加文档",url,800,500);
+	layer_show("添加任务",url,800,500);
 	
 }
 function history(stationId){
 	var url="mission_history.jsp?StationId="+stationId;	
-	layer_show("添加文档",url,800,500);
+	layer_show("任务历史",url,800,500);
 	
 }
 </script> 

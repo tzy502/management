@@ -33,7 +33,21 @@ public class BeanGas {
 		float gB02=-1;//标匡流量
 		float Sg05=-1;
 	}
-	
+	public BeanGas(String MN){
+		this.MN=MN;
+		this.g02=10;//实测SO2
+		this.g01=1;//实测烟尘
+		this.g03=120;//实测NOx
+		this.g01Zs=(float) 1.2;//折算烟尘
+		this.g02Zs=0;//折算SO2
+		this.g03Zs=120;//折算NOx
+		this.gS01=4;//氧气含量
+		this.gS02=6;//烟气流速
+		this.gS03=80;//烟气温度
+		this.gS08=-1;//烟气压力
+		this.gB02=60000;//标匡流量
+		this.Sg05=39;
+	}
 	public String getStationname() {
 		return stationname;
 	}

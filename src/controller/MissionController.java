@@ -198,19 +198,19 @@ public class MissionController {
 		Timestamp start;
 		if(strstart.equals("")==true){
 			start=Timestamp.valueOf("2000-1-1 00:00:00");
-			System.out.println(start);
+	
 		}else{
 			start=Timestamp.valueOf(strstart);
-			System.out.println(start);
+			
 		}
 		String strend=json.getString("end");
 		Timestamp end;
 		if(strend.equals("")==true){
 			end=Timestamp.valueOf("2050-1-1 00:00:00");
-			System.out.println(end);
+			
 		}else{
 			 end=Timestamp.valueOf(strend);
-			 System.out.println(end);
+			 
 		}
 		
 		
@@ -296,7 +296,7 @@ public class MissionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(jsonarray.toString());
+	
 		return jsonarray.toString();
 	}
 	@RequestMapping(value = "/loadStationMission.do", produces = "application/json; charset=utf-8") 
@@ -308,19 +308,19 @@ public class MissionController {
 		Timestamp start;
 		if(strstart.equals("")==true){
 			start=Timestamp.valueOf("2000-1-1 00:00:00");
-			System.out.println(start);
+		
 		}else{
 			start=Timestamp.valueOf(strstart);
-			System.out.println(start);
+	
 		}
 		String strend=json.getString("end");
 		Timestamp end;
 		if(strend.equals("")==true){
 			end=Timestamp.valueOf("2050-1-1 00:00:00");
-			System.out.println(end);
+	
 		}else{
 			 end=Timestamp.valueOf(strend);
-			 System.out.println(end);
+			
 		}
 		JSONArray jsonarraylist = new JSONArray();
 		try {
@@ -344,7 +344,7 @@ public class MissionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(jsonarraylist.toString());
+
 		return jsonarraylist.toString();
 	}
 

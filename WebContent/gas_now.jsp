@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -27,13 +28,13 @@
 
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 实时数据<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-		<table class="table table-border table-bordered table-bg">
+		<table class="table table-border table-bordered table-bg" id="table">
 		<thead>
 			<tr>
 				<th scope="col" colspan="15">实时数据</th>
 			</tr>
 			<tr class="text-c">
-				<th width="120">公司名</th>
+				<th width="120">站点名</th>
 				<th width="120">时间</th>
 				<th width="70">实测SO2</th>
 				<th width="70">实测烟尘</th>
@@ -126,7 +127,7 @@ $(function(){
 					str+=""
 					
 	       			$("#tbody-allItem").html(str);  
-	    			
+					$("#table").DataTable();
 	    		}
 	        }
 		

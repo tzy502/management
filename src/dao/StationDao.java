@@ -205,7 +205,7 @@ public class StationDao implements IStationDao {
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-			String hql="from BeanStation where 1=1";
+			String hql=" from BeanStation where 1=1";
 			if(city!=null){
 				hql+=" and city='"+city+"'";
 			}
