@@ -25,14 +25,14 @@
 <title>文档</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 物质列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 物资列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<article class="page-container" id = 'form-item-add'>
 	<form class="form form-horizontal" id="add"	enctype="multipart/form-data">
-		<label class="form-label col-xs-4 col-sm-3">物质名称：</label>
+		<label class="form-label col-xs-4 col-sm-3">物资名称：</label>
 		<div class="formControls col-xs-8 col-sm-7">
 			<input type="text" class="input-text" value="" readonly="readonly" id="materialname" name="materialname">
 		</div>
-		<label class="form-label col-xs-4 col-sm-3">物质用处：</label>
+		<label class="form-label col-xs-4 col-sm-3">物资用处：</label>
 		<div class="formControls col-xs-8 col-sm-7">
 		<textarea name="" id='materialuse' name="materialuse" cols="" rows=""  readonly="readonly"class="textarea" ></textarea>
 		</div>

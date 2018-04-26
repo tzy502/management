@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -24,22 +25,22 @@
 <title>文档</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 物质列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 物资列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">	
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
 	 <span class="l">
-		 <a href="javascript:;" id="add" onclick="add('添加物质','material_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加物质</a>
+		 <a href="javascript:;" id="add" onclick="add('添加物资','material_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加物资</a>
 	 </span>  
 	  </div>
 	
-	<table class="table table-border table-bordered table-bg">
+	<table class="table table-border table-bordered table-bg" id="table">
 		<thead>
 			<tr>
-				<th scope="col" colspan="9">物质列表</th>
+				<th scope="col" colspan="9">物资列表</th>
 			</tr>
 			<tr class="text-c">
 				<th width="10%">序号</th>
-				<th width="55%">物质量</th>
+				<th width="55%">物资量</th>
 				<th width="20%">余额</th>		
 				<th width="15%">操作</th>
 			</tr>
@@ -116,16 +117,16 @@ function getCookie(Name){
 		
 		
 	$('body').on('click','#update',function(event){
-		layer_show('物质编辑','material_modifry.jsp?materialId='+this.name,'800','500');
+		layer_show('物资编辑','material_modifry.jsp?materialId='+this.name,'800','500');
 	}); 
 	$('body').on('click','#addmaterial',function(event){
-		layer_show('新增物质','material_numadd.jsp?materialId='+this.name,'800','500');
+		layer_show('新增物资','material_numadd.jsp?materialId='+this.name,'800','500');
 	}); 
 	$('body').on('click','#reducematerial',function(event){
-		layer_show('取出物质','material_numreduce.jsp?materialId='+this.name,'800','500');
+		layer_show('取出物资','material_numreduce.jsp?materialId='+this.name,'800','500');
 	}); 
 	$('body').on('click','#datail',function(event){
-		layer_show('物质详情','material_detail.jsp?materialId='+this.name,'800','500');
+		layer_show('物资详情','material_detail.jsp?materialId='+this.name,'800','500');
 	})
 	//加载页面数据
 
@@ -168,7 +169,7 @@ function getCookie(Name){
 				str+=""   			
     		}
         	$("#tbody-alldoc").html(str);  
-        	 
+        	$("#table").DataTable();
         }     
     });
 

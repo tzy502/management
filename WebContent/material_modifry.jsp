@@ -29,16 +29,16 @@
 <article class="page-container" id = 'form-item-add'>
 	<form class="form form-horizontal" id="add" >
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">物质名称：</label>
+		<label class="form-label col-xs-4 col-sm-3">物资名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="物质名称" id="materialname" name="materialname">
+			<input type="text" class="input-text" value="" placeholder="物资名称" id="materialname" name="materialname">
 		</div>
 	</div>
 	
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">物质介绍:</label>
+		<label class="form-label col-xs-4 col-sm-3">物资介绍:</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="物质介绍" id="materialuse" name="materialuse">
+			<input type="text" class="input-text" value="" placeholder="物资介绍" id="materialuse" name="materialuse">
 		</div>
 	</div>
 		

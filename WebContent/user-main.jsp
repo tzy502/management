@@ -21,14 +21,14 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>运行服务信息化管理系统</title>
+<title>环保管理信息系统</title>
 <meta name="keywords" content="H-ui.admin 3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-<p class="f-20 text-success">欢迎使用利晟(杭州)科技运行服务信息化管理系统！</p>
+<p class="f-20 text-success">环保管理信息系统</p>
 	<p id="time" name="time">现在时间是</p>
 	<table class="table table-border table-bordered table-bg mt-20 ">
 		<thead>
