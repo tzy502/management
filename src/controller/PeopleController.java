@@ -48,6 +48,8 @@ public class PeopleController {
 			bp.setEntrytime(Timestamp.valueOf(entrytime));
 			String graduationtime=request.getParameter("graduation");
 			graduationtime+=" 00:00:00";
+			System.out.print(graduationtime);
+			
 			bp.setGraduationtime(Timestamp.valueOf(graduationtime));
 			ips.addPeople(bp);
 		} catch (BaseException e) {

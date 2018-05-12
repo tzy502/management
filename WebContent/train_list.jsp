@@ -83,7 +83,7 @@ function getCookie(Name){
 
 	$(document).ready(function (){
 		$('body').on('click','#delete',function(event){
-			var trainId = this.title;
+			var trainId = this.name;
 			layer.confirm('确认要删除吗？',function(){
 				var params={
 				    	"trainId":trainId,
@@ -109,10 +109,10 @@ function getCookie(Name){
 		
 		
 	$('body').on('click','#update',function(event){
-		layer_show('培训计划编辑','train_modifry.jsp?trainId='+this.title,'900','550');
+		layer_show('培训计划编辑','train_modifry.jsp?trainId='+this.name,'900','550');
 	}); 
 	$('body').on('click','#datail',function(event){
-		layer_show('培训计划编辑','train_detail.jsp?trainId='+this.title,'900','550');
+		layer_show('培训计划编辑','train_detail.jsp?trainId='+this.name,'900','550');
 	}); 
 	//加载页面数据
 
@@ -123,7 +123,7 @@ function getCookie(Name){
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
-        	alert("出错了！！:"+data.msg);
+        	alert("出错了！！");
         } , 
         success: function(data) { 
         	var str = "";  
@@ -135,13 +135,13 @@ function getCookie(Name){
 				"<td>"+data[i].trainname+"</td>"+
 				"<td>"+begintime+"</td>"+
 				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'datail' href='javascript:;' title='"+data[i].trainId+"'>"+
+				"<a style='text-decoration:none' id = 'datail' href='javascript:;' title='详情' name='"+data[i].trainId+"'>"+
 				"<i class='Hui-iconfont'>&#xe720;</i>"+
 				"</a>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].trainId+"'>"+
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='修改' name='"+data[i].trainId+"'>"+
 				"<i class='Hui-iconfont'>&#xe6df;</i>"+
 				"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].trainId+"'>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='删除' name='"+data[i].trainId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
 

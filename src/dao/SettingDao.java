@@ -13,7 +13,7 @@ public class SettingDao {
 	public Properties load() throws IOException {
 		String path=this.getClass().getClassLoader().getResource("").getPath();	
 		path=path.replace("/build", "");	
-		path=path.replace("/classes/", "");	
+		path=path.replace("/classes/", "/");	
 		
     	path+="setting.properties";
 		

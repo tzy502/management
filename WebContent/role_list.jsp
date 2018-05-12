@@ -78,10 +78,10 @@ $(function(){
 	$("#searchitem").css("display","none");
 	
 	$('body').on('click','#update',function(event){
-		layer_show('职位编辑','role_modifry.jsp?roleId='+this.title,'800','500');
+		layer_show('职位编辑','role_modifry.jsp?roleId='+this.name,'800','500');
 	}); 
 	$('body').on('click','#delete',function(event){
-		var roleId = this.title;
+		var roleId = this.name;
 		layer.confirm('确认要删除吗？',function(){
 			var params={
 			    	"roleId":roleId,
@@ -121,10 +121,10 @@ $(function(){
 					"<td>"+data[i].level+"</td>"+
 					"<td>"+data[i].roleIntroduction+"</td>"+
 					"<td class='td-manage'>"+
-					"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].roleId+"'>"+
+					"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+data[i].roleId+"' title='修改'>"+
 					"<i class='Hui-iconfont'>&#xe6df;</i>"+
 				"</a>"+
-					"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].roleId+"'>"+
+					"<a style='text-decoration:none' id = 'delete' href='javascript:;' name='"+data[i].roleId+"'title='删除'>"+
 						"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 					"</a>"+"</td>"
 					"</tr>";

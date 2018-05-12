@@ -22,16 +22,12 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>角色列表</title>
+<title>用户列表</title>
 </head>
 <body>
 
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 职位管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="text-c">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入用户名称" id="" name="">
-		<button type="submit" class="btn btn-success" id="searchItem" name="searchItem" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
-	</div>
 	<table class="table table-border table-bordered table-bg" id="table">
 		<thead>
 			<tr>
@@ -85,7 +81,7 @@ $(function(){
 	        dataType: "json", 
 	        contentType: "application/json; charset=utf-8",   
 	        error: function(data){  
-	        	alert("出错了！！:"+data.msg);
+	        	alert("出错了！！");
 	        } , 
 	        success: function(data) { 	        	
 	        	var str = "";  
@@ -97,16 +93,17 @@ $(function(){
 					"<td>"+data[i].userPhone+"</td>"+
 					"<td>"+data[i].userMail+"</td>"+
 					"<td class='td-manage'>"+
-					"<a style='text-decoration:none' id = 'update' href='javascript:;' name='"+data[i].userId+"'>"+
+					"<a style='text-decoration:none' id = 'update' href='javascript:;'title='修改' name='"+data[i].userId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6df;</i>"+
 				"</a>"+
 					"</td>"
 					"</tr>";
 					str+=""
 					
-	       			$("#tbody-allItem").html(str);  
-					$("#table").DataTable();
+
 	    		}
+       			$("#tbody-allItem").html(str);  
+				$("#table").DataTable();
 	        }
 		
 	}

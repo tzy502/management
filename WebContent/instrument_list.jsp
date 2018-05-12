@@ -170,7 +170,7 @@ function getCookie(Name){
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
-        	alert("出错了！！:"+data.msg);
+        	alert("出错了！！");
         } , 
         success: function(data) { 
         	var str = "";  

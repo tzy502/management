@@ -178,7 +178,7 @@
 			        dataType: "json", 
 			        contentType: "application/json; charset=utf-8",   
 			        error: function(data){  
-			        	alert("出错了！！:"+data.msg);
+			        	alert("出错了！！");
 			        } , 
 			        success: function(data) { 
 						console.log("ok") 	
@@ -194,7 +194,7 @@
 		        dataType: "json", 
 		        contentType: "application/json; charset=utf-8",   
 		        error: function(data){  
-		        	alert("出错了！！:"+data.msg);
+		        	alert("出错了！！");
 		        } , 
 		        success: function(data) { 
 		        	$("#missionname").val(data.missionname);
@@ -245,7 +245,7 @@
 			        dataType: "json", 
 			        contentType: "application/json; charset=utf-8",   
 			        error: function(data){  
-			        	alert("出错了！！:"+data.msg);
+			        	alert("出错了！！");
 			        } , 
 			        success: function(data) { 
 			        	var str = "";  
@@ -297,7 +297,7 @@
 			        dataType: "json", 
 			        contentType: "application/json; charset=utf-8",   
 			        error: function(data){  
-			        	alert("出错了！！:"+data.msg);
+			        	alert("出错了！！");
 			        } , 
 			        success: function(data) { 
 						layer.msg('已更新!',{icon:1,time:15000});

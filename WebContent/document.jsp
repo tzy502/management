@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -31,13 +32,13 @@
 	 </span>  
 	  </div>
 	
-	<table class="table table-border table-bordered table-bg">
+	<table class="table table-border table-bordered table-bg" id="table">
 		<thead>
 			<tr>
 				<th scope="col" colspan="9">文档列表</th>
 			</tr>
 			<tr class="text-c">
-				<th width="40">ID</th>
+				<th width="40">Id</th>
 				<th width="400">文档名</th>
 				<th width="80">下载</th>		
 				<th width="40">操作</th>		
@@ -141,7 +142,7 @@ function getCookie(Name){
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
-        	alert("出错了！！:"+data.msg);
+        	alert("出错了！！");
         } , 
         success: function(data) { 
     		var level =getCookie("level");
@@ -191,7 +192,7 @@ function getCookie(Name){
 
     		}
         	$("#tbody-alldoc").html(str);  
-        	 
+        	$("#table").DataTable();
         }     
     });
 
